@@ -79,10 +79,6 @@ class _PositionPageState extends State<PositionPage> {
   }
 
   Widget _buildItem(ContentModel cnt) {
-    if (cnt.type == 'name') { 
-      print('type: ' + cnt.type.toString());
-      print('cnt.posY: ' + cnt.posY.toString());
-    }
     if ((cnt.txt == '')) {
       return Container(
         height: 0,

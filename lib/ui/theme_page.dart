@@ -6,7 +6,6 @@ import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
-import 'package:virtual_card/blocs/theme_bloc.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtual_card/utils/photo_helper.dart';
@@ -22,10 +21,10 @@ import 'crop_page.dart';
 class ThemePage extends StatefulWidget {
   ThemePage(
       {Key key,
-        this.cardInfo,
-        this.imageUploaded,
-        this.imageBackground,
-        this.profileImage})
+      this.cardInfo,
+      this.imageUploaded,
+      this.imageBackground,
+      this.profileImage})
       : super(key: key);
   final CardInfo cardInfo;
   final Uint8List imageUploaded, imageBackground, profileImage;
@@ -45,7 +44,6 @@ class _ThemePageState extends State<ThemePage> {
   String _connectionStatus = 'Unknown';
   final Connectivity _connectivity = Connectivity();
   StreamSubscription<ConnectivityResult> _connectivitySubscription;
-  ThemeBloc themeBloc = ThemeBloc();
 
   @override
   void initState() {
@@ -64,20 +62,14 @@ class _ThemePageState extends State<ThemePage> {
 
   Future<void> initConnectivity() async {
     ConnectivityResult result;
-    // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
     } on PlatformException catch (e) {
       print(e.toString());
     }
-
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
     if (!mounted) {
       return Future.value(null);
     }
-
     return _updateConnectionStatus(result);
   }
 
@@ -100,9 +92,9 @@ class _ThemePageState extends State<ThemePage> {
                             _selectModel(context),
                             isLoading
                                 ? Center(
-                                child: CircularProgressIndicator(
-                                  backgroundColor: Colors.black,
-                                ))
+                                    child: CircularProgressIndicator(
+                                    backgroundColor: Colors.black,
+                                  ))
                                 : Container(),
                           ],
                         )));
@@ -205,17 +197,17 @@ class _ThemePageState extends State<ThemePage> {
                   childAspectRatio: 0.75,
                 ),
                 delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
+                  (BuildContext context, int index) {
                     String img =
                         'https://picsum.photos/seed/$index/$_sizeWidth/$_sizeHeight';
                     return (_connectionStatus == 'ConnectivityResult.none' &&
-                        index > 0)
+                            index > 0)
                         ? Center(
-                        child: Text(
-                          "Para carregar as imagens é necessário se conectar á internet.",
-                          style: TextStyle(color: Colors.red),
-                          textAlign: TextAlign.center,
-                        ))
+                            child: Text(
+                            "Para carregar as imagens é necessário se conectar á internet.",
+                            style: TextStyle(color: Colors.red),
+                            textAlign: TextAlign.center,
+                          ))
                         : showImageCard(img, widget.cardInfo.version, index);
                   },
                   childCount: (_connectionStatus == 'ConnectivityResult.none')
@@ -248,11 +240,10 @@ class _ThemePageState extends State<ThemePage> {
       .then((img) => imageUploaded = img);
 
   saveImage(img64, version) {
-    themeBloc.saveTheme(img64, version);
-    // setState(() {
-    //   PhotoHelper.savePhotoLocal64(img64, 'imageBackground', version);
-    //   isLoading = false;
-    // });
+    setState(() {
+      PhotoHelper.savePhotoLocal64(img64, 'imageBackground', version);
+      isLoading = false;
+    });
   }
 
   showImageCard(url, version, index) {
@@ -285,10 +276,10 @@ class _ThemePageState extends State<ThemePage> {
         try {
           if (!kIsWeb && Platform.isIOS) {
             LocationAuthorizationStatus status =
-            await _connectivity.getLocationServiceAuthorization();
+                await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
               status =
-              await _connectivity.requestLocationServiceAuthorization();
+                  await _connectivity.requestLocationServiceAuthorization();
             }
             if (status == LocationAuthorizationStatus.authorizedAlways ||
                 status == LocationAuthorizationStatus.authorizedWhenInUse) {
@@ -307,10 +298,10 @@ class _ThemePageState extends State<ThemePage> {
         try {
           if (!kIsWeb && Platform.isIOS) {
             LocationAuthorizationStatus status =
-            await _connectivity.getLocationServiceAuthorization();
+                await _connectivity.getLocationServiceAuthorization();
             if (status == LocationAuthorizationStatus.notDetermined) {
               status =
-              await _connectivity.requestLocationServiceAuthorization();
+                  await _connectivity.requestLocationServiceAuthorization();
             }
             if (status == LocationAuthorizationStatus.authorizedAlways ||
                 status == LocationAuthorizationStatus.authorizedWhenInUse) {

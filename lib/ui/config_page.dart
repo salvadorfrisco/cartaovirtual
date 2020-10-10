@@ -106,15 +106,12 @@ class _ConfigPageState extends State<ConfigPage> {
     switch (_indexPage) {
       case 0:
         return ColorsPage(
-          cardInfo: widget.cardInfo,
-          imageBackground: widget.imageBackground,
-          profileImage: widget.profileImage,
+          cardInfo: widget.cardInfo
         );
         break;
       case 1:
         return Stack(
           children: <Widget>[
-//            LayoutPage(
             PositionPage(
               cardInfo: widget.cardInfo,
               imageBackground: widget.imageBackground,

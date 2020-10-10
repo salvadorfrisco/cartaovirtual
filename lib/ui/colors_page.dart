@@ -1,6 +1,5 @@
 import 'dart:typed_data';
 import 'package:virtual_card/blocs/colors_bloc.dart';
-import 'package:virtual_card/blocs/theme_bloc.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../utils/block_picker.dart';
 import '../services/storage_service.dart';
@@ -34,10 +33,8 @@ const List<Color> _defaultColors = [
 ];
 
 class ColorsPage extends StatefulWidget {
-  ColorsPage({Key key, this.cardInfo, this.imageBackground, this.profileImage})
-      : super(key: key);
+  ColorsPage({Key key, this.cardInfo}) : super(key: key);
   final CardInfo cardInfo;
-  final Uint8List imageBackground, profileImage;
   @override
   _ColorsPageState createState() => _ColorsPageState();
 }
@@ -47,11 +44,9 @@ class _ColorsPageState extends State<ColorsPage> {
   StorageService storage = StorageService();
   CardInfo cardInfo = CardInfo();
   Color _fontColor, _backColor, _color, _appColor = Colors.blueGrey;
-  bool isLoading = false;
-  double _sizeHeight;
+  bool isLoading = false, didLoad = false;
   Uint8List profileImage, imageBackground;
   ColorsBloc colorsBloc = ColorsBloc();
-  ThemeBloc themeBloc = ThemeBloc();
 
   @override
   void dispose() {
@@ -66,81 +61,73 @@ class _ColorsPageState extends State<ColorsPage> {
     super.initState();
   }
 
-  _initListeners(){
+  _initListeners() {
     colorsBloc.colorsStream.listen((card) {
       setState(() {
         cardInfo.opacity = card.opacity;
       });
-     });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    _sizeHeight = displayHeight(context);
-    return SafeArea(
-        child: Scaffold(
-            key: _scaffoldKey,
-            backgroundColor: _appColor,
-            body: Stack(
-              children: <Widget>[
-                StreamBuilder<dynamic>(
-                  // initialData: imageBackground,
-                  stream: themeBloc.themeStream,
-                  builder: (context, snapshot) {
-
-
-
-
-                    return HomePageStateLess(
-                        cardInfo: cardInfo,
-                        imageBackground: (snapshot.data) ? snapshot.data : imageBackground,
-                        profileImage: widget.profileImage,
-                        widthScreen: displayWidth(context));
-                  }
-                ),
-                Center(
-                    // left: 14,
-                    // top: _sizeHeight / 2,
-                    child: _controlColors()),
-                isLoading
-                    ? Center(child: CircularProgressIndicator())
-                    : Container(),
-              ],
-            )));
+    return FutureBuilder(
+        future: loadImageBackground(widget.cardInfo.version),
+        builder: (context, snapshot) {
+          return FutureBuilder(
+              future: loadProfileImage(widget.cardInfo.version),
+              builder: (context, snapshot) {
+                return Scaffold(
+                    key: _scaffoldKey,
+                    backgroundColor: _appColor,
+                    body: Stack(
+                      children: <Widget>[
+                        HomePageStateLess(
+                            cardInfo: cardInfo,
+                            imageBackground: imageBackground,
+                            profileImage: profileImage,
+                            widthScreen: displayWidth(context)),
+                        Center(child: _controlColors()),
+                        isLoading
+                            ? Center(child: CircularProgressIndicator())
+                            : Container(),
+                      ],
+                    ));
+              });
+        });
   }
 
   _buildSetFontColor(above) {
     _color = above ? _fontColor : _backColor;
-    return 
-     Padding(padding: EdgeInsetsDirectional.only(top: 20.0, bottom: 20.0),
-     child:
-     RaisedButton(
-      elevation: 6,
-      onPressed: () {
-        showDialog(
-          context: context,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Selecione a cor'),
-              content: SingleChildScrollView(
-                child: BlockPicker(
-                  pickerColor: _color,
-                  above: above,
-                  availableColors: _defaultColors,
-                  onColorChanged: changeColorFont,
-                ),
-              ),
+    return Padding(
+        padding: EdgeInsetsDirectional.only(top: 20.0, bottom: 20.0),
+        child: RaisedButton(
+          elevation: 6,
+          onPressed: () {
+            showDialog(
+              context: context,
+              builder: (BuildContext context) {
+                return AlertDialog(
+                  title: Text('Selecione a cor'),
+                  content: SingleChildScrollView(
+                    child: BlockPicker(
+                      pickerColor: _color,
+                      above: above,
+                      availableColors: _defaultColors,
+                      onColorChanged: changeColorFont,
+                    ),
+                  ),
+                );
+              },
             );
           },
-        );
-      },
-      color: _color,
-      child: SizedBox(
-        height: 15.0,
-      ),
-      padding: EdgeInsets.all(15.0),
-      shape: CircleBorder(),
-    ));
+          color: _color,
+          child: SizedBox(
+            height: 15.0,
+          ),
+          padding: EdgeInsets.all(15.0),
+          shape: CircleBorder(),
+        ));
   }
 
   _controlColors() {
@@ -158,21 +145,16 @@ class _ColorsPageState extends State<ColorsPage> {
               ),
               borderRadius: BorderRadius.all(Radius.circular(20))),
           child: Slider(
-            value: double.parse(cardInfo.opacity) * 10,
-            min: 0.0,
-            max: 10.0,
-            divisions: 40,
-            activeColor: Colors.white,
-            inactiveColor: Colors.black,
-            onChanged: (double newValue) {
-              cardInfo.opacity = (newValue / 10).toString();
-              colorsBloc.updateOpacity(cardInfo);
-            }
-            //   cardInfo.opacity = (newValue.round() / 10).toString();
-            //   save();
-            //   setState(() {});
-            // },
-          ),
+              value: double.parse(cardInfo.opacity) * 10,
+              min: 0.0,
+              max: 10.0,
+              divisions: 40,
+              activeColor: Colors.white,
+              inactiveColor: Colors.black,
+              onChanged: (double newValue) {
+                cardInfo.opacity = (newValue / 10).toString();
+                colorsBloc.updateOpacity(cardInfo);
+              }),
         ),
         _buildSetFontColor(false),
       ],
@@ -206,13 +188,13 @@ class _ColorsPageState extends State<ColorsPage> {
       _backColor = intelligentCast<Color>(cardInfo.colorTextBelow);
     else
       _backColor = Color(0xff3b73de);
-    imageBackground = widget.imageBackground;
-    loadLocalImages();
   }
 
-  loadLocalImages() async {
-    imageBackground =
-        await storage.getImage('imageBackground' + cardInfo.version);
-    profileImage = await storage.getImage('profileImage' + cardInfo.version);
-  }
+  Future<void> loadImageBackground(version) async => await storage
+      .getImage('imageBackground' + version)
+      .then((img) => imageBackground = img);
+
+  Future<void> loadProfileImage(version) async => await storage
+      .getImage('profileImage' + version)
+      .then((img) => profileImage = img);
 }
