@@ -1,0 +1,62 @@
+name: virtual_card
+description: Plataforma para divulgação de serviços através do compartilhamento de cartão de visita digital.
+version: 1.0.9+16
+
+environment:
+  sdk: ">=2.1.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  font_awesome_flutter: ^8.7.0
+  mask_text_input_formatter: ^1.0.6
+  cupertino_icons: ^0.1.2
+  esys_flutter_share: ^1.0.2
+  image_cropper: ^1.3.1
+  image_picker: ^0.6.7+10
+  shared_preferences: ^0.5.6
+  flutter_statusbarcolor: ^0.2.3
+  lottie: ^0.5.1
+  image: ^2.1.14
+  flutter_launcher_icons: ^0.7.5
+  flutter_native_splash: ^0.1.9
+  keyboard_actions: ^3.2.0
+  carousel_slider: ^2.2.1
+  connectivity: ^0.4.9+3
+  rxdart: ^0.24.1
+  bloc_pattern: ^2.5.1
+  json_serializable: ^3.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icon/icon.png"
+
+flutter_native_splash:
+  image: assets/icon/icon.png
+  color: "#F2F2F2"
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/icon/icon.png
+    - assets/images/white_pixel.jpg
+    - assets/images/black_pixel.jpg
+    - assets/lottiefiles/done.json
+    - assets/lottiefiles/fill_cell.json
+    - assets/lottiefiles/fill_name.json
+    - assets/lottiefiles/pencil_write.json
+    - assets/lottiefiles/services.json
+    - assets/lottiefiles/trophy.json
+    - assets/lottiefiles/wave_loading.json
+    - assets/lottiefiles/swipe-left-to-right.json
+    - assets/lottiefiles/position.json
+    - assets/lottiefiles/five-stars.json
+    - assets/lottiefiles/share.json
+    - assets/lottiefiles/background.json
