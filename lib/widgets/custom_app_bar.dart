@@ -28,25 +28,25 @@ class _CustomAppBarState extends State<CustomAppBar>
     with SingleTickerProviderStateMixin {
   bool _isLoading = false, _clickedWithoutSave = false;
   final TextEditingController textController = TextEditingController();
-  AnimationController controller;
-
-  @override
-  void initState() {
-    controller = AnimationController(
-        duration: const Duration(milliseconds: 500));
-    super.initState();
-  }
+//  AnimationController controller;
+//
+//  @override
+//  void initState() {
+//    controller = AnimationController(
+//        duration: const Duration(milliseconds: 500));
+//    super.initState();
+//  }
 
   @override
   Widget build(BuildContext context) {
-    final Animation<double> offsetAnimation = Tween(begin: 0.0, end: 24.0)
-        .chain(CurveTween(curve: Curves.elasticIn))
-        .animate(controller)
-          ..addStatusListener((status) {
-            if (status == AnimationStatus.completed) {
-              controller.reverse();
-            }
-          });
+//    final Animation<double> offsetAnimation = Tween(begin: 0.0, end: 24.0)
+//        .chain(CurveTween(curve: Curves.elasticIn))
+//        .animate(controller)
+//          ..addStatusListener((status) {
+//            if (status == AnimationStatus.completed) {
+//              controller.reverse();
+//            }
+//          });
 
     return AppBar(
       title: Stack(
@@ -72,60 +72,63 @@ class _CustomAppBarState extends State<CustomAppBar>
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             FocusScope.of(context).requestFocus(FocusNode());
-            if (widget.formChanged && !_clickedWithoutSave) {
-              if (widget.actionBack != null) {
-                widget.actionBack();
-                _navToHome(context);
-              }
-            else {
-                controller.forward(from: 0.0);
-                _clickedWithoutSave = true;
-              }
-            } else {
-              _navToHome(context);
-            }
+            if (widget.actionBack != null)
+              widget.actionBack();
+            _navToHome(context);
+//            if (widget.formChanged && !_clickedWithoutSave) {
+//              if (widget.actionBack != null) {
+//                widget.actionBack();
+//                _navToHome(context);
+//              }
+//            else {
+//                controller.forward(from: 0.0);
+//                _clickedWithoutSave = true;
+//              }
+//            } else {
+//              _navToHome(context);
+//            }
           }),
-      actions: <Widget>[
-        (widget.formChanged && widget.actionBack == null)
-            ? GestureDetector(
-                onTap: widget.actionSave,
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 10.0),
-                  child: Column(
-                    children: <Widget>[
-                      AnimatedBuilder(
-                          animation: offsetAnimation,
-                          builder: (buildContext, child) {
-                            return Container(
-                                padding: EdgeInsets.only(
-                                    left: offsetAnimation.value + 24.0,
-                                    right: 24.0 - offsetAnimation.value),
-                                child: Icon(
-                                  Icons.save,
-                                  size: 34,
-                                  color: Colors.redAccent,
-                                  semanticLabel: "salvar",
-                                ));
-                          }),
-                      Text(
-                        "salvar",
-                        style: TextStyle(fontSize: 15, color: Colors.white),
-                      )
-                    ],
-                  ),
-                ),
-              )
-            : widget.formSaved
-                ? Padding(
-                  padding: const EdgeInsets.only(top: 6.0, right: 20.0),
-                  child: Icon(
-                    Icons.check,
-                    size: 38,
-                    color: Colors.greenAccent,
-                  ),
-                )
-                : Container(),
-      ],
+//      actions: <Widget>[
+//        (widget.formChanged && widget.actionBack == null)
+//            ? GestureDetector(
+//                onTap: widget.actionSave,
+//                child: Padding(
+//                  padding: const EdgeInsets.only(right: 10.0),
+//                  child: Column(
+//                    children: <Widget>[
+//                      AnimatedBuilder(
+//                          animation: offsetAnimation,
+//                          builder: (buildContext, child) {
+//                            return Container(
+//                                padding: EdgeInsets.only(
+//                                    left: offsetAnimation.value + 24.0,
+//                                    right: 24.0 - offsetAnimation.value),
+//                                child: Icon(
+//                                  Icons.save,
+//                                  size: 34,
+//                                  color: Colors.redAccent,
+//                                  semanticLabel: "salvar",
+//                                ));
+//                          }),
+//                      Text(
+//                        "salvar",
+//                        style: TextStyle(fontSize: 15, color: Colors.white),
+//                      )
+//                    ],
+//                  ),
+//                ),
+//              )
+//            : widget.formSaved
+//                ? Padding(
+//                  padding: const EdgeInsets.only(top: 6.0, right: 20.0),
+//                  child: Icon(
+//                    Icons.check,
+//                    size: 38,
+//                    color: Colors.greenAccent,
+//                  ),
+//                )
+//                : Container(),
+//      ],
     );
   }
 

@@ -26,25 +26,25 @@ class Walkthrough extends StatefulWidget {
 
 class WalkthroughState extends State<Walkthrough>
     with SingleTickerProviderStateMixin {
-  Animation animation;
-  AnimationController animationController;
+//  Animation animation;
+//  AnimationController animationController;
 
-  @override
-  void initState() {
-    super.initState();
-    animationController =
-        AnimationController(duration: Duration(milliseconds: 500));
-    animation = Tween(begin: 250.0, end: 0.0).animate(
-        CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
-    animation.addListener(() => setState(() {}));
-    animationController.forward();
-  }
+//  @override
+//  void initState() {
+//    super.initState();
+//    animationController =
+//        AnimationController(value: 1.0, duration: Duration(milliseconds: 500));
+//    animation = Tween(begin: 250.0, end: 0.0).animate(
+//        CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
+//    animation.addListener(() => setState(() {}));
+//    animationController.forward();
+//  }
 
-  @override
-  void dispose() {
-    animationController.dispose();
-    super.dispose();
-  }
+//  @override
+//  void dispose() {
+//    animationController.dispose();
+//    super.dispose();
+//  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,9 +73,10 @@ class WalkthroughState extends State<Walkthrough>
             ),
             Padding(
               padding: EdgeInsets.only(top: displayWidth(context) * 0.04),
-              child: Transform(
-                transform:
-                    Matrix4.translationValues(animation.value, 0.0, 0.0),
+//              child:
+//              Transform(
+//                transform:
+//                    Matrix4.translationValues(animation.value, 0.0, 0.0),
                 child: FittedBox(
                   child: Text(
                     widget.title,
@@ -86,7 +87,7 @@ class WalkthroughState extends State<Walkthrough>
                         color: Colors.black),
                   ),
                 ),
-              ),
+//              ),
             ),
             Container(height: widget.withField ? displayHeight(context) * 0.14 : 0),
             Padding(
