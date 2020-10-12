@@ -33,8 +33,9 @@ const List<Color> _defaultColors = [
 ];
 
 class ColorsPage extends StatefulWidget {
-  ColorsPage({Key key, this.cardInfo}) : super(key: key);
+  ColorsPage({Key key, this.cardInfo, this.profileImage}) : super(key: key);
   final CardInfo cardInfo;
+  final Uint8List profileImage;
   @override
   _ColorsPageState createState() => _ColorsPageState();
 }
@@ -72,29 +73,25 @@ class _ColorsPageState extends State<ColorsPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: loadImageBackground(widget.cardInfo.version),
-        builder: (context, snapshot) {
-          return FutureBuilder(
-              future: loadProfileImage(widget.cardInfo.version),
-              builder: (context, snapshot) {
-                return Scaffold(
-                    key: _scaffoldKey,
-                    backgroundColor: _appColor,
-                    body: Stack(
-                      children: <Widget>[
-                        HomePageStateLess(
-                            cardInfo: cardInfo,
-                            imageBackground: imageBackground,
-                            profileImage: profileImage,
-                            widthScreen: displayWidth(context)),
-                        Center(child: _controlColors()),
-                        isLoading
-                            ? Center(child: CircularProgressIndicator())
-                            : Container(),
-                      ],
-                    ));
-              });
-        });
+      future: loadImageBackground(widget.cardInfo.version),
+      builder: (context, snapshot) {
+        return Scaffold(
+          key: _scaffoldKey,
+          backgroundColor: _appColor,
+          body: Stack(
+            children: <Widget>[
+              HomePageStateLess(
+                  cardInfo: cardInfo,
+                  imageBackground: imageBackground,
+                  profileImage: widget.profileImage,
+                  widthScreen: displayWidth(context)),
+              Center(child: _controlColors()),
+              isLoading
+                  ? Center(child: CircularProgressIndicator())
+                  : Container(),
+            ],
+          ));
+      });
   }
 
   _buildSetFontColor(above) {
