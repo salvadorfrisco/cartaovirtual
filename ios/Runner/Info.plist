@@ -19,13 +19,17 @@
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSCameraUsageDescription</key>
-    <string>Permitir acesso a camera para adicionar uma imagem.</string>
-    <key>NSPhotoLibraryUsageDescription</key>
-    <string>Permitir acesso a galeria de fotos para upload de imagem.</string>
+	<string>Permitir acesso a camera para adicionar uma imagem.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Permitir sempre acesso a localização.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Permitir acesso a localização somente quando o aplicativo estiver em uso.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Permitir acesso a galeria de fotos para upload de imagem.</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
