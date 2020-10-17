@@ -2,7 +2,7 @@ import 'dart:typed_data';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import 'models/card_info.dart';
 import 'ui/home_page.dart';
-import 'utils/status_bar_manager.dart';
+//import 'utils/status_bar_manager.dart';
 import 'services/storage_service.dart';
 import 'package:flutter/material.dart';
 
@@ -21,15 +21,15 @@ class _MainPageState extends State<MainPage> {
   bool isLoading = false, backupFinalized = false;
   Uint8List profileImage, imageUploaded, imageBackground;
 
-  @override
-  void initState() {
-    Future.delayed(const Duration(milliseconds: 10), () {
-      setState(() {
-        StatusbarManager.changeStatusBarColor(StatusBar.defaultColor);
-      });
-    });
-    super.initState();
-  }
+//  @override
+//  void initState() {
+//    Future.delayed(const Duration(milliseconds: 10), () {
+//      setState(() {
+//        StatusbarManager.changeStatusBarColor(StatusBar.defaultColor);
+//      });
+//    });
+//    super.initState();
+//  }
 
   @override
   Widget build(BuildContext context) {
