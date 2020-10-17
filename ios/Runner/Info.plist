@@ -22,8 +22,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>NSCameraUsageDescription</key>
-	<string>A foto será incluída no seu cartão de visita</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Permitir sempre acesso a localização.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

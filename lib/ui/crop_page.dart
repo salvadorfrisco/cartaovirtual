@@ -4,8 +4,8 @@ import 'dart:async';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/utils/functions.dart';
-import 'package:virtual_card/utils/photo_helper.dart';
 
 class CropPage extends StatefulWidget {
   final String version;
@@ -116,7 +116,7 @@ class _CropPageState extends State<CropPage> {
   }
 
   saveImage(File imageUploaded) {
-    PhotoHelper.savePhotoLocal(imageUploaded, widget.imageName, widget.version);
+    StorageService.savePhotoLocal64(imageUploaded, widget.imageName, widget.version);
   }
 
   Future<Null> _cropImage() async {

@@ -11,7 +11,6 @@ import 'package:virtual_card/ui/terms_page.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/infos_helper.dart';
 import 'package:virtual_card/utils/keyboard_utils.dart';
-import 'package:virtual_card/utils/photo_helper.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import 'package:virtual_card/widgets/custom_app_bar.dart';
 import '../models/card_info.dart';
@@ -107,7 +106,7 @@ class _InfosPageState extends State<InfosPage> {
 
   saveImage(img64, version) {
     setState(() {
-      PhotoHelper.savePhotoLocal64(img64, 'profileImage', version);
+      StorageService.savePhotoLocal64(img64, 'profileImage', version);
       isLoading = false;
     });
   }

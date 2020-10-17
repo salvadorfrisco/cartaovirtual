@@ -8,7 +8,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:http/http.dart' as http;
-import 'package:virtual_card/utils/photo_helper.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 
 import '../services/storage_service.dart';
@@ -241,7 +240,7 @@ class _ThemePageState extends State<ThemePage> {
 
   saveImage(img64, version) {
     setState(() {
-      PhotoHelper.savePhotoLocal64(img64, 'imageBackground', version);
+      StorageService.savePhotoLocal64(img64, 'imageBackground', version);
       isLoading = false;
     });
   }

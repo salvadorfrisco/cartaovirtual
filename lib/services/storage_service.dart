@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:virtual_card/common/string_images.dart';
-import 'package:virtual_card/utils/photo_helper.dart';
 import '../models/card_info.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async' show Future;
@@ -105,7 +104,7 @@ class StorageService {
   }
 
   _saveImageBackground(version) {
-    PhotoHelper.savePhotoLocal64(base64.encode(IMGBACK[version - 1]), 'imageBackground', version.toString());
+    StorageService.savePhotoLocal64(base64.encode(IMGBACK[version - 1]), 'imageBackground', version.toString());
   }
 
   _saveCard(_version, card) async {
@@ -178,5 +177,10 @@ class StorageService {
     }
     Uint8List image = base64.decode(prefs.getString(key));
     return image;
+  }
+
+  static Future savePhotoLocal64(img64, String name, String version) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    prefs.setString(name + version, img64);
   }
 }

@@ -19,7 +19,6 @@ dependencies:
   shared_preferences: ^0.5.6
   flutter_statusbarcolor: ^0.2.3
   lottie: ^0.5.1
-  image: ^2.1.14
   flutter_launcher_icons: ^0.7.5
   flutter_native_splash: ^0.1.9
   keyboard_actions: ^3.2.0
