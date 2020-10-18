@@ -1,10 +1,12 @@
 import 'dart:async';
+import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'package:esys_flutter_share/esys_flutter_share.dart';
+// import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:share/share.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
@@ -12,6 +14,7 @@ import '../models/card_info.dart';
 import 'cards_page.dart';
 import 'config_page.dart';
 import 'infos_page.dart';
+import 'package:path_provider/path_provider.dart';
 
 class HomePage extends StatefulWidget {
   HomePage(
@@ -240,7 +243,13 @@ class _HomePageState extends State<HomePage> {
       ByteData byteData =
           await image.toByteData(format: ui.ImageByteFormat.png);
       Uint8List pngBytes = byteData.buffer.asUint8List();
-      return pngBytes;
+
+      String dir = (await getApplicationDocumentsDirectory()).path;
+      File file = File("$dir/" + 'myimage' + ".jpg");
+      await file.writeAsBytes(pngBytes);
+      print(file.path);
+
+      return file.path;
     } catch (e) {
       print(e);
     }
@@ -257,7 +266,7 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
       // openMenu();
     });
-    _capturePng().then((img) => _shareImage(img).then((value) => setState(() {
+    _capturePng().then((imgPath) => _shareImage(imgPath).then((value) => setState(() {
           isLoading = false;
         })));
   }
@@ -285,13 +294,22 @@ class _HomePageState extends State<HomePage> {
         ));
   }
 
-  Future<void> _shareImage(image) async {
+  Future<void> _shareImage(imagePath) async {
     try {
-      await Share.file('esys image', 'esys.png', image, 'image/png',
-          text:
-              'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
+      await Share.shareFiles([imagePath],
+          text: 'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
     } catch (e) {
       print('error: $e');
     }
   }
+
+  // Future<void> _shareImage(image) async {
+  //   try {
+  //     await Share.file('esys image', 'esys.png', image, 'image/png',
+  //         text:
+  //         'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
+  //   } catch (e) {
+  //     print('error: $e');
+  //   }
+  // }
 }
