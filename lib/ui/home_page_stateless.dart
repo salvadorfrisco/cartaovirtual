@@ -31,7 +31,7 @@ class HomePageStateLess extends StatelessWidget {
                         fit: BoxFit.cover,
                         image: imageBackground != null
                             ? MemoryImage(imageBackground)
-                            : AssetImage('assets/images/black_pixel.jpg'),
+                            : AssetImage('assets/images/transparent.png'),
                       ),
                     ),
                   )

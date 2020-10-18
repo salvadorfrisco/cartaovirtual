@@ -81,7 +81,7 @@ class _HomePageState extends State<HomePage> {
                             fit: BoxFit.cover,
                             image: widget.imageBackground != null
                                 ? MemoryImage(widget.imageBackground)
-                                : AssetImage('assets/images/white_pixel.jpg'),
+                                : AssetImage('assets/images/transparent.png'),
                           ),
                         ),
                       )),
@@ -247,8 +247,6 @@ class _HomePageState extends State<HomePage> {
       String dir = (await getApplicationDocumentsDirectory()).path;
       File file = File("$dir/" + 'myimage' + ".jpg");
       await file.writeAsBytes(pngBytes);
-      print(file.path);
-
       return file.path;
     } catch (e) {
       print(e);

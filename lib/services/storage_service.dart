@@ -172,7 +172,7 @@ class StorageService {
   Future<Uint8List> getImage(key) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (!prefs.containsKey(key)) {
-      final ByteData bytes = await rootBundle.load('assets/images/black_pixel.jpg');
+      final ByteData bytes = await rootBundle.load('assets/images/transparent.png');
       return bytes.buffer.asUint8List();
     }
     Uint8List image = base64.decode(prefs.getString(key));

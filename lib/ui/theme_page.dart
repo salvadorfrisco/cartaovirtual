@@ -11,11 +11,11 @@ import 'package:http/http.dart' as http;
 import 'package:virtual_card/utils/sizes_helpers.dart';
 
 import '../services/storage_service.dart';
-import '../widgets/model_selected.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
+import 'home_page_stateless.dart';
 
 class ThemePage extends StatefulWidget {
   ThemePage(
@@ -115,7 +115,7 @@ class _ThemePageState extends State<ThemePage> {
             fit: BoxFit.cover,
             image: imageUploaded != null
                 ? MemoryImage(imageUploaded)
-                : AssetImage('assets/images/white_pixel.jpg'),
+                : AssetImage('assets/images/transparent.png'),
           ),
         ),
       ),
@@ -173,49 +173,58 @@ class _ThemePageState extends State<ThemePage> {
   }
 
   Widget _selectModel(BuildContext context) {
-    // Use LayoutBuilder to get the hero header size while keeping the image aspect-ratio
     return Stack(
       children: <Widget>[
-        Container(
-          child: CustomScrollView(
-            slivers: <Widget>[
-              SliverPersistentHeader(
-                pinned: true,
-                delegate: ModelSelected(
-                    minExtent: _sizeHeight * 0.54,
-                    maxExtent: _sizeHeight * 0.54,
+        CustomScrollView(
+          physics: BouncingScrollPhysics(),
+          slivers: <Widget>[
+            SliverAppBar(
+              stretch: true,
+              pinned: true,
+              floating: true,
+              backgroundColor: Colors.transparent,
+              collapsedHeight: 100,
+              expandedHeight: 400,
+              centerTitle: true,
+              flexibleSpace: FlexibleSpaceBar(
+                collapseMode: CollapseMode.pin,
+                stretchModes: [
+                  StretchMode.zoomBackground,
+                  StretchMode.blurBackground
+                ],
+                background: HomePageStateLess(
                     cardInfo: cardInfo,
                     imageBackground: imageBackground,
-                    profileImage: widget.profileImage),
+                    profileImage: widget.profileImage,
+                    widthScreen: displayWidth(context) * 0.5),
               ),
+            ),
               SliverGrid(
-                gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200.0,
-                  mainAxisSpacing: 0.0,
-                  crossAxisSpacing: 0.80,
-                  childAspectRatio: 0.75,
-                ),
-                delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
-                    String img =
-                        'https://picsum.photos/seed/$index/$_sizeWidth/$_sizeHeight';
-                    return (_connectionStatus == 'ConnectivityResult.none' &&
-                            index > 0)
-                        ? Center(
-                            child: Text(
-                            "Para carregar as imagens é necessário se conectar á internet.",
-                            style: TextStyle(color: Colors.red),
-                            textAlign: TextAlign.center,
-                          ))
-                        : showImageCard(img, widget.cardInfo.version, index);
-                  },
-                  childCount: (_connectionStatus == 'ConnectivityResult.none')
-                      ? 2
-                      : 1000,
-                ),
-              ),
-            ],
-          ),
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 200.0,
+                      mainAxisSpacing: 0.0,
+                      crossAxisSpacing: 0.80,
+                      childAspectRatio: 0.75,
+                    ),
+                    delegate: SliverChildBuilderDelegate(
+                      (BuildContext context, int index) {
+                        String img =
+                            'https://picsum.photos/seed/$index/$_sizeWidth/$_sizeHeight';
+                        return (_connectionStatus == 'ConnectivityResult.none' &&
+                                index > 0)
+                            ? Center(
+                                child: Text(
+                                "Para carregar as imagens é necessário se conectar a internet.",
+                                style: TextStyle(color: Colors.red),
+                                textAlign: TextAlign.center,
+                              ))
+                            : showImageCard(img, widget.cardInfo.version, index);
+                      },
+                      childCount: (_connectionStatus == 'ConnectivityResult.none')
+                          ? 2
+                          : 1000,
+                    ),
+              )],
         ),
         Positioned(
           top: displayHeight(context) * 0.636,
@@ -253,6 +262,7 @@ class _ThemePageState extends State<ThemePage> {
       if (index > 0) {
         await http.get(url).then((http.Response response) =>
             saveImage(base64.encode(response.bodyBytes), version));
+
       }
     }
 

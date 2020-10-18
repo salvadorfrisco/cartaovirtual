@@ -73,14 +73,7 @@ class _InfosPageState extends State<InfosPage> {
             ]));
   }
 
-  upload(cnt) async {
-    buttonsOn = !buttonsOn;
-    cnt.hasIcon = buttonsOn;
-    verifyChanges();
-    await uploadAndCrop();
-  }
-
-  uploadAndCrop() async {
+  uploadAndCrop(cnt) async {
     profileImage = await Navigator.push(
         context,
         MaterialPageRoute(
@@ -90,11 +83,13 @@ class _InfosPageState extends State<InfosPage> {
           ),
         ));
     if (profileImage != null) {
-      setState(() {
-        formChanged = true;
-        buttonsOn = false;
-        isLoading = false;
-      });
+      buttonsOn = !buttonsOn;
+      cnt.hasIcon = buttonsOn;
+      verifyChanges();
+      // setState(() {
+      //   buttonsOn = false;
+      //   isLoading = false;
+      // });
       saveImage(base64.encode(profileImage), widget.cardInfo.version);
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
@@ -143,7 +138,7 @@ class _InfosPageState extends State<InfosPage> {
                   fit: BoxFit.cover,
                   image: widget.imageBackground != null
                       ? MemoryImage(widget.imageBackground)
-                      : AssetImage('assets/images/white_pixel.jpg'),
+                      : AssetImage('assets/images/transparent.png'),
                 ),
               ),
             )),
@@ -234,7 +229,7 @@ class _InfosPageState extends State<InfosPage> {
     return cnt.type == "photo" && cnt.hasIcon
         ? InkWell(
             onTap: () {
-              upload(cnt);
+              uploadAndCrop(cnt);
             },
             child: Row(
               children: [
@@ -259,7 +254,7 @@ class _InfosPageState extends State<InfosPage> {
                         fit: BoxFit.cover,
                         image: profileImage != null
                             ? MemoryImage(profileImage)
-                            : AssetImage('assets/images/white_pixel.jpg'),
+                            : AssetImage('assets/images/transparent.png'),
                       ),
                     ),
                   ),
@@ -267,7 +262,7 @@ class _InfosPageState extends State<InfosPage> {
               ],
             ))
         : _buildMessage(
-            "Incluir imagem ou logotipo no cartão", () => upload(cnt),
+            "Incluir imagem ou logotipo no cartão", () => uploadAndCrop(cnt),
             width: 0.64);
   }
 

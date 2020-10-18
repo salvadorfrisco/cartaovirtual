@@ -55,7 +55,7 @@ getPicture(profileImage, sizeWidth, photoCircle) {
             fit: BoxFit.cover,
             image: profileImage != null
                 ? MemoryImage(profileImage)
-                : AssetImage('assets/images/white_pixel.jpg'),
+                : AssetImage('assets/images/transparent.png'),
           ),
         ),
       );

@@ -63,7 +63,7 @@ class _PositionPageState extends State<PositionPage> {
                     fit: BoxFit.cover,
                     image: imageBackground != null
                         ? MemoryImage(imageBackground)
-                        : AssetImage('assets/images/white_pixel.jpg'),
+                        : AssetImage('assets/images/transparent.png'),
                   ),
                 ),
               )
@@ -159,7 +159,7 @@ class _PositionPageState extends State<PositionPage> {
           fit: BoxFit.cover,
           image: widget.profileImage != null
               ? MemoryImage(widget.profileImage)
-              : AssetImage('assets/images/white_pixel.jpg'),
+              : AssetImage('assets/images/transparent.png'),
         ),
       ),
     )
