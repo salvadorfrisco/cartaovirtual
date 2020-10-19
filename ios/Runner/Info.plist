@@ -11,7 +11,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>cartao_virtual</string>
+	<string>CartaoDigital</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -22,16 +22,16 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>A foto será usada no cartão de visita</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Permitir sempre acesso a localização.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Somente quando o app estiver em uso.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>A imagem será usada como fundo do cartão de visita</string>
-	<key>NSCameraUsageDescription</key>
-	<string>A foto será usada no cartão de visita</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>A voz será usada no cartão de visita</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>A imagem será usada como fundo do cartão de visita</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
