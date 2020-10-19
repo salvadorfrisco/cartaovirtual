@@ -295,19 +295,10 @@ class _HomePageState extends State<HomePage> {
   Future<void> _shareImage(imagePath) async {
     try {
       await Share.shareFiles([imagePath],
-          text: 'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
+//          text: 'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
+      );
     } catch (e) {
       print('error: $e');
     }
   }
-
-  // Future<void> _shareImage(image) async {
-  //   try {
-  //     await Share.file('esys image', 'esys.png', image, 'image/png',
-  //         text:
-  //         'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
-  //   } catch (e) {
-  //     print('error: $e');
-  //   }
-  // }
 }

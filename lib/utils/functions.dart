@@ -59,7 +59,7 @@ class Functions {
       txt: cardInfo.name,
       posX: cardInfo.posXName,
       posY: cardInfo.posYName,
-      size: 28,
+      size: 25,
       color: intelligentCast<Color>(cardInfo.colorTextAbove),
       icon: (cardInfo.hasName) ? Icons.person : null,
     ));
@@ -70,7 +70,7 @@ class Functions {
       txt: cardInfo.occupation,
       posX: cardInfo.posXOccupation,
       posY: cardInfo.posYOccupation,
-      size: 25,
+      size: 24,
       color: intelligentCast<Color>(cardInfo.colorTextAbove),
       icon: (cardInfo.hasOccupation) ? Icons.business_center : null,
     ));
@@ -81,7 +81,7 @@ class Functions {
       txt: cardInfo.phone,
       posX: cardInfo.posXPhone,
       posY: cardInfo.posYPhone,
-      size: 32,
+      size: 28,
       color: intelligentCast<Color>(cardInfo.colorTextAbove),
       icon: (cardInfo.hasPhone) ? FontAwesomeIcons.whatsapp : null,
     ));

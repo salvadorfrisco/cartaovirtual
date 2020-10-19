@@ -64,8 +64,8 @@ class StorageService {
     card.posXYoutube = 20;
     card.posXWebsite = 20;
     card.posYName = sizeScreen.height * 0.05;
-    card.posYOccupation = sizeScreen.height * 0.15;
-    card.posYPhone = sizeScreen.height * 0.25;
+    card.posYOccupation = sizeScreen.height * 0.13;
+    card.posYPhone = sizeScreen.height * 0.21;
     card.posYPhoto = sizeScreen.height * 0.30;
     card.posYEmail = sizeScreen.height * 0.6;
     card.posYFacebook = sizeScreen.height * 0.64;
@@ -96,7 +96,7 @@ class StorageService {
     card.fontTwitter = 'Arial';
     card.fontYoutube = 'Arial';
     card.fontWebsite = 'Arial';
-    card.opacity = '0.9';
+    card.opacity = '1.0';
     await _saveCard('1', card)
         .then((_) => _saveCard('2', card))
         .then((_) => _saveCard('3', card))

@@ -361,6 +361,7 @@ class _InfosPageState extends State<InfosPage> {
             cardInfo.photoCircle != _photoCircle)
         ? true
         : false;
+    print(formChanged);
     return formChanged;
   }
 
