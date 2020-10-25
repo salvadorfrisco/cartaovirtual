@@ -2,7 +2,6 @@ import 'dart:async';
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-// import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -294,9 +293,12 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _shareImage(imagePath) async {
     try {
-      await Share.shareFiles([imagePath],
-//          text: 'Crie seu cartão digital, disponível para Android em https://bit.ly/35M2WK4, em breve na Apple Store.');
-      );
+      if (Platform.isAndroid) {
+        await Share.shareFiles([imagePath],
+            text: 'Crie seu cartão digital, baixe o app em http://onelink.to/cartaodigital');
+      } else {
+        await Share.shareFiles([imagePath]);
+      }
     } catch (e) {
       print('error: $e');
     }
