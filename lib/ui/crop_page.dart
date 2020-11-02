@@ -116,7 +116,7 @@ class _CropPageState extends State<CropPage> {
   }
 
   saveImage(File imageUploaded) {
-    StorageService.savePhotoLocal64(imageUploaded, widget.imageName, widget.version);
+    StorageService.savePhotoLocal64(imageUploaded.readAsBytesSync().toString(), widget.imageName, widget.version);
   }
 
   Future<Null> _cropImage() async {

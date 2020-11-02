@@ -64,7 +64,7 @@ class _MainPageState extends State<MainPage> {
   }
 
   loadLocalImages() async {
-    imageUploaded = await storage.getImage('imageUploaded' + cardInfo.version);
+    imageUploaded = await storage.getImage('imageBackground' + cardInfo.version);
     imageBackground = await storage.getImage('imageBackground' + cardInfo.version);
     profileImage = await storage.getImage('profileImage' + cardInfo.version);
   }

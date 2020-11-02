@@ -124,7 +124,6 @@ class _ConfigPageState extends State<ConfigPage> {
       case 2:
         return ThemePage(
           cardInfo: widget.cardInfo,
-          imageBackground: widget.imageBackground,
           profileImage: widget.profileImage,
         );
         break;

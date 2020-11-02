@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -5,6 +8,7 @@ import 'package:virtual_card/ui/terms_page.dart';
 import 'main_page.dart';
 import 'ui/intro_screen.dart';
 import 'ui/splash_screen.dart';
+import 'package:connectivity/connectivity.dart';
 
 var routes = <String, WidgetBuilder>{
   "/home": (BuildContext context) => MainPage(),
@@ -12,7 +16,16 @@ var routes = <String, WidgetBuilder>{
   "/terms": (BuildContext context) => TermsPage(),
 };
 
+// Sets a platform override for desktop to avoid exceptions. See
+// https://flutter.dev/desktop#target-platform-override for more info.
+void _enablePlatformOverrideForDesktop() {
+  if (!kIsWeb && (Platform.isWindows || Platform.isLinux)) {
+    debugDefaultTargetPlatformOverride = TargetPlatform.fuchsia;
+  }
+}
+
 void main() {
+  _enablePlatformOverrideForDesktop();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {

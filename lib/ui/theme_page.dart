@@ -208,10 +208,10 @@ class _ThemePageState extends State<ThemePage> {
                     ),
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
+                        int indexImg = index + 1;
                         String img =
-                            'https://picsum.photos/seed/$index/$_sizeWidth/$_sizeHeight';
-                        return (_connectionStatus == 'ConnectivityResult.none' &&
-                                index > 0)
+                            'https://picsum.photos/seed/$indexImg/$_sizeWidth/$_sizeHeight';
+                        return (_connectionStatus == 'ConnectivityResult.none' && index > 0)
                             ? Center(
                                 child: Text(
                                 "Para carregar as imagens é necessário se conectar a internet.",
@@ -227,8 +227,8 @@ class _ThemePageState extends State<ThemePage> {
               )],
         ),
         Positioned(
-          top: displayHeight(context) * 0.636,
-          left: displayWidth(context) * 0.076,
+          top: displayHeight(context) * 0.04,
+          right: displayWidth(context) * 0.04,
           child: _buildUploadButton("upload", Icons.file_upload),
         ),
       ],
@@ -259,20 +259,23 @@ class _ThemePageState extends State<ThemePage> {
       setState(() {
         isLoading = true;
       });
-      if (index > 0) {
+      // if (index > 0) {
         await http.get(url).then((http.Response response) =>
             saveImage(base64.encode(response.bodyBytes), version));
 
-      }
+      // }
     }
 
     return GestureDetector(
       onTap: showImage,
       child: Card(
         color: Colors.white54,
-        child: index > 0
-            ? Image.network(url, fit: BoxFit.cover)
-            : _buildPictureUploaded(version),
+        child:
+            // index >= 0
+            // ?
+            Image.network(url, fit: BoxFit.cover)
+            // : _buildPictureUploaded(version)
+            ,
       ),
     );
   }
@@ -280,66 +283,6 @@ class _ThemePageState extends State<ThemePage> {
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     switch (result) {
       case ConnectivityResult.wifi:
-        String wifiName, wifiBSSID, wifiIP;
-
-        try {
-          if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
-                await _connectivity.getLocationServiceAuthorization();
-            if (status == LocationAuthorizationStatus.notDetermined) {
-              status =
-                  await _connectivity.requestLocationServiceAuthorization();
-            }
-            if (status == LocationAuthorizationStatus.authorizedAlways ||
-                status == LocationAuthorizationStatus.authorizedWhenInUse) {
-              wifiName = await _connectivity.getWifiName();
-            } else {
-              wifiName = await _connectivity.getWifiName();
-            }
-          } else {
-            wifiName = await _connectivity.getWifiName();
-          }
-        } on PlatformException catch (e) {
-          print(e.toString());
-          wifiName = "Failed to get Wifi Name";
-        }
-
-        try {
-          if (!kIsWeb && Platform.isIOS) {
-            LocationAuthorizationStatus status =
-                await _connectivity.getLocationServiceAuthorization();
-            if (status == LocationAuthorizationStatus.notDetermined) {
-              status =
-                  await _connectivity.requestLocationServiceAuthorization();
-            }
-            if (status == LocationAuthorizationStatus.authorizedAlways ||
-                status == LocationAuthorizationStatus.authorizedWhenInUse) {
-              wifiBSSID = await _connectivity.getWifiBSSID();
-            } else {
-              wifiBSSID = await _connectivity.getWifiBSSID();
-            }
-          } else {
-            wifiBSSID = await _connectivity.getWifiBSSID();
-          }
-        } on PlatformException catch (e) {
-          print(e.toString());
-          wifiBSSID = "Failed to get Wifi BSSID";
-        }
-
-        try {
-          wifiIP = await _connectivity.getWifiIP();
-        } on PlatformException catch (e) {
-          print(e.toString());
-          wifiIP = "Failed to get Wifi IP";
-        }
-
-        setState(() {
-          _connectionStatus = '$result\n'
-              'Wifi Name: $wifiName\n'
-              'Wifi BSSID: $wifiBSSID\n'
-              'Wifi IP: $wifiIP\n';
-        });
-        break;
       case ConnectivityResult.mobile:
       case ConnectivityResult.none:
         setState(() => _connectionStatus = result.toString());

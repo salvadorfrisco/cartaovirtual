@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../utils/converter_functions.dart';
 import '../models/card_info.dart';
+import 'home_page_colors.dart';
 import 'home_page_stateless.dart';
 
 const List<Color> _defaultColors = [
@@ -80,7 +81,7 @@ class _ColorsPageState extends State<ColorsPage> {
           backgroundColor: _appColor,
           body: Stack(
             children: <Widget>[
-              HomePageStateLess(
+              HomePageColors(
                   cardInfo: cardInfo,
                   imageBackground: imageBackground,
                   profileImage: widget.profileImage,
