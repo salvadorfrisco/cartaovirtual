@@ -93,14 +93,12 @@ class _FontPickerState extends State<FontPicker> {
   }
 
   void changeFont(String font, ContentModel cnt) {
-    print(font);
     setState(() => _currentFont = font);
     widget.onFontChanged(font: font, cnt: cnt);
   }
 
   @override
   Widget build(BuildContext context) {
-    print(widget.availableFonts);
     return widget.layoutBuilder(
       context,
       widget.availableFonts,
