@@ -47,13 +47,11 @@ class _ConfigPageState extends State<ConfigPage> {
                 setState(() {
                   RenderBox renderBox = context.findRenderObject();
                   _dy = (_sizeHeight - renderBox.globalToLocal(offset).dy)
-                     - _sizeHeight * 0.126;
-                  print(_sizeHeight);
-                  print(_dy);
+                     - _sizeHeight * 0.12;
                   if (_dy < 0)
                     _dy = 0;
-                  else if (_dy + 150 > _sizeHeight)
-                    _dy = _sizeHeight - 160;
+                  else if (_dy + 90 > _sizeHeight)
+                    _dy = _sizeHeight - 90;
                 });
               },
             ))
@@ -71,7 +69,7 @@ class _ConfigPageState extends State<ConfigPage> {
         children: <Widget>[
           _buildCustomButton("", Icons.arrow_back, _navToHome),
           _buildCustomButton(
-              "cores",
+              "fontes",
               Icons.color_lens,
               () => setState(() {
                     _indexPage = 0;

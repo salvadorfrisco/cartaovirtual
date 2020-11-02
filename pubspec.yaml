@@ -1,6 +1,6 @@
 name: virtual_card
 description: Criação e envio de cartão de visita digital
-version: 1.1.5+27
+version: 1.2.0+28
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -60,3 +60,46 @@ flutter:
     - assets/lottiefiles/five-stars.json
     - assets/lottiefiles/share.json
     - assets/lottiefiles/background.json
+  fonts:
+    - family: Arcade
+      fonts:
+        - asset: assets/fonts/Arcade.ttf
+    - family: Champagne
+      fonts:
+        - asset: assets/fonts/Champagne.ttf
+    - family: Dancing
+      fonts:
+        - asset: assets/fonts/Dancing.ttf
+    - family: Dreams
+      fonts:
+        - asset: assets/fonts/Dreams.ttf
+    - family: Excentric
+      fonts:
+        - asset: assets/fonts/Excentric.ttf
+    - family: Forgot
+      fonts:
+        - asset: assets/fonts/Forgot.ttf
+    - family: Giorgino
+      fonts:
+        - asset: assets/fonts/Giorgino.ttf
+    - family: Montserrat
+      fonts:
+        - asset: assets/fonts/Montserrat.ttf
+    - family: Opficio
+      fonts:
+        - asset: assets/fonts/Opficio.ttf
+    - family: Pacifico
+      fonts:
+        - asset: assets/fonts/Pacifico.ttf
+    - family: Playfair
+      fonts:
+        - asset: assets/fonts/Playfair.ttf
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto.ttf
+    - family: Rubik
+      fonts:
+        - asset: assets/fonts/Rubik.ttf
+    - family: Walkway
+      fonts:
+        - asset: assets/fonts/Walkway.ttf

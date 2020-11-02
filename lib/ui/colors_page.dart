@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../utils/converter_functions.dart';
 import '../models/card_info.dart';
-import 'home_page_colors.dart';
+import 'change_params_font.dart';
 import 'home_page_stateless.dart';
 
 const List<Color> _defaultColors = [
@@ -74,66 +74,33 @@ class _ColorsPageState extends State<ColorsPage> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: loadImageBackground(widget.cardInfo.version),
-      builder: (context, snapshot) {
-        return Scaffold(
-          key: _scaffoldKey,
-          backgroundColor: _appColor,
-          body: Stack(
-            children: <Widget>[
-              HomePageColors(
-                  cardInfo: cardInfo,
-                  imageBackground: imageBackground,
-                  profileImage: widget.profileImage,
-                  widthScreen: displayWidth(context)),
-              Center(child: _controlColors()),
-              isLoading
-                  ? Center(child: CircularProgressIndicator())
-                  : Container(),
-            ],
-          ));
-      });
+        future: loadImageBackground(widget.cardInfo.version),
+        builder: (context, snapshot) {
+          return Scaffold(
+              key: _scaffoldKey,
+              backgroundColor: _appColor,
+              body: Stack(
+                children: <Widget>[
+                  ChangeParamFonts(
+                      cardInfo: cardInfo,
+                      imageBackground: imageBackground,
+                      profileImage: widget.profileImage),
+                  Positioned(
+                      top: displayHeight(context) / 4,
+                      right: 10,
+                      child: _transparencyControl()),
+                  isLoading
+                      ? Center(child: CircularProgressIndicator())
+                      : Container(),
+                ],
+              ));
+        });
   }
 
-  _buildSetFontColor(above) {
-    _color = above ? _fontColor : _backColor;
-    return Padding(
-        padding: EdgeInsetsDirectional.only(top: 20.0, bottom: 20.0),
-        child: RaisedButton(
-          elevation: 6,
-          onPressed: () {
-            showDialog(
-              context: context,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  title: Text('Selecione a cor'),
-                  content: SingleChildScrollView(
-                    child: BlockPicker(
-                      pickerColor: _color,
-                      above: above,
-                      availableColors: _defaultColors,
-                      onColorChanged: changeColorFont,
-                    ),
-                  ),
-                );
-              },
-            );
-          },
-          color: _color,
-          child: SizedBox(
-            height: 15.0,
-          ),
-          padding: EdgeInsets.all(15.0),
-          shape: CircleBorder(),
-        ));
-  }
-
-  _controlColors() {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        _buildSetFontColor(true),
-        Container(
+  _transparencyControl() {
+    return RotatedBox(
+        quarterTurns: 1,
+        child: Container(
           width: displayWidth(context) * 0.6,
           height: 40,
           decoration: BoxDecoration(
@@ -153,22 +120,7 @@ class _ColorsPageState extends State<ColorsPage> {
                 cardInfo.opacity = (newValue / 10).toString();
                 colorsBloc.updateOpacity(cardInfo);
               }),
-        ),
-        _buildSetFontColor(false),
-      ],
-    );
-  }
-
-  changeColorFont({Color color, bool above}) {
-    if (above) {
-      _fontColor = color;
-      cardInfo.colorTextAbove = colorToString(color);
-    } else {
-      _backColor = color;
-      cardInfo.colorTextBelow = colorToString(color);
-    }
-    save();
-    Navigator.pop(context);
+        ));
   }
 
   save() {

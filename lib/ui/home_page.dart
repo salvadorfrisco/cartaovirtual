@@ -182,33 +182,31 @@ class _HomePageState extends State<HomePage> {
       return Positioned(
           top: cnt.posY * (_sizeWidth / displayWidth(context)),
           left: cnt.posX * (_sizeWidth / displayWidth(context)),
-          child: FittedBox(
-            child: Row(
-              children: <Widget>[
-                (cnt.type == 'photo')
-                    ? _buildPicture()
-                    : (cnt.icon != null)
-                        ? Padding(
-                            padding: const EdgeInsets.only(right: 8.0),
-                            child: Icon(
-                              Functions.buildIcon(cnt.type),
-                              color: cnt.color,
-                              size: cnt.size *
-                                  (_sizeWidth / displayWidth(context)),
-                            ))
-                        : SizedBox(width: 0),
-                (cnt.type == 'photo')
-                    ? Container(width: 1, height: 1)
-                    : Text(
-                        cnt.txt,
-                        style: TextStyle(
-                            fontSize:
-                                cnt.size * (_sizeWidth / displayWidth(context)),
-                            color: cnt.color,
-                            fontWeight: FontWeight.w500),
-                      ),
-              ],
-            ),
+          child: (cnt.type == 'photo')
+              ? _buildPicture()
+              : Row(
+            children: [
+              (cnt.icon != null)
+                  ? Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(
+                    Functions.buildIcon(cnt.type),
+                    color: cnt.color,
+                    size: cnt.size *
+                        (_sizeWidth / displayWidth(context)),
+                  ))
+                  : SizedBox(width: 0),
+              Text(
+                cnt.txt,
+                textScaleFactor: cnt.scale,
+                style: TextStyle(
+                    fontFamily: cnt.font,
+                    fontSize: cnt.size *
+                        (_sizeWidth / displayWidth(context)),
+                    color: cnt.color,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
           ));
     }
   }

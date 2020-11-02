@@ -60,7 +60,9 @@ class Functions {
       posX: cardInfo.posXName,
       posY: cardInfo.posYName,
       size: 25,
-      color: intelligentCast<Color>(cardInfo.colorTextAbove),
+      font: cardInfo.fontName,
+      scale: cardInfo.scaleName,
+      color: intelligentCast<Color>(cardInfo.colorName),
       icon: (cardInfo.hasName) ? Icons.person : null,
     ));
     cntList.add(ContentModel(
@@ -71,7 +73,9 @@ class Functions {
       posX: cardInfo.posXOccupation,
       posY: cardInfo.posYOccupation,
       size: 24,
-      color: intelligentCast<Color>(cardInfo.colorTextAbove),
+      font: cardInfo.fontOccupation,
+      scale: cardInfo.scaleOccupation,
+      color: intelligentCast<Color>(cardInfo.colorOccupation),
       icon: (cardInfo.hasOccupation) ? Icons.business_center : null,
     ));
     cntList.add(ContentModel(
@@ -82,7 +86,9 @@ class Functions {
       posX: cardInfo.posXPhone,
       posY: cardInfo.posYPhone,
       size: 28,
-      color: intelligentCast<Color>(cardInfo.colorTextAbove),
+      font: cardInfo.fontPhone,
+      scale: cardInfo.scalePhone,
+      color: intelligentCast<Color>(cardInfo.colorPhone),
       icon: (cardInfo.hasPhone) ? FontAwesomeIcons.whatsapp : null,
     ));
     cntList.add(ContentModel(
@@ -93,7 +99,9 @@ class Functions {
       posX: cardInfo.posXEmail,
       posY: cardInfo.posYEmail,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontEmail,
+      scale: cardInfo.scaleEmail,
+      color: intelligentCast<Color>(cardInfo.colorEmail),
       icon: (cardInfo.hasEmail) ? Icons.email : null,
     ));
     cntList.add(ContentModel(
@@ -104,7 +112,9 @@ class Functions {
       posX: cardInfo.posXFacebook,
       posY: cardInfo.posYFacebook,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontFacebook,
+      scale: cardInfo.scaleFacebook,
+      color: intelligentCast<Color>(cardInfo.colorFacebook),
       icon: (cardInfo.hasFacebook) ? FontAwesomeIcons.facebook : null,
     ));
     cntList.add(ContentModel(
@@ -115,7 +125,9 @@ class Functions {
       posX: cardInfo.posXLinkedin,
       posY: cardInfo.posYLinkedin,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontLinkedin,
+      scale: cardInfo.scaleLinkedin,
+      color: intelligentCast<Color>(cardInfo.colorLinkedin),
       icon: (cardInfo.hasLinkedin) ? FontAwesomeIcons.linkedin : null,
     ));
     cntList.add(ContentModel(
@@ -126,7 +138,9 @@ class Functions {
       posX: cardInfo.posXInstagram,
       posY: cardInfo.posYInstagram,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontInstagram,
+      scale: cardInfo.scaleInstagram,
+      color: intelligentCast<Color>(cardInfo.colorInstagram),
       icon: (cardInfo.hasInstagram) ? FontAwesomeIcons.instagram : null,
     ));
     cntList.add(ContentModel(
@@ -137,7 +151,9 @@ class Functions {
       posX: cardInfo.posXTwitter,
       posY: cardInfo.posYTwitter,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontTwitter,
+      scale: cardInfo.scaleTwitter,
+      color: intelligentCast<Color>(cardInfo.colorTwitter),
       icon: (cardInfo.hasTwitter) ? FontAwesomeIcons.twitter : null,
     ));
     cntList.add(ContentModel(
@@ -148,7 +164,9 @@ class Functions {
       posX: cardInfo.posXYoutube,
       posY: cardInfo.posYYoutube,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontYoutube,
+      scale: cardInfo.scaleYoutube,
+      color: intelligentCast<Color>(cardInfo.colorYoutube),
       icon: (cardInfo.hasYoutube) ? FontAwesomeIcons.youtube : null,
     ));
     cntList.add(ContentModel(
@@ -159,7 +177,9 @@ class Functions {
       posX: cardInfo.posXWebsite,
       posY: cardInfo.posYWebsite,
       size: 18,
-      color: intelligentCast<Color>(cardInfo.colorTextBelow),
+      font: cardInfo.fontWebsite,
+      scale: cardInfo.scaleWebsite,
+      color: intelligentCast<Color>(cardInfo.colorWebsite),
       icon: (cardInfo.hasWebsite) ? FontAwesomeIcons.globeAmericas : null,
     ));
     return cntList;

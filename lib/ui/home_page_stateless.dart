@@ -49,7 +49,7 @@ class HomePageStateLess extends StatelessWidget {
   }
 
   Widget _buildItem(ContentModel cnt) {
-    if ((cnt.txt == '')) {
+    if ((cnt.txt == '' || cnt.type == 'photo')) {
       return Container(
         height: 0,
       );
@@ -57,32 +57,27 @@ class HomePageStateLess extends StatelessWidget {
       return Positioned(
           top: cnt.posY,
           left: cnt.posX,
-          child: FittedBox(
-            child: Row(
-              children: <Widget>[
-                (cnt.type == 'photo')
-                    ? _buildPicture()
-                    : (cnt.icon != null)
-                    ? Padding(
-                    padding: const EdgeInsets.only(right: 8.0),
-                    child: Icon(
-                      Functions.buildIcon(cnt.type),
-                      color: cnt.color,
-//                      size: cnt.size * (widthScreen / displayWidth(context)),
-                      size: cnt.size,
-                    ))
-                    : SizedBox(width: 0),
-                (cnt.type == 'photo')
-                    ? Container(width: 1, height: 1)
-                    : Text(
-                  cnt.txt,
-                  style: TextStyle(
-                      fontSize: cnt.size,
-                      color: cnt.color,
-                      fontWeight: FontWeight.w500),
-                ),
-              ],
-            ),
+          child: Row(
+            children: [
+              (cnt.icon != null)
+                  ? Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Icon(
+                    Functions.buildIcon(cnt.type),
+                    color: cnt.color,
+                    size: cnt.size,
+                  ))
+                  : SizedBox(width: 0),
+              Text(
+                cnt.txt,
+                textScaleFactor: cnt.scale,
+                style: TextStyle(
+                    fontFamily: cnt.font,
+                    fontSize: cnt.size,
+                    color: cnt.color,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
           ));
     }
   }

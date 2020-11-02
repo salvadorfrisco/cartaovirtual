@@ -1,3 +1,4 @@
+import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 /// Block Color Picker
 
@@ -11,17 +12,17 @@ typedef PickerItemBuilder = Widget Function(
 
 class BlockPicker extends StatefulWidget {
   const BlockPicker({
+    @required this.cnt,
     @required this.pickerColor,
     @required this.onColorChanged,
-    @required this.above,
     this.availableColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
   });
 
+  final ContentModel cnt;
   final Color pickerColor;
   final Function onColorChanged;
-  final bool above;
   final List<Color> availableColors;
   final PickerLayoutBuilder layoutBuilder;
   final PickerItemBuilder itemBuilder;
@@ -85,9 +86,9 @@ class _BlockPickerState extends State<BlockPicker> {
     super.initState();
   }
 
-  void changeColor(Color color, bool above) {
+  void changeColor(Color color, ContentModel cnt) {
     setState(() => _currentColor = color);
-    widget.onColorChanged(color: color, above: above);
+    widget.onColorChanged(color: color, cnt: cnt);
   }
 
   @override
@@ -96,7 +97,7 @@ class _BlockPickerState extends State<BlockPicker> {
       context,
       widget.availableColors,
           (Color color, [bool _, Function __]) => widget.itemBuilder(
-          color, _currentColor.value == null, () => changeColor(color, widget.above)),
+          color, _currentColor.value == null, () => changeColor(color, widget.cnt)),
     );
   }
 }
