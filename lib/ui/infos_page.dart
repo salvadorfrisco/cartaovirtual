@@ -169,7 +169,7 @@ class _InfosPageState extends State<InfosPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                            VERSION + ' 1.2.0+28',
+                            VERSION + ' 1.2.1+29',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: _sizeWidth * 0.03),
@@ -361,7 +361,6 @@ class _InfosPageState extends State<InfosPage> {
             cardInfo.photoCircle != _photoCircle)
         ? true
         : false;
-    print(formChanged);
     return formChanged;
   }
 
