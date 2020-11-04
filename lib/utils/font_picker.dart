@@ -67,7 +67,8 @@ class FontPicker extends StatefulWidget {
                 fontFamily: font,
                 fontSize: 32.0,
                 color: Colors.black,
-                fontWeight: FontWeight.w500),
+                // fontWeight: FontWeight.w500
+            ),
           ),
           // child: AnimatedOpacity(
           //   duration: const Duration(milliseconds: 210),
