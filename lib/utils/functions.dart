@@ -32,9 +32,21 @@ class Functions {
     if (txt == 'website') return FontAwesomeIcons.globeAmericas;
   }
 
-  static contentButton(txt, icon, color) {
+  static contentButton(txt, icon, color, {txtSize: 15.0}) {
     List<Widget> list = [];
     if (icon != null) list.add(Icon(icon, color: color, size: (txt == '') ? 20.0 : 26.0,));
+    if (txt != "")
+      list.add(
+          FittedBox(child: Text(txt, style: TextStyle(fontSize: txtSize, color: color))));
+    return list;
+  }
+
+  static contentButton2(txt, icon, icon2, color) {
+    List<Widget> list = [];
+    list.add(Row(children:[
+      Icon(icon, color: color, size: (txt == '') ? 20.0 : 26.0,),
+      Icon(icon2, color: color, size: (txt == '') ? 20.0 : 26.0,),
+    ]));
     if (txt != "")
       list.add(
           FittedBox(child: Text(txt, style: TextStyle(fontSize: 15.0, color: color))));

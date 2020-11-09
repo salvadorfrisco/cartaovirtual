@@ -69,26 +69,27 @@ class _ConfigPageState extends State<ConfigPage> {
         children: <Widget>[
           _buildCustomButton("", Icons.arrow_back, _navToHome),
           _buildCustomButton(
-              "fontes",
+              "textos",
               Icons.color_lens,
               () => setState(() {
                     _indexPage = 0;
                   }),
-              actual: _indexPage == 0),
-          _buildCustomButton(
-              "posição",
-              Icons.all_out,
-              () => setState(() {
-                    _indexPage = 1;
-                  }),
-              actual: _indexPage == 1),
+              actual: _indexPage == 0,
+              icon2: Icons.zoom_out_map_sharp,),
+          // (_indexPage == 0) ? _buildCustomButton(
+          //     "posição",
+          //     Icons.all_out,
+          //     () => setState(() {
+          //           _indexPage = 1;
+          //         }),
+          //     actual: _indexPage == 1) : SizedBox(height: 1,),
           _buildCustomButton(
               "imagem",
               Icons.panorama,
               () => setState(() {
-                    _indexPage = 2;
+                    _indexPage = 1;
                   }),
-              actual: _indexPage == 2),
+              actual: _indexPage == 1),
         ],
       ),
     );
@@ -108,18 +109,18 @@ class _ConfigPageState extends State<ConfigPage> {
           profileImage: widget.profileImage,
         );
         break;
+      // case 1:
+      //   return Stack(
+      //     children: <Widget>[
+      //       PositionPage(
+      //         cardInfo: widget.cardInfo,
+      //         imageBackground: widget.imageBackground,
+      //         profileImage: widget.profileImage,
+      //       ),
+      //     ],
+      //   );
+      //   break;
       case 1:
-        return Stack(
-          children: <Widget>[
-            PositionPage(
-              cardInfo: widget.cardInfo,
-              imageBackground: widget.imageBackground,
-              profileImage: widget.profileImage,
-            ),
-          ],
-        );
-        break;
-      case 2:
         return ThemePage(
           cardInfo: widget.cardInfo,
           profileImage: widget.profileImage,
@@ -128,7 +129,7 @@ class _ConfigPageState extends State<ConfigPage> {
     }
   }
 
-  _buildCustomButton(txt, icon, action, {actual: false}) {
+  _buildCustomButton(txt, icon, action, {actual: false, icon2}) {
     return InkWell(
         onTap: action,
         child: Center(
@@ -145,8 +146,10 @@ class _ConfigPageState extends State<ConfigPage> {
             child: FittedBox(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, actual ? Colors.yellowAccent : Colors.white)),
-            ),
+                  children: (icon2 == null) ?
+                  Functions.contentButton(txt, icon, actual ? Colors.yellowAccent : Colors.white) :
+                  Functions.contentButton2(txt, icon, icon2, actual ? Colors.yellowAccent : Colors.white)),
+          ),
           ),
         ));
   }

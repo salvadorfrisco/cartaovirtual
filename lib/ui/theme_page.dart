@@ -89,6 +89,14 @@ class _ThemePageState extends State<ThemePage> {
                         body: Stack(
                           children: <Widget>[
                             _selectModel(context),
+                            Positioned(
+                                top: displayHeight(context) / 8,
+                                right: 4,
+                                child: Column(children: [
+                                  _transparencyControl(),
+                                  SizedBox(height: 12,),
+                                  _buildUploadButton("upload\ngaleria", Icons.file_upload),
+                                ])),
                             isLoading
                                 ? Center(
                                     child: CircularProgressIndicator(
@@ -120,6 +128,34 @@ class _ThemePageState extends State<ThemePage> {
         ),
       ),
     );
+  }
+
+  _transparencyControl() {
+    return RotatedBox(
+        quarterTurns: 1,
+        child: Container(
+          width: displayWidth(context) * 0.5,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.black38,
+              border: Border.all(
+                color: Colors.white,
+              ),
+              borderRadius: BorderRadius.all(Radius.circular(20))),
+          child: Slider(
+              value: double.parse(cardInfo.opacity) * 10,
+              min: 0.0,
+              max: 10.0,
+              divisions: 40,
+              activeColor: Colors.white,
+              inactiveColor: Colors.black,
+              onChanged: (double newValue) {
+                setState(() {
+                  cardInfo.opacity = (newValue / 10).toString();
+                  storage.saveData(cardInfo, false);
+                });
+              }),
+        ));
   }
 
   uploadAndCrop() async {
@@ -154,19 +190,19 @@ class _ThemePageState extends State<ThemePage> {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.18,
-            height: MediaQuery.of(context).size.width * 0.14,
+            width: MediaQuery.of(context).size.width * 0.16,
+            height: MediaQuery.of(context).size.width * 0.2,
             decoration: BoxDecoration(
-                color: Colors.black54,
+                color: Colors.black38,
                 border: Border.all(
                   color: Colors.white,
                 ),
                 borderRadius: BorderRadius.all(
-                    Radius.circular(MediaQuery.of(context).size.width * 0.04))),
+                    Radius.circular(MediaQuery.of(context).size.width * 0.06))),
             child: FittedBox(
               child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, Colors.white)),
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: Functions.contentButton(txt, icon, Colors.white, txtSize: 10.0)),
             ),
           ),
         ));
@@ -226,11 +262,11 @@ class _ThemePageState extends State<ThemePage> {
                     ),
               )],
         ),
-        Positioned(
-          top: displayHeight(context) * 0.04,
-          right: displayWidth(context) * 0.04,
-          child: _buildUploadButton("upload", Icons.file_upload),
-        ),
+        // Positioned(
+        //   top: displayHeight(context) * 0.04,
+        //   right: displayWidth(context) * 0.04,
+        //   child: _buildUploadButton("upload", Icons.file_upload),
+        // ),
       ],
     );
   }

@@ -85,10 +85,10 @@ class _ColorsPageState extends State<ColorsPage> {
                       cardInfo: cardInfo,
                       imageBackground: imageBackground,
                       profileImage: widget.profileImage),
-                  Positioned(
-                      top: displayHeight(context) / 4,
-                      right: 10,
-                      child: _transparencyControl()),
+                  // Positioned(
+                  //     top: displayHeight(context) / 4,
+                  //     right: 10,
+                  //     child: _transparencyControl()),
                   isLoading
                       ? Center(child: CircularProgressIndicator())
                       : Container(),

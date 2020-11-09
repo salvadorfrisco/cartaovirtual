@@ -106,12 +106,16 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   Color _appColor = Color(0xFFF2F2F2);
   double _sizeWidth, _sizeHeight;
   List<ContentModel> contentList;
+  CardInfo cardInfo;
   static const Color colorBack = Color(0xDD123322);
   String _field;
   StorageService storage = StorageService();
+  double _dx, _dy;
+  Offset _position;
 
   @override
   void initState() {
+    cardInfo = widget.cardInfo;
     super.initState();
   }
 
@@ -181,45 +185,76 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
       );
     } else {
       return Positioned(
-          top: cnt.posY * (_sizeWidth / displayWidth(context)),
-          left: cnt.posX * (_sizeWidth / displayWidth(context)),
-          child: (cnt.type == 'photo')
-              ? _buildPicture()
-              : GestureDetector(
-                  onTap: () {
-                    _field = cnt.type;
-                    _upSide = cnt.posY / _sizeHeight < 0.5;
-                    setState(() {
-                      _field = cnt.type;
-                      _buttonsOn = true;
-                    });
-                  },
-                  child: Row(
-                    children: [
-                      (cnt.icon != null)
-                          ? Padding(
-                              padding: const EdgeInsets.only(right: 8.0),
-                              child: Icon(
-                                Functions.buildIcon(cnt.type),
-                                color: cnt.color,
-                                size: cnt.size *
-                                    (_sizeWidth / displayWidth(context)),
-                              ))
-                          : SizedBox(width: 0),
-                      Text(
-                        cnt.txt,
-                        textScaleFactor: cnt.scale,
-                        style: TextStyle(
-                            fontFamily: cnt.font,
-                            fontSize:
-                                cnt.size * (_sizeWidth / displayWidth(context)),
-                            color: cnt.color,
-                            fontWeight: FontWeight.w500),
-                      ),
-                    ],
-                  ),
-                ));
+          top: cnt.posY,
+          left: cnt.posX,
+          child: Draggable(
+            child: Container(
+                child: _buildElement(cnt)),
+            feedback: Material(
+              child: Container(
+                child: _buildElement(cnt),
+                color: Color(0x46ddee00),
+              ),
+            ),
+            onDraggableCanceled: (velocity, offset){
+              RenderBox renderBox = context.findRenderObject();
+              _position = renderBox.globalToLocal(offset);
+              _dx = _position.dx;
+              _dy = _position.dy;
+              if (_dx < 0)
+                _dx = 0;
+              else if (_dx > _sizeWidth - _sizeWidth * 0.1)
+                _dx = _sizeWidth - _sizeWidth * 0.1;
+              if (_dy < 0)
+                _dy = 0;
+              else if (_dy > _sizeHeight - _sizeHeight * 0.04)
+                _dy = _sizeHeight - _sizeHeight * 0.04;
+              cnt.posX = _dx;
+              cnt.posY = _dy;
+              savePos(cnt.type, cnt.posX, cnt.posY);
+            },
+          )
+      );;
     }
+  }
+
+  _buildElement(cnt) {
+    return (cnt.type == 'photo')
+        ? _buildPicture()
+        : GestureDetector(
+      onTap: () {
+        _field = cnt.type;
+        _upSide = cnt.posY / _sizeHeight < 0.5;
+        setState(() {
+          _field = cnt.type;
+          _buttonsOn = true;
+        });
+      },
+      child: Row(
+        children: [
+          (cnt.icon != null)
+              ? Padding(
+              padding: const EdgeInsets.only(right: 8.0),
+              child: Icon(
+                Functions.buildIcon(cnt.type),
+                color: cnt.color,
+                size: cnt.size *
+                    (_sizeWidth / displayWidth(context)),
+              ))
+              : SizedBox(width: 0),
+          Text(
+            cnt.txt,
+            textScaleFactor: cnt.scale,
+            style: TextStyle(
+                fontFamily: cnt.font,
+                fontSize:
+                cnt.size * (_sizeWidth / displayWidth(context)),
+                color: cnt.color,
+                fontWeight: FontWeight.w500),
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildItemColor(ContentModel cnt) {
@@ -275,10 +310,10 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     return IconButton(
         icon: Icon(
             (increase)
-                ? FontAwesomeIcons.chevronCircleUp
-                : FontAwesomeIcons.chevronCircleDown,
+                ? Icons.zoom_out_map_sharp
+                : FontAwesomeIcons.compressArrowsAlt,
             color: cnt.color),
-        iconSize: 34,
+        iconSize: (increase) ? 36 : 28,
         onPressed: () {
           _increaseFont(cnt, increase);
         });
@@ -351,6 +386,22 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     storage.saveData(widget.cardInfo, false);
     setState(() {});
     Navigator.pop(context);
+  }
+
+  savePos(type, posX, posY) {
+    if (type == 'name') { cardInfo.posXName = posX; cardInfo.posYName = posY; }
+    else if (type == 'occupation') { cardInfo.posXOccupation = posX; cardInfo.posYOccupation = posY; }
+    else if (type == 'phone') { cardInfo.posXPhone = posX; cardInfo.posYPhone = posY; }
+    else if (type == 'photo') { cardInfo.posXPhoto = posX; cardInfo.posYPhoto = posY; }
+    else if (type == 'email') { cardInfo.posXEmail = posX; cardInfo.posYEmail = posY; }
+    else if (type == 'facebook') { cardInfo.posXFacebook = posX; cardInfo.posYFacebook = posY; }
+    else if (type == 'instagram') { cardInfo.posXInstagram = posX; cardInfo.posYInstagram = posY; }
+    else if (type == 'twitter') { cardInfo.posXTwitter = posX; cardInfo.posYTwitter = posY; }
+    else if (type == 'linkedin') { cardInfo.posXLinkedin = posX; cardInfo.posYLinkedin = posY; }
+    else if (type == 'youtube') { cardInfo.posXYoutube = posX; cardInfo.posYYoutube = posY; }
+    else if (type == 'website') { cardInfo.posXWebsite = posX; cardInfo.posYWebsite = posY; }
+    storage.saveData(cardInfo, false);
+    setState(() {});
   }
 
   changeFontFamily({String font, ContentModel cnt}) {
