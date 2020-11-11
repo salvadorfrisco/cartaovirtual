@@ -1,11 +1,10 @@
+import 'dart:async';
 import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
-/// Block Color Picker
-
 import 'package:flutter/material.dart';
 
 typedef PickerLayoutBuilder = Widget Function(
-    BuildContext context, List<String> fonts, PickerItem child);
+    BuildContext context, List<String> fonts, PickerItem child, String fontSelected);
 typedef PickerItem = Widget Function(String font);
 typedef PickerItemBuilder = Widget Function(
     String font, bool isCurrentFont, Function changeFont);
@@ -28,15 +27,26 @@ class FontPicker extends StatefulWidget {
   final PickerItemBuilder itemBuilder;
 
   static Widget defaultLayoutBuilder(
-      BuildContext context, List<String> fonts, PickerItem child) {
+      BuildContext context, List<String> fonts, PickerItem child, String fontSelected) {
     Orientation orientation = MediaQuery.of(context).orientation;
+    final _controller = ScrollController();
+
+    Timer(
+      Duration(milliseconds: 1),
+          () => _controller.animateTo(  fonts.indexOf(fontSelected).toDouble() * 50,
+              curve: Curves.easeOut,
+              duration: const Duration(milliseconds: 500)),
+    );
 
     return Container(
-      width: displayWidth(context) * 0.9,
+      width: displayWidth(context) * 0.94,
       height: displayHeight(context) * 0.56,
-      color: Colors.black12,
+      color: Colors.black87,
       child: ListView(
-        children: fonts.map((String font) => child(font)).toList(),
+        controller: _controller,
+        children: fonts.map((String font) {
+          return child(font);
+        }).toList(),
       ),
     );
   }
@@ -44,7 +54,7 @@ class FontPicker extends StatefulWidget {
   static Widget defaultItemBuilder(
       String font, bool isCurrentFont, Function changeFont) {
     return Container(
-      margin: EdgeInsets.all(5.0),
+      margin: EdgeInsets.all(2.0),
       // decoration: BoxDecoration(
       //   borderRadius: BorderRadius.circular(50.0),
       //   // color: color,
@@ -60,14 +70,20 @@ class FontPicker extends StatefulWidget {
         color: Colors.transparent,
         child: InkWell(
           onTap: changeFont,
-          borderRadius: BorderRadius.circular(50.0),
-          child: Text(
-            font,
-            style: TextStyle(
-                fontFamily: font,
-                fontSize: 32.0,
-                color: Colors.black,
-                // fontWeight: FontWeight.w500
+          borderRadius: BorderRadius.circular(10.0),
+          child: Container(
+            height: 50.0,
+            child: FittedBox(
+              fit: BoxFit.contain,
+              child: Text(
+                font,
+                style: TextStyle(
+                    fontFamily: font,
+                    fontSize: 32.0,
+                    color: isCurrentFont ? Colors.blue : Colors.white,
+                    // fontWeight: FontWeight.w500
+                ),
+              ),
             ),
           ),
           // child: AnimatedOpacity(
@@ -86,10 +102,12 @@ class FontPicker extends StatefulWidget {
 
 class _FontPickerState extends State<FontPicker> {
   String _currentFont;
+  ScrollController _controller;
 
   @override
   void initState() {
     _currentFont = widget.pickerFont;
+    _controller = ScrollController();
     super.initState();
   }
 
@@ -104,7 +122,9 @@ class _FontPickerState extends State<FontPicker> {
       context,
       widget.availableFonts,
           (String font, [bool _, Function __]) => widget.itemBuilder(
-          font, _currentFont == null, () => changeFont(font, widget.cnt)),
+          font, _currentFont == font, () => changeFont(font, widget.cnt)),
+      widget.pickerFont
     );
   }
+
 }
