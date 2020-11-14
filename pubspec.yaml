@@ -1,6 +1,6 @@
 name: virtual_card
-description: Criação e envio de cartão de visita digital
-version: 1.2.2+30
+description: Criação e compartilhamento de imagens personalizadas
+version: 1.2.3+31
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -82,9 +82,15 @@ flutter:
     - family: Giorgino
       fonts:
         - asset: assets/fonts/Giorgino.ttf
+    - family: Kuenstler
+      fonts:
+        - asset: assets/fonts/Kuenstler.otf
     - family: Montserrat
       fonts:
-        - asset: assets/fonts/Montserrat.ttf
+          - asset: assets/fonts/Montserrat.ttf
+    - family: Neoa
+      fonts:
+        - asset: assets/fonts/Neonavy.ttf
     - family: Opficio
       fonts:
         - asset: assets/fonts/Opficio.ttf
@@ -100,13 +106,16 @@ flutter:
     - family: Rubik
       fonts:
         - asset: assets/fonts/Rubik.ttf
+    - family: Secondch
+      fonts:
+        - asset: assets/fonts/Secondchance.ttf
     - family: Walkway
       fonts:
         - asset: assets/fonts/Walkway.ttf
     - family: Advark
       fonts:
         - asset: assets/fonts/Advark.ttf
-    - family: Aquarium
+    - family: Aquar
       fonts:
         - asset: assets/fonts/Aquarium.ttf
     - family: Athletic
@@ -121,7 +130,7 @@ flutter:
     - family: Bernardo
       fonts:
         - asset: assets/fonts/Bernardo.ttf
-    - family: Blacklisted
+    - family: Blacklist
       fonts:
         - asset: assets/fonts/Blacklisted.ttf
     - family: Blocks
@@ -136,7 +145,7 @@ flutter:
     - family: Cartoon
       fonts:
         - asset: assets/fonts/Cartoon.ttf
-    - family: Castiron
+    - family: Caste
       fonts:
         - asset: assets/fonts/Castiron.ttf
     - family: Catpaw
@@ -145,10 +154,10 @@ flutter:
     - family: Circus
       fonts:
         - asset: assets/fonts/Circus.ttf
-    - family: Cowboys
+    - family: Cowby
       fonts:
         - asset: assets/fonts/Cowboys.ttf
-    - family: Flowers
+    - family: Flower
       fonts:
         - asset: assets/fonts/Flowers.ttf
     - family: Fuzzy
@@ -187,6 +196,9 @@ flutter:
     - family: Music
       fonts:
         - asset: assets/fonts/Music.ttf
+    - family: Neoa
+      fonts:
+        - asset: assets/fonts/Neonavy.ttf
     - family: Playtoy
       fonts:
         - asset: assets/fonts/Playtoy.ttf
@@ -211,6 +223,12 @@ flutter:
     - family: Vanessa
       fonts:
         - asset: assets/fonts/Vanessa.ttf
+    - family: Vegas
+      fonts:
+        - asset: assets/fonts/Vegas.ttf
+    - family: Verdana
+      fonts:
+        - asset: assets/fonts/Verdana.ttf
     - family: Vintage
       fonts:
         - asset: assets/fonts/Vintage.ttf

@@ -95,7 +95,7 @@ class _ThemePageState extends State<ThemePage> {
                                 child: Column(children: [
                                   _transparencyControl(),
                                   SizedBox(height: 12,),
-                                  _buildUploadButton("upload\ngaleria", Icons.file_upload),
+                                  _buildUploadButton("", Icons.file_upload),
                                 ])),
                             isLoading
                                 ? Center(
@@ -190,15 +190,15 @@ class _ThemePageState extends State<ThemePage> {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.16,
-            height: MediaQuery.of(context).size.width * 0.2,
+            width: MediaQuery.of(context).size.width * 0.15,
+            height: MediaQuery.of(context).size.width * 0.16,
             decoration: BoxDecoration(
                 color: Colors.black38,
                 border: Border.all(
                   color: Colors.white,
                 ),
                 borderRadius: BorderRadius.all(
-                    Radius.circular(MediaQuery.of(context).size.width * 0.06))),
+                    Radius.circular(MediaQuery.of(context).size.width * 0.07))),
             child: FittedBox(
               child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,

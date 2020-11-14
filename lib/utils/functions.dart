@@ -32,6 +32,27 @@ class Functions {
     if (txt == 'website') return FontAwesomeIcons.globeAmericas;
   }
 
+  static buildCustomButton(txt, icon, colorBack) {
+    return Center(
+          child: Container(
+            padding: EdgeInsets.all(6.0),
+            width: 54.0,
+            height: 50.0,
+            decoration: BoxDecoration(
+                color: colorBack,
+                border: Border.all(
+                  color: Colors.white,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            child: FittedBox(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: Functions.contentButton(txt, icon, Colors.white)),
+            ),
+          ),
+        );
+  }
+
   static contentButton(txt, icon, color, {txtSize: 15.0}) {
     List<Widget> list = [];
     if (icon != null) list.add(Icon(icon, color: color, size: (txt == '') ? 20.0 : 26.0,));

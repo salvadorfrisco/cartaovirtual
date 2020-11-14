@@ -78,11 +78,11 @@ class TermsPage extends StatelessWidget {
               _text(
                   '2.1 ',
                   ' Este Termo de Uso apresenta as condições gerais aplicáveis ao uso do '
-                      'Aplicativo Cartão de Visita Digital oferecidos pela Frisk.\n'),
+                      'Aplicativo Image Creator oferecidos pela Frisk.\n'),
               _text('3. FUNCIONAMENTO DO APLICATIVO\n', ''),
               _text(
                   '3.1 ',
-                  ' O Aplicativo Cartão de Visita Digital possui áreas de conteúdo aberto para que o Usuário acesse conteúdo e possa cadastrar '
+                  ' O Aplicativo Image Creator possui áreas de conteúdo aberto para que o Usuário acesse conteúdo e possa cadastrar '
                       'alguns dados pessoais, tais como: nome completo, e-mail, telefone, celular, profissão, inclusive outros dados para '
                       'divulgação de canais para contato, incluindo endereços de redes sociais e conteúdos livres.'),
               _text(
@@ -195,36 +195,30 @@ class TermsPage extends StatelessWidget {
                   ' Para os fins descritos no item 4.2, a Frisk poderá coletar, armazenar, tratar, processar e'
                       'utilizar as seguintes informações a respeito da navegação do Usuário no Aplicativo,'
                       'que integram os “Registros de Navegação”:'),
-              _text(
-                  '    (i) ',
-                  ' Localização geográfica - Permite a aplicação usar o GPS para obter a localização aproximada '
-                      'do usuário, o aplicativo usa para obter a localização do usuário e mostrar as redes credenciadas, dentre outros;'),
+              _text('    (i) ',
+                  ' Galeria de fotos – permite acessar a galeria de fotos para efetuar upload de arquivos para compor a '
+                      'imagem no Aplicativo;'),
               _text('    (ii) ',
-                  ' Câmera – permite a aplicação usar a câmera para definir uma fotografia ao perfil do Usuário no Aplicativo;'),
+                  ' Câmera – permite usar a câmera para tirar foto para compor a imagem no Aplicativo;'),
               _text(
                   '    (iii) ',
-                  ' Telefone e Microfone -- Permissão necessária para que o Aplicativo consiga realizar'
-                      'ligações pelo usuário, essa permissão é requerida quando o cartão está inativo e é necessário'
-                      'entrar em contato com a central;'),
-              _text(
-                  '    (iv) ',
-                  ' Conta e Contatos - Permissão necessária para funcionalidade compartilhar o aplicativo com'
+                  ' Conta e Contatos - Permissão necessária para funcionalidade compartilhar o aplicativo com '
                       'amigos, para que o Aplicativo possa acessar contas pessoais;'),
               _text(
-                  '    (v) ',
-                  ' Armazenamento local - Permite que a aplicação grave arquivos no celular. Utilizamos para'
+                  '    (iv) ',
+                  ' Armazenamento local - Permite que a aplicação grave arquivos no celular. Utilizamos para '
                       'salvar as informações cadastradas;'),
               _text(
-                  '    (vi) ', ' Sistema operacional utilizado pelo Usuário;'),
-              _text('    (vii) ', ' Navegador e suas respectivas versões;'),
-              _text('    (viii) ', ' Resolução de tela;'),
-              _text('    (ix) ',
+                  '    (v) ', ' Sistema operacional utilizado pelo Usuário;'),
+              _text('    (vi) ', ' Navegador e suas respectivas versões;'),
+              _text('    (vii) ', ' Resolução de tela;'),
+              _text('    (viii) ',
                   ' Dart, Kotlin, Swift (linguagens de programação);'),
-              _text('    (x) ',
+              _text('    (ix) ',
                   ' Código ID (IMEI) do aparelho mobile pelo qual o Usuário acessou o Aplicativo;'),
-              _text('    (xi) ',
+              _text('    (x) ',
                   ' Informações referentes à data e hora de uso do Aplicativo por um determinado Usuário, a partir de um ID do aparelho;'),
-              _text('    (xii) ',
+              _text('    (xi) ',
                   ' Informações referentes às quantidades e localização de toques e tentativas de uso do Aplicativo, bem como de páginas acessadas pelo Usuário.\n'),
               _text(
                   '5.4. ',

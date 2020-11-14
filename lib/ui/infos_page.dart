@@ -13,6 +13,7 @@ import 'package:virtual_card/utils/infos_helper.dart';
 import 'package:virtual_card/utils/keyboard_utils.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import 'package:virtual_card/widgets/custom_app_bar.dart';
+import '../main_page.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
 
@@ -39,6 +40,7 @@ class _InfosPageState extends State<InfosPage> {
   CardInfo cardInfo;
   double _sizeWidth;
   ScrollController _scrollController = ScrollController();
+  static const Color colorBack = Colors.black54;
 
   @override
   Widget build(BuildContext context) {
@@ -115,13 +117,6 @@ class _InfosPageState extends State<InfosPage> {
             resizeToAvoidBottomInset: false,
             resizeToAvoidBottomPadding: false,
             key: _scaffoldKey,
-            appBar: CustomAppBar(
-                title: "Informações do Cartão",
-                formChanged: formChanged,
-                formSaved: formSaved,
-                actionBack: saveData
-                // actionSave: saveData
-                ),
             body: _body()));
   }
 
@@ -146,7 +141,7 @@ class _InfosPageState extends State<InfosPage> {
           child: SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
-              padding: const EdgeInsets.only(top: 18.0),
+              padding: const EdgeInsets.only(top: 48.0),
               child: Column(
                 children: [
                   itemCard(contentList[0], 0),
@@ -179,9 +174,22 @@ class _InfosPageState extends State<InfosPage> {
               ),
             ),
           ),
-        )
+        ),
+        Positioned(
+            top: 30.0,
+            left: 10.0,
+            child: InkWell(
+                onTap: () { _navToHome(); } ,
+                child: Functions.buildCustomButton("", Icons.arrow_back, colorBack))),
+
       ]),
     );
+  }
+
+  _navToHome() {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => MainPage()),
+        ModalRoute.withName('/'));
   }
 
   _navToTerms() {
@@ -262,7 +270,7 @@ class _InfosPageState extends State<InfosPage> {
               ],
             ))
         : _buildMessage(
-            "Incluir imagem ou logotipo no cartão", () => uploadAndCrop(cnt),
+            "Incluir imagem da galeria de fotos", () => uploadAndCrop(cnt),
             width: 0.64);
   }
 

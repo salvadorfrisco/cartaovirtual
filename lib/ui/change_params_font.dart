@@ -36,42 +36,44 @@ const List<Color> _defaultColors = [
 
 const List<String> _defaultFonts = [
   'Advark',
-  'Aquarium',
+  'Aquar',
   'Arcade',
   'Armywar',
   'Athletic',
   'Barcode',
   'Bendit',
   'Bernardo',
-  'Blacklisted',
+  'Blacklist',
   'Blocks',
   'Blomster',
   'Caricature',
   'Cartoon',
-  'Castiron',
+  'Caste',
   'Catpaw',
   'Champagne',
-  'Forgot',
-  'Giorgino',
   'Circus',
-  'Cowboys',
+  'Cowby',
   'Dancing',
   'Dreams',
   'Excentric',
-  'Flowers',
+  'Flower',
+  'Forgot',
   'Fuzzy',
+  'Giorgino',
   'Grobol',
   'Hannah',
   'Heineken',
   'Hischool',
   'Icecold',
   'Icecream',
+  'Kuenstler',
   'LokiCola',
   'Melody',
   'Milestone',
   'Minnie',
   'Montserrat',
   'Music',
+  'Neoa',
   'Opficio',
   'Pacifico',
   'Playfair',
@@ -82,10 +84,14 @@ const List<String> _defaultFonts = [
   'Roboto',
   'Rubik',
   'School',
+  'Secondch',
   'Smoke',
   'Vanessa',
+  'Vegas',
+  'Verdana',
   'Vintage',
   'Walkway',
+  'Woodcutter',
   'Zornic',
 ];
 
@@ -219,10 +225,10 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   }
 
   _buildElement(cnt) {
-    return (cnt.type == 'photo')
-        ? _buildPicture()
-        : GestureDetector(
+    return GestureDetector(
       onTap: () {
+        print("AQUI");
+        print(cnt.type);
         _field = cnt.type;
         _upSide = cnt.posY / _sizeHeight < 0.5;
         setState(() {
@@ -230,7 +236,9 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
           _buttonsOn = true;
         });
       },
-      child: Row(
+      child: (cnt.type == 'photo')
+        ? _buildPicture()
+        : Row(
         children: [
           (cnt.icon != null)
               ? Padding(
@@ -264,7 +272,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
       return Positioned(
         top: cnt.posY + (_upSide ? 50 : -100),
         left: _sizeWidth / 6,
-        child: (cnt.type != 'photo' && _buttonsOn)
+        child: _buttonsOn
             ? _buildButtons(cnt)
             : SizedBox(),
       );
@@ -287,14 +295,36 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buttonFont(cnt),
-            _buttonColor(cnt),
+            (cnt.type == 'photo') ? _buttonShape(cnt) : _buttonFont(cnt),
+            (cnt.type == 'photo') ? _buttonRotate(cnt) : _buttonColor(cnt),
             _buttonSizeFont(cnt),
             _buttonSizeFont(cnt, increase: false),
           ],
         ),
       ),
     );
+  }
+
+  _buttonShape(cnt) {
+    print(cnt.type);
+    return IconButton(
+        // TODO
+        icon: Icon(Icons.crop_square_sharp, color: cnt.color),
+        // icon: Icon(Icons.blur_circular, color: cnt.color),
+        iconSize: 38,
+        onPressed: () {
+          _changeShape(cnt);
+        });
+  }
+
+  _buttonRotate(cnt) {
+    print(cnt.type);
+    return IconButton(
+        icon: Icon(Icons.rotate_right, color: cnt.color),
+        iconSize: 38,
+        onPressed: () {
+          _rotate(cnt);
+        });
   }
 
   _buttonFont(cnt) {
@@ -315,7 +345,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
             color: cnt.color),
         iconSize: (increase) ? 36 : 28,
         onPressed: () {
-          _increaseFont(cnt, increase);
+          _changeSize(cnt, increase);
         });
   }
 
@@ -464,7 +494,17 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     );
   }
 
-  _increaseFont(cnt, increase) {
+  _rotate(cnt) {
+    // TODO
+    print('rotacionar');
+  }
+
+  _changeShape(cnt) {
+    // TODO
+    print('alterar forma');
+  }
+
+  _changeSize(cnt, increase) {
     switch (cnt.type) {
       case "name":
         widget.cardInfo.scaleName = widget.cardInfo.scaleName +
