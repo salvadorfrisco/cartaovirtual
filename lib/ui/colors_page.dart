@@ -130,14 +130,6 @@ class _ColorsPageState extends State<ColorsPage> {
 
   setInitialData() {
     cardInfo = widget.cardInfo;
-    if ((cardInfo.colorTextAbove ?? '').length > 0)
-      _fontColor = intelligentCast<Color>(cardInfo.colorTextAbove);
-    else
-      _fontColor = Color(0xffEBF6aa);
-    if ((cardInfo.colorTextBelow ?? '').length > 0)
-      _backColor = intelligentCast<Color>(cardInfo.colorTextBelow);
-    else
-      _backColor = Color(0xff3b73de);
   }
 
   Future<void> loadImageBackground(version) async => await storage

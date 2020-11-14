@@ -227,8 +227,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buildElement(cnt) {
     return GestureDetector(
       onTap: () {
-        print("AQUI");
-        print(cnt.type);
         _field = cnt.type;
         _upSide = cnt.posY / _sizeHeight < 0.5;
         setState(() {
@@ -236,8 +234,12 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
           _buttonsOn = true;
         });
       },
-      child: (cnt.type == 'photo')
-        ? _buildPicture()
+      child:
+      RotationTransition(
+          turns: new AlwaysStoppedAnimation(cnt.angle / 360),
+      child:
+      (cnt.type == 'photo')
+        ? _buildPicture(cnt)
         : Row(
         children: [
           (cnt.icon != null)
@@ -261,6 +263,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                 fontWeight: FontWeight.w500),
           ),
         ],
+      ),
       ),
     );
   }
@@ -306,10 +309,9 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   }
 
   _buttonShape(cnt) {
-    print(cnt.type);
     return IconButton(
-        // TODO
-        icon: Icon(Icons.crop_square_sharp, color: cnt.color),
+        icon: Icon(cardInfo.photoCircle ? FontAwesomeIcons.circle : Icons.crop_square_sharp,
+             color: cnt.color),
         // icon: Icon(Icons.blur_circular, color: cnt.color),
         iconSize: 38,
         onPressed: () {
@@ -318,7 +320,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   }
 
   _buttonRotate(cnt) {
-    print(cnt.type);
     return IconButton(
         icon: Icon(Icons.rotate_right, color: cnt.color),
         iconSize: 38,
@@ -497,11 +498,15 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _rotate(cnt) {
     // TODO
     print('rotacionar');
+    setState(() {
+      cardInfo.photoCircle = !cardInfo.photoCircle;
+    });
   }
 
   _changeShape(cnt) {
-    // TODO
-    print('alterar forma');
+    setState(() {
+      cardInfo.photoCircle = !cardInfo.photoCircle;
+    });
   }
 
   _changeSize(cnt, increase) {
@@ -599,13 +604,13 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     setState(() {});
   }
 
-  _buildPicture() {
+  _buildPicture(cnt) {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
-              width: _sizeWidth * 0.4,
-              height: _sizeWidth * 0.4,
+              width: _sizeWidth * 0.4 * cnt.scale,
+              height: _sizeWidth * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
                 shape: (widget.cardInfo.photoCircle)
                     ? BoxShape.circle

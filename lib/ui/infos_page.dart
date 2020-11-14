@@ -104,6 +104,7 @@ class _InfosPageState extends State<InfosPage> {
   saveImage(img64, version) {
     setState(() {
       StorageService.savePhotoLocal64(img64, 'profileImage', version);
+      cardInfo.hasPhoto = true;
       isLoading = false;
     });
   }
@@ -179,7 +180,10 @@ class _InfosPageState extends State<InfosPage> {
             top: 30.0,
             left: 10.0,
             child: InkWell(
-                onTap: () { _navToHome(); } ,
+                onTap: () {
+                            saveData();
+                            _navToHome();
+                          } ,
                 child: Functions.buildCustomButton("", Icons.arrow_back, colorBack))),
 
       ]),
@@ -270,8 +274,8 @@ class _InfosPageState extends State<InfosPage> {
               ],
             ))
         : _buildMessage(
-            "Incluir imagem da galeria de fotos", () => uploadAndCrop(cnt),
-            width: 0.64);
+            "Incluir foto da galeria", () => uploadAndCrop(cnt),
+            width: 0.5);
   }
 
   _icon(ContentModel cnt) {
@@ -299,8 +303,11 @@ class _InfosPageState extends State<InfosPage> {
                     size: cnt.hasIcon ? 24.0 : 24.0,
                   ))
               : cnt.hasIcon
-                  ? _buildMessage("Excluir imagem", () => iconChanged(cnt),
-                      width: 0.3)
+                  ? _buildMessage("Excluir foto", () {
+                          cardInfo.hasPhoto = false;
+                          iconChanged(cnt);
+                        },
+                      width: 0.26)
                   : Container()),
     );
   }
@@ -388,10 +395,10 @@ class _InfosPageState extends State<InfosPage> {
           cardInfo.phone = contentList[i].txt;
           cardInfo.hasPhone = contentList[i].hasIcon;
           break;
-        case "photo":
-          cardInfo.photo = contentList[i].txt;
-          cardInfo.hasPhoto = contentList[i].hasIcon;
-          break;
+        // case "photo":
+        //   cardInfo.photo = contentList[i].txt;
+        //   cardInfo.hasPhoto = contentList[i].hasIcon;
+        //   break;
         case "email":
           cardInfo.email = contentList[i].txt;
           cardInfo.hasEmail = contentList[i].hasIcon;
@@ -504,12 +511,7 @@ class ShowTip extends StatelessWidget {
             Text(TIPTITLE[dayNumber],
                 style: TextStyle(
                     fontSize: _sizeWidth * 0.05, fontWeight: FontWeight.bold)),
-            Text(
-              TIPMESSAGE[dayNumber],
-              style: TextStyle(
-                  fontSize: _sizeWidth * 0.04, fontWeight: FontWeight.normal),
-              textAlign: TextAlign.center,
-            ),
+            TIPMESSAGE[dayNumber],
           ],
         )));
   }

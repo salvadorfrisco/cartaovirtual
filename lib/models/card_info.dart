@@ -10,8 +10,8 @@ class CardInfo {
   String linkedin = '';
   String youtube = '';
   String website = '';
-  String colorTextAbove = '';
-  String colorTextBelow = '';
+  String colorTextAbove = '0.0';
+  String colorTextBelow = '0.0';
   String nameIcon = '';
   String occupationIcon = '';
   String phoneIcon = '';
@@ -79,20 +79,31 @@ class CardInfo {
   String colorTwitter = '';
   String colorYoutube = '';
   String colorWebsite = '';
-  String fontName = "Arial";
-  String fontOccupation = "Arial";
-  String fontPhone = "Arial";
-  String fontPhoto = "Arial";
-  String fontEmail = "Arial";
-  String fontFacebook = "Arial";
-  String fontLinkedin = "Arial";
-  String fontInstagram = "Arial";
-  String fontTwitter = "Arial";
-  String fontYoutube = "Arial";
-  String fontWebsite = "Arial";
+  String fontName = "Roboto";
+  String fontOccupation = "Roboto";
+  String fontPhone = "Roboto";
+  String fontPhoto = "Roboto";
+  String fontEmail = "Roboto";
+  String fontFacebook = "Roboto";
+  String fontLinkedin = "Roboto";
+  String fontInstagram = "Roboto";
+  String fontTwitter = "Roboto";
+  String fontYoutube = "Roboto";
+  String fontWebsite = "Roboto";
   String version = '0';
   String opacity = '1.0';
-
+  double angleName = 0.0;
+  double angleOccupation = 0.0;
+  double anglePhone = 0.0;
+  double anglePhoto = 0.0;
+  double angleEmail = 0.0;
+  double angleFacebook = 0.0;
+  double angleLinkedin = 0.0;
+  double angleInstagram = 0.0;
+  double angleTwitter = 0.0;
+  double angleYoutube = 0.0;
+  double angleWebsite = 0.0;
+  
   CardInfo({this.name, this.occupation, this.phone, this.photo, this.email, this.facebook,
     this.instagram, this.twitter, this.linkedin, this.youtube, this.website,
     this.colorTextAbove, this.colorTextBelow, this.nameIcon, this.occupationIcon, this.phoneIcon,
@@ -110,8 +121,10 @@ class CardInfo {
     this.colorPhoto, this.colorEmail, this.colorFacebook, this.colorLinkedin, this.colorInstagram, 
     this.colorTwitter, this.colorYoutube, this.colorWebsite, this.fontName, this.fontOccupation, 
     this.fontPhone, this.fontPhoto, this.fontEmail, this.fontFacebook, this.fontLinkedin, 
-    this.fontInstagram, this.fontTwitter, this.fontYoutube, this.fontWebsite, this.version, this.opacity});
-
+    this.fontInstagram, this.fontTwitter, this.fontYoutube, this.fontWebsite, this.version, this.opacity,
+    this.angleName, this.angleOccupation, this.anglePhone, this.anglePhoto, this.angleEmail, this.angleFacebook,
+    this.angleLinkedin, this.angleInstagram, this.angleTwitter, this.angleYoutube, this.angleWebsite});
+  
   CardInfo.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     occupation = json['occupation'];
@@ -206,6 +219,17 @@ class CardInfo {
     fontWebsite = json['fontWebsite'];
     version = json['version'];
     opacity = json['opacity'];
+    angleName = json['angleName'];
+    angleOccupation = json['angleOccupation'];
+    anglePhone = json['anglePhone'];
+    anglePhoto = json['anglePhoto'];
+    angleEmail = json['angleEmail'];
+    angleFacebook = json['angleFacebook'];
+    angleInstagram = json['angleInstagram'];
+    angleTwitter = json['angleTwitter'];
+    angleLinkedin = json['angleLinkedin'];
+    angleYoutube = json['angleYoutube'];
+    angleWebsite = json['angleWebsite'];
   }
 
   Map<String, dynamic> toJson() {
@@ -303,6 +327,17 @@ class CardInfo {
     data['fontWebsite'] = this.fontWebsite;
     data['version'] = this.version;
     data['opacity'] = this.opacity;
+    data['angleName'] = this.angleName;
+    data['angleOccupation'] = this.angleOccupation;
+    data['anglePhone'] = this.anglePhone;
+    data['anglePhoto'] = this.anglePhoto;
+    data['angleEmail'] = this.angleEmail;
+    data['angleFacebook'] = this.angleFacebook;
+    data['angleInstagram'] = this.angleInstagram;
+    data['angleTwitter'] = this.angleTwitter;
+    data['angleLinkedin'] = this.angleLinkedin;
+    data['angleYoutube'] = this.angleYoutube;
+    data['angleWebsite'] = this.angleWebsite;
     return data;
   }
 }

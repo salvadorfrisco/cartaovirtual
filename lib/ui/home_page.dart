@@ -183,7 +183,7 @@ class _HomePageState extends State<HomePage> {
           top: cnt.posY * (_sizeWidth / displayWidth(context)),
           left: cnt.posX * (_sizeWidth / displayWidth(context)),
           child: (cnt.type == 'photo')
-              ? _buildPicture()
+              ? _buildPicture(cnt)
               : Row(
             children: [
               (cnt.icon != null)
@@ -211,13 +211,13 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  _buildPicture() {
+  _buildPicture(cnt) {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
-              width: _sizeWidth * 0.4,
-              height: _sizeWidth * 0.4,
+              width: _sizeWidth * 0.4 * cnt.scale,
+              height: _sizeWidth * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
                 shape: (widget.cardInfo.photoCircle) ? BoxShape.circle : BoxShape.rectangle,
                 image: new DecorationImage(

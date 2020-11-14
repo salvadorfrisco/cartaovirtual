@@ -402,7 +402,7 @@ class TermsPage extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           style: TextStyle(color: color),
-          children: <TextSpan>[
+          children: [
             TextSpan(
               text: txtBold,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),

@@ -2,6 +2,10 @@ library constants;
 
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:virtual_card/utils/functions.dart';
+
 const String NAME = "imagem Digital";
 const String VERSION = "Versão";
 const String WT1 = "Bem-vindo!";
@@ -27,21 +31,129 @@ const String GOTIT = "Vamos lá!";
 const List<String> TIPTITLE = [
   'Dica do dia',
   'Compartilhe',
-  'Sua imagem é tudo',
-  'Personalize a imagem',
+  'Imcremente sua imagem',
+  'Imagem de fundo',
   'Transparência',
   'Faça seu layout',
   'Seu conteúdo',
 ];
 
-const List<String> TIPMESSAGE = [
-  'Os ícones do lado esquerdo dos campos aparecerão somente se estiverem habilitados.',
-  'Compartilhe clicando no botão \'enviar\' e divulgue seus serviços, convites, felicitações, etc...',
-  'Inclua uma imagem que pode ser uma foto ou o logotipo no botão \'Incluir imagem...\' acima.',
-  'Você pode trocar a imagem de fundo da , entre em \'configurar\', \'imagem\', selecione uma imagem ou faça upload.',
-  'Controle a opacidade da imagem de fundo, entre em \'configurar\', \'imagem\', deslize o botão do lado direito e veja o efeito...',
-  'Altere a posição das informações, entre em \'configurar\', \'textos\', segure o item e arraste para o local desejado.',
-  'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem.',
+const Color colorShare = Color(0xCC32C652);
+const Color colorBack = Colors.black54;
+
+List<Widget> TIPMESSAGE = [
+  Text(
+    'Os ícones do lado esquerdo aparecerão somente se estiverem habilitados',
+    style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+    textAlign: TextAlign.center,
+  ),
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: colorBack),
+        children: [
+          TextSpan(
+            text: 'Divulgue seus serviços, convites, feeds em redes sociais compartilhando a imagem em ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
+        ],
+      )),
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black87),
+        children: [
+          TextSpan(
+            text: 'Clique no botão ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessage(
+              "Incluir foto...", 106.0)),
+          TextSpan(
+            text: ' acima para incluir uma foto da galeria na imagem ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+        ],
+      )),
+  RichText(
+    textAlign: TextAlign.center,
+      text: TextSpan(
+    style: TextStyle(color: Colors.black87),
+    children: [
+      TextSpan(
+        text: 'Troque a imagem de fundo clicando em ',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+      ),
+      WidgetSpan(child: Functions.buildMessageWidgets(
+          [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+      TextSpan(
+        text: ' e ',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+      ),
+      WidgetSpan(child: Functions.buildMessageWidgets(
+          [Icon(Icons.panorama, size: 22, color: Colors.white,)], 40.0)),
+      TextSpan(
+        text: ' selecione uma imagem ou faça upload em ',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+      ),
+      WidgetSpan(child: Functions.buildMessageWidgets(
+          [Icon(Icons.file_upload, size: 22, color: Colors.white,)], 40.0)),
+    ],
+  )),
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black87),
+        children: [
+          TextSpan(
+            text: 'Controle a opacidade da imagem de fundo, clique em  ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' e ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.panorama, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' , deslize o botão do lado direito e veja o efeito ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+        ],
+      )),
+
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black87),
+        children: [
+          TextSpan(
+            text: 'Altere a posição das informações, clique em  ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' e ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.color_lens, size: 22, color: Colors.white,), Icon(Icons.zoom_out_map_sharp, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' segure o item e arraste para o local desejado ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+        ],
+      )),
+  Text(
+    'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem',
+    style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+    textAlign: TextAlign.center,
+  ),
 ];
 
 const List<Color> TIPCOLOR = [
@@ -63,7 +175,3 @@ const List<String> TIPANIMATION = [
   'assets/lottiefiles/position.json',
   'assets/lottiefiles/done.json',
 ];
-
-
-
-
