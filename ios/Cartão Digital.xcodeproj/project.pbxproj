@@ -150,7 +150,7 @@
 			);
 			dependencies = (
 			);
-			name = "Cartão Digital";
+			name = "Image Creator";
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Cartao Digital.app */;
 			productType = "com.apple.product-type.application";

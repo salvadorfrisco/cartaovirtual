@@ -6,7 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_card/utils/functions.dart';
 
-const String NAME = "imagem Digital";
+const String NAME = "Image Creator";
 const String VERSION = "Versão";
 const String WT1 = "Bem-vindo!";
 const String WC1 =
