@@ -1,14 +1,11 @@
 import 'dart:typed_data';
 import 'package:virtual_card/blocs/colors_bloc.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
-import '../utils/block_picker.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../utils/converter_functions.dart';
 import '../models/card_info.dart';
 import 'change_params_font.dart';
-import 'home_page_stateless.dart';
 
 const List<Color> _defaultColors = [
   Colors.red,
@@ -130,14 +127,6 @@ class _ColorsPageState extends State<ColorsPage> {
 
   setInitialData() {
     cardInfo = widget.cardInfo;
-    if ((cardInfo.colorTextAbove ?? '').length > 0)
-      _fontColor = intelligentCast<Color>(cardInfo.colorTextAbove);
-    else
-      _fontColor = Color(0xffEBF6aa);
-    if ((cardInfo.colorTextBelow ?? '').length > 0)
-      _backColor = intelligentCast<Color>(cardInfo.colorTextBelow);
-    else
-      _backColor = Color(0xff3b73de);
   }
 
   Future<void> loadImageBackground(version) async => await storage

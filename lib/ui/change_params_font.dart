@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -36,42 +37,44 @@ const List<Color> _defaultColors = [
 
 const List<String> _defaultFonts = [
   'Advark',
-  'Aquarium',
+  'Aquar',
   'Arcade',
   'Armywar',
   'Athletic',
   'Barcode',
   'Bendit',
   'Bernardo',
-  'Blacklisted',
+  'Blacklist',
   'Blocks',
   'Blomster',
   'Caricature',
   'Cartoon',
-  'Castiron',
+  'Caste',
   'Catpaw',
   'Champagne',
-  'Forgot',
-  'Giorgino',
   'Circus',
-  'Cowboys',
+  'Cowby',
   'Dancing',
   'Dreams',
   'Excentric',
-  'Flowers',
+  'Flower',
+  'Forgot',
   'Fuzzy',
+  'Giorgino',
   'Grobol',
   'Hannah',
   'Heineken',
   'Hischool',
   'Icecold',
   'Icecream',
+  'Kuenstler',
   'LokiCola',
   'Melody',
   'Milestone',
   'Minnie',
   'Montserrat',
   'Music',
+  'Neoa',
   'Opficio',
   'Pacifico',
   'Playfair',
@@ -82,10 +85,14 @@ const List<String> _defaultFonts = [
   'Roboto',
   'Rubik',
   'School',
+  'Secondch',
   'Smoke',
   'Vanessa',
+  'Vegas',
+  'Verdana',
   'Vintage',
   'Walkway',
+  'Woodcutter',
   'Zornic',
 ];
 
@@ -102,7 +109,9 @@ class ChangeParamFonts extends StatefulWidget {
 
 class _ChangeParamFontsState extends State<ChangeParamFonts> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _buttonsOn = false, isLoading = false, _upSide;
+  bool _buttonsOn = false,
+      isLoading = false,
+      _upSide;
   Color _appColor = Color(0xFFF2F2F2);
   double _sizeWidth, _sizeHeight;
   List<ContentModel> contentList;
@@ -112,11 +121,18 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   StorageService storage = StorageService();
   double _dx, _dy;
   Offset _position;
+  Timer _timer;
 
   @override
   void initState() {
     cardInfo = widget.cardInfo;
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _timer.cancel();
+    super.dispose();
   }
 
   @override
@@ -162,16 +178,16 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   ),
                   Stack(
                     children: contentList.map((cnt) {
-                      return _buildItemColor(cnt);
+                      return _buildConfigureItem(cnt);
                     }).toList(),
                   ),
                 ],
               )),
           isLoading
               ? Center(
-                  child: CircularProgressIndicator(
-                  backgroundColor: Colors.black38,
-                ))
+              child: CircularProgressIndicator(
+                backgroundColor: Colors.black38,
+              ))
               : Container(),
         ]),
       ),
@@ -196,17 +212,18 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                 color: Color(0x46ddee00),
               ),
             ),
-            onDraggableCanceled: (velocity, offset){
+            onDraggableCanceled: (velocity, offset) {
               RenderBox renderBox = context.findRenderObject();
               _position = renderBox.globalToLocal(offset);
               _dx = _position.dx;
               _dy = _position.dy;
-              if (_dx < 0)
-                _dx = 0;
-              else if (_dx > _sizeWidth - _sizeWidth * 0.1)
+              // if (_dx < 0)
+              //   _dx = 0;
+              // else
+              if (_dx > _sizeWidth - _sizeWidth * 0.1)
                 _dx = _sizeWidth - _sizeWidth * 0.1;
-              if (_dy < 0)
-                _dy = 0;
+              // if (_dy < 0)
+              //   _dy = 0;
               else if (_dy > _sizeHeight - _sizeHeight * 0.04)
                 _dy = _sizeHeight - _sizeHeight * 0.04;
               cnt.posX = _dx;
@@ -219,9 +236,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   }
 
   _buildElement(cnt) {
-    return (cnt.type == 'photo')
-        ? _buildPicture()
-        : GestureDetector(
+    return GestureDetector(
       onTap: () {
         _field = cnt.type;
         _upSide = cnt.posY / _sizeHeight < 0.5;
@@ -230,41 +245,49 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
           _buttonsOn = true;
         });
       },
-      child: Row(
-        children: [
-          (cnt.icon != null)
-              ? Padding(
-              padding: const EdgeInsets.only(right: 8.0),
-              child: Icon(
-                Functions.buildIcon(cnt.type),
-                color: cnt.color,
-                size: cnt.size *
-                    (_sizeWidth / displayWidth(context)),
-              ))
-              : SizedBox(width: 0),
-          Text(
-            cnt.txt,
-            textScaleFactor: cnt.scale,
-            style: TextStyle(
-                fontFamily: cnt.font,
-                fontSize:
-                cnt.size * (_sizeWidth / displayWidth(context)),
-                color: cnt.color,
-                fontWeight: FontWeight.w500),
-          ),
-        ],
+      child:
+      RotationTransition(
+        turns: new AlwaysStoppedAnimation(cnt.angle / 360),
+        child:
+        (cnt.type == 'photo')
+            ? _buildPicture(cnt)
+            : Row(
+          children: [
+            (cnt.icon != null)
+                ? Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Icon(
+                  Functions.buildIcon(cnt.type),
+                  color: cnt.color,
+                  size: cnt.size *
+                      (_sizeWidth / displayWidth(context)) * cnt.scale,
+                ))
+                : SizedBox(width: 0),
+            Text(
+              cnt.txt,
+              textScaleFactor: cnt.scale,
+              style: TextStyle(
+                  fontFamily: cnt.font,
+                  fontSize:
+                  cnt.size * (_sizeWidth / displayWidth(context)),
+                  color: cnt.color,
+                  fontWeight: FontWeight.w500),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildItemColor(ContentModel cnt) {
+  Widget _buildConfigureItem(ContentModel cnt) {
     if ((cnt.txt == '' || cnt.type != _field)) {
       return SizedBox();
     } else {
       return Positioned(
-        top: cnt.posY + (_upSide ? 50 : -100),
-        left: _sizeWidth / 6,
-        child: (cnt.type != 'photo' && _buttonsOn)
+        top: cnt.type == 'photo' ? _sizeHeight / 2 : cnt.posY + (_upSide ? 50 : -100),
+        // bottom: _sizeHeight / 6,
+        left: _sizeWidth / (cnt.type != 'photo' ? 10 : 6),
+        child: _buttonsOn
             ? _buildButtons(cnt)
             : SizedBox(),
       );
@@ -274,32 +297,66 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buildButtons(cnt) {
     return Center(
       child: Container(
-        width: displayWidth(context) * 0.6,
+        width: displayWidth(context) * (cnt.type != 'photo' ? 0.76 : 0.66),
         height: 60,
         decoration: BoxDecoration(
-            // color: (cnt.color == Color(0xff607d8b)) ? Colors.black12 : Colors.black38,
+          // color: (cnt.color == Color(0xff607d8b)) ? Colors.black12 : Colors.black38,
             color: Colors.white54,
             border: Border.all(
-              color: Colors.white,
+              color: cnt.color?? Colors.transparent,
             ),
             borderRadius: BorderRadius.all(Radius.circular(20))),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buttonFont(cnt),
-            _buttonColor(cnt),
+            (cnt.type != 'photo') ? _buttonFont(cnt) : SizedBox(),
+            (cnt.type != 'photo') ? _buttonColor(cnt) : SizedBox(),
+            (cnt.type == 'photo') ? _buttonShape(cnt) : SizedBox(),
             _buttonSizeFont(cnt),
             _buttonSizeFont(cnt, increase: false),
+            _buttonRotate(cnt, increase: false),
+            _buttonRotate(cnt),
           ],
         ),
       ),
     );
   }
 
+  _buttonShape(cnt) {
+    return IconButton(
+        icon: Icon(cardInfo.photoCircle ? FontAwesomeIcons.circle : Icons.crop_square_sharp,
+            color: Colors.black),
+        // icon: Icon(Icons.blur_circular, color: cnt.color),
+        iconSize: 38,
+        onPressed: () {
+          _changeShape(cnt);
+        });
+  }
+
+  _buttonRotate(cnt, {increase = true}) {
+    return GestureDetector(
+      onTap: () {
+        _changeAngle(cnt, increase: increase);
+      },
+      onLongPress: () {
+        _timer = Timer.periodic(Duration(milliseconds: 60), (Timer t) => _changeAngle(cnt, increase: increase));
+      },
+      onLongPressUp: () {
+        _timer.cancel();
+      },
+      child: Padding(
+        padding: const EdgeInsets.only(top: 7.0),
+        child: Icon(increase ? Icons.rotate_right : Icons.rotate_left,
+                               color: Colors.black,
+                               size: 42),
+      ),
+    );
+  }
+
   _buttonFont(cnt) {
     return IconButton(
-        icon: Icon(FontAwesomeIcons.font, color: cnt.color),
+        icon: Icon(FontAwesomeIcons.font, color: Colors.black),
         iconSize: 34,
         onPressed: () {
           _changeFont(cnt);
@@ -312,16 +369,16 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
             (increase)
                 ? Icons.zoom_out_map_sharp
                 : FontAwesomeIcons.compressArrowsAlt,
-            color: cnt.color),
+            color: Colors.black),
         iconSize: (increase) ? 36 : 28,
         onPressed: () {
-          _increaseFont(cnt, increase);
+          _changeSize(cnt, increase);
         });
   }
 
   _buttonColor(cnt) {
     return IconButton(
-        icon: Icon(FontAwesomeIcons.palette, color: cnt.color),
+        icon: Icon(FontAwesomeIcons.palette, color: Colors.black),
         iconSize: 34,
         onPressed: () {
           _changeColor(cnt);
@@ -383,25 +440,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         widget.cardInfo.colorWebsite = colorToString(color);
         break;
     }
-    storage.saveData(widget.cardInfo, false);
-    setState(() {});
-    Navigator.pop(context);
-  }
-
-  savePos(type, posX, posY) {
-    if (type == 'name') { cardInfo.posXName = posX; cardInfo.posYName = posY; }
-    else if (type == 'occupation') { cardInfo.posXOccupation = posX; cardInfo.posYOccupation = posY; }
-    else if (type == 'phone') { cardInfo.posXPhone = posX; cardInfo.posYPhone = posY; }
-    else if (type == 'photo') { cardInfo.posXPhoto = posX; cardInfo.posYPhoto = posY; }
-    else if (type == 'email') { cardInfo.posXEmail = posX; cardInfo.posYEmail = posY; }
-    else if (type == 'facebook') { cardInfo.posXFacebook = posX; cardInfo.posYFacebook = posY; }
-    else if (type == 'instagram') { cardInfo.posXInstagram = posX; cardInfo.posYInstagram = posY; }
-    else if (type == 'twitter') { cardInfo.posXTwitter = posX; cardInfo.posYTwitter = posY; }
-    else if (type == 'linkedin') { cardInfo.posXLinkedin = posX; cardInfo.posYLinkedin = posY; }
-    else if (type == 'youtube') { cardInfo.posXYoutube = posX; cardInfo.posYYoutube = posY; }
-    else if (type == 'website') { cardInfo.posXWebsite = posX; cardInfo.posYWebsite = posY; }
-    storage.saveData(cardInfo, false);
-    setState(() {});
+    saveData(pop: true);
   }
 
   changeFontFamily({String font, ContentModel cnt}) {
@@ -440,9 +479,94 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         widget.cardInfo.fontWebsite = font;
         break;
     }
-    storage.saveData(widget.cardInfo, false);
-    setState(() {});
-    Navigator.pop(context);
+    saveData(pop: true);
+  }
+
+  _changeSize(cnt, increase) {
+    switch (cnt.type) {
+      case "name":
+        widget.cardInfo.scaleName = widget.cardInfo.scaleName +
+            (increase ? 0.1 : widget.cardInfo.scaleName > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXName = widget.cardInfo.posXName + (increase ? -2 : widget.cardInfo.scaleName > 0.6 ? 2 : 0);
+        widget.cardInfo.posYName = widget.cardInfo.posYName + (increase ? -2 : widget.cardInfo.scaleName > 0.6 ? 2 : 0);
+        break;
+      case "occupation":
+        widget.cardInfo.scaleOccupation = widget.cardInfo.scaleOccupation +
+            (increase ? 0.1 : widget.cardInfo.scaleOccupation > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXOccupation = widget.cardInfo.posXOccupation + (increase ? -2 : widget.cardInfo.scaleOccupation > 0.6 ? 2 : 0);
+        widget.cardInfo.posYOccupation = widget.cardInfo.posYOccupation + (increase ? -2 : widget.cardInfo.scaleOccupation > 0.6 ? 2 : 0);
+        break;
+      case "phone":
+        widget.cardInfo.scalePhone = widget.cardInfo.scalePhone +
+            (increase ? 0.1 : widget.cardInfo.scalePhone > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXPhone = widget.cardInfo.posXPhone + (increase ? -2 : widget.cardInfo.scalePhone > 0.6 ? 2 : 0);
+        widget.cardInfo.posYPhone = widget.cardInfo.posYPhone + (increase ? -2 : widget.cardInfo.scalePhone > 0.6 ? 2 : 0);
+        break;
+      case "photo":
+        widget.cardInfo.scalePhoto = widget.cardInfo.scalePhoto +
+            (increase ? 0.1 : widget.cardInfo.scalePhoto > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXPhoto = widget.cardInfo.posXPhoto + (increase ? -6 : widget.cardInfo.scalePhoto > 0.6 ? 6 : 0);
+        widget.cardInfo.posYPhoto = widget.cardInfo.posYPhoto + (increase ? -6 : widget.cardInfo.scalePhoto > 0.6 ? 6 : 0);
+        break;
+      case "email":
+        widget.cardInfo.scaleEmail = widget.cardInfo.scaleEmail +
+            (increase ? 0.1 : widget.cardInfo.scaleEmail > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXEmail = widget.cardInfo.posXEmail + (increase ? -2 : widget.cardInfo.scaleEmail > 0.6 ? 2 : 0);
+        widget.cardInfo.posYEmail = widget.cardInfo.posYEmail + (increase ? -2 : widget.cardInfo.scaleEmail > 0.6 ? 2 : 0);
+        break;
+      case "facebook":
+        widget.cardInfo.scaleFacebook = widget.cardInfo.scaleFacebook +
+            (increase ? 0.1 : widget.cardInfo.scaleFacebook > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXFacebook = widget.cardInfo.posXFacebook + (increase ? -2 : widget.cardInfo.scaleFacebook > 0.6 ? 2 : 0);
+        widget.cardInfo.posYFacebook = widget.cardInfo.posYFacebook + (increase ? -2 : widget.cardInfo.scaleFacebook > 0.6 ? 2 : 0);
+        break;
+      case "instagram":
+        widget.cardInfo.scaleInstagram = widget.cardInfo.scaleInstagram +
+            (increase ? 0.1 : widget.cardInfo.scaleInstagram > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXInstagram = widget.cardInfo.posXInstagram + (increase ? -2 : widget.cardInfo.scaleInstagram > 0.6 ? 2 : 0);
+        widget.cardInfo.posYInstagram = widget.cardInfo.posYInstagram + (increase ? -2 : widget.cardInfo.scaleInstagram > 0.6 ? 2 : 0);
+        break;
+      case "twitter":
+        widget.cardInfo.scaleTwitter = widget.cardInfo.scaleTwitter +
+            (increase ? 0.1 : widget.cardInfo.scaleTwitter > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXTwitter = widget.cardInfo.posXTwitter + (increase ? -2 : widget.cardInfo.scaleTwitter > 0.6 ? 2 : 0);
+        widget.cardInfo.posYTwitter = widget.cardInfo.posYTwitter + (increase ? -2 : widget.cardInfo.scaleTwitter > 0.6 ? 2 : 0);
+        break;
+      case "linkedin":
+        widget.cardInfo.scaleLinkedin = widget.cardInfo.scaleLinkedin +
+            (increase ? 0.1 : widget.cardInfo.scaleLinkedin > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXLinkedin = widget.cardInfo.posXLinkedin + (increase ? -2 : widget.cardInfo.scaleLinkedin > 0.6 ? 2 : 0);
+        widget.cardInfo.posYLinkedin = widget.cardInfo.posYLinkedin + (increase ? -2 : widget.cardInfo.scaleLinkedin > 0.6 ? 2 : 0);
+        break;
+      case "youtube":
+        widget.cardInfo.scaleYoutube = widget.cardInfo.scaleYoutube +
+            (increase ? 0.1 : widget.cardInfo.scaleYoutube > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXYoutube = widget.cardInfo.posXYoutube + (increase ? -2 : widget.cardInfo.scaleYoutube > 0.6 ? 2 : 0);
+        widget.cardInfo.posYYoutube = widget.cardInfo.posYYoutube + (increase ? -2 : widget.cardInfo.scaleYoutube > 0.6 ? 2 : 0);
+        break;
+      case "website":
+        widget.cardInfo.scaleWebsite = widget.cardInfo.scaleWebsite +
+            (increase ? 0.1 : widget.cardInfo.scaleWebsite > 0.6 ? -0.1 : 0.0);
+        widget.cardInfo.posXWebsite = widget.cardInfo.posXWebsite + (increase ? -2 : widget.cardInfo.scaleWebsite > 0.6 ? 2 : 0);
+        widget.cardInfo.posYWebsite = widget.cardInfo.posYWebsite + (increase ? -2 : widget.cardInfo.scaleWebsite > 0.6 ? 2 : 0);
+        break;
+    }
+    saveData();
+  }
+
+  savePos(type, posX, posY) {
+    if (type == 'name') { cardInfo.posXName = posX; cardInfo.posYName = posY; }
+    else if (type == 'occupation') { cardInfo.posXOccupation = posX; cardInfo.posYOccupation = posY; }
+    else if (type == 'phone') { cardInfo.posXPhone = posX; cardInfo.posYPhone = posY; }
+    else if (type == 'photo') { cardInfo.posXPhoto = posX; cardInfo.posYPhoto = posY; }
+    else if (type == 'email') { cardInfo.posXEmail = posX; cardInfo.posYEmail = posY; }
+    else if (type == 'facebook') { cardInfo.posXFacebook = posX; cardInfo.posYFacebook = posY; }
+    else if (type == 'instagram') { cardInfo.posXInstagram = posX; cardInfo.posYInstagram = posY; }
+    else if (type == 'twitter') { cardInfo.posXTwitter = posX; cardInfo.posYTwitter = posY; }
+    else if (type == 'linkedin') { cardInfo.posXLinkedin = posX; cardInfo.posYLinkedin = posY; }
+    else if (type == 'youtube') { cardInfo.posXYoutube = posX; cardInfo.posYYoutube = posY; }
+    else if (type == 'website') { cardInfo.posXWebsite = posX; cardInfo.posYWebsite = posY; }
+    saveData();
   }
 
   _changeFont(cnt) {
@@ -464,108 +588,58 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     );
   }
 
-  _increaseFont(cnt, increase) {
-    switch (cnt.type) {
-      case "name":
-        widget.cardInfo.scaleName = widget.cardInfo.scaleName +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleName > 0.6
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "occupation":
-        widget.cardInfo.scaleOccupation = widget.cardInfo.scaleOccupation +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleOccupation > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "phone":
-        widget.cardInfo.scalePhone = widget.cardInfo.scalePhone +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scalePhone > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "photo":
-        widget.cardInfo.scalePhoto = widget.cardInfo.scalePhoto +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scalePhoto > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "email":
-        widget.cardInfo.scaleEmail = widget.cardInfo.scaleEmail +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleEmail > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "facebook":
-        widget.cardInfo.scaleFacebook = widget.cardInfo.scaleFacebook +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleFacebook > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "instagram":
-        widget.cardInfo.scaleInstagram = widget.cardInfo.scaleInstagram +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleInstagram > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "twitter":
-        widget.cardInfo.scaleTwitter = widget.cardInfo.scaleTwitter +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleTwitter > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "linkedin":
-        widget.cardInfo.scaleLinkedin = widget.cardInfo.scaleLinkedin +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleLinkedin > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "youtube":
-        widget.cardInfo.scaleYoutube = widget.cardInfo.scaleYoutube +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleYoutube > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-      case "website":
-        widget.cardInfo.scaleWebsite = widget.cardInfo.scaleWebsite +
-            (increase
-                ? 0.1
-                : widget.cardInfo.scaleWebsite > 0.4
-                    ? -0.1
-                    : 0.0);
-        break;
-    }
-    storage.saveData(widget.cardInfo, false);
-    setState(() {});
+  _changeShape(cnt) {
+    setState(() {
+      cardInfo.photoCircle = !cardInfo.photoCircle;
+    });
   }
 
-  _buildPicture() {
+  _changeAngle(cnt, {increase = true}) {
+      switch (cnt.type) {
+        case "name":
+          widget.cardInfo.angleName = widget.cardInfo.angleName + (increase ? 1 : -1);
+          break;
+        case "occupation":
+          widget.cardInfo.angleOccupation = widget.cardInfo.angleOccupation + (increase ? 1 : -1);
+          break;
+        case "phone":
+          widget.cardInfo.anglePhone = widget.cardInfo.anglePhone + (increase ? 1 : -1);
+          break;
+        case "photo":
+          widget.cardInfo.anglePhoto = widget.cardInfo.anglePhoto + (increase ? 1 : -1);
+          break;
+        case "email":
+          widget.cardInfo.angleEmail = widget.cardInfo.angleEmail + (increase ? 1 : -1);
+          break;
+        case "facebook":
+          widget.cardInfo.angleFacebook = widget.cardInfo.angleFacebook + (increase ? 1 : -1);
+          break;
+        case "instagram":
+          widget.cardInfo.angleInstagram = widget.cardInfo.angleInstagram + (increase ? 1 : -1);
+          break;
+        case "twitter":
+          widget.cardInfo.angleTwitter = widget.cardInfo.angleTwitter + (increase ? 1 : -1);
+          break;
+        case "linkedin":
+          widget.cardInfo.angleLinkedin = widget.cardInfo.angleLinkedin + (increase ? 1 : -1);
+          break;
+        case "youtube":
+          widget.cardInfo.angleYoutube = widget.cardInfo.angleYoutube + (increase ? 1 : -1);
+          break;
+        case "website":
+          widget.cardInfo.angleWebsite = widget.cardInfo.angleWebsite + (increase ? 1 : -1);
+          break;
+    }
+    saveData();
+  }
+
+  _buildPicture(cnt) {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
-              width: _sizeWidth * 0.4,
-              height: _sizeWidth * 0.4,
+              width: _sizeWidth * 0.4 * cnt.scale,
+              height: _sizeWidth * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
                 shape: (widget.cardInfo.photoCircle)
                     ? BoxShape.circle
@@ -582,27 +656,11 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     }
   }
 
-  _buildCustomButton(txt, icon, action, {color: colorBack}) {
-    return InkWell(
-        onTap: action,
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.18,
-            height: MediaQuery.of(context).size.width * 0.14,
-            decoration: BoxDecoration(
-                color: color,
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(
-                    Radius.circular(MediaQuery.of(context).size.width * 0.04))),
-            child: FittedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, Colors.white)),
-            ),
-          ),
-        ));
+  saveData({pop = false}) {
+    storage.saveData(widget.cardInfo, false);
+    setState(() {});
+    if (pop)
+      Navigator.pop(context);
   }
+
 }

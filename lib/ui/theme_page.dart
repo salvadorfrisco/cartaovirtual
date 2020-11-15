@@ -1,21 +1,18 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 import 'dart:typed_data';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtual_card/utils/sizes_helpers.dart';
-
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
-import 'home_page_stateless.dart';
+import 'home_page.dart';
 
 class ThemePage extends StatefulWidget {
   ThemePage(
@@ -95,7 +92,7 @@ class _ThemePageState extends State<ThemePage> {
                                 child: Column(children: [
                                   _transparencyControl(),
                                   SizedBox(height: 12,),
-                                  _buildUploadButton("upload\ngaleria", Icons.file_upload),
+                                  _buildUploadButton("", Icons.file_upload),
                                 ])),
                             isLoading
                                 ? Center(
@@ -107,27 +104,6 @@ class _ThemePageState extends State<ThemePage> {
                         )));
               });
         });
-  }
-
-  _buildPictureUploaded(version) {
-    return InkWell(
-      onTap: () => imageUploaded != null
-          ? saveImage(base64.encode(imageUploaded), version)
-          : {},
-      child: Container(
-        width: _sizeWidth * 0.32,
-        height: _sizeWidth * 0.44,
-        decoration: new BoxDecoration(
-          shape: BoxShape.rectangle,
-          image: new DecorationImage(
-            fit: BoxFit.cover,
-            image: imageUploaded != null
-                ? MemoryImage(imageUploaded)
-                : AssetImage('assets/images/transparent.png'),
-          ),
-        ),
-      ),
-    );
   }
 
   _transparencyControl() {
@@ -190,15 +166,15 @@ class _ThemePageState extends State<ThemePage> {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.16,
-            height: MediaQuery.of(context).size.width * 0.2,
+            width: MediaQuery.of(context).size.width * 0.15,
+            height: MediaQuery.of(context).size.width * 0.16,
             decoration: BoxDecoration(
                 color: Colors.black38,
                 border: Border.all(
                   color: Colors.white,
                 ),
                 borderRadius: BorderRadius.all(
-                    Radius.circular(MediaQuery.of(context).size.width * 0.06))),
+                    Radius.circular(MediaQuery.of(context).size.width * 0.07))),
             child: FittedBox(
               child: Column(
                   // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -228,11 +204,13 @@ class _ThemePageState extends State<ThemePage> {
                   StretchMode.zoomBackground,
                   StretchMode.blurBackground
                 ],
-                background: HomePageStateLess(
+                background: HomePage(
                     cardInfo: cardInfo,
                     imageBackground: imageBackground,
                     profileImage: widget.profileImage,
-                    widthScreen: displayWidth(context) * 0.5),
+                    widthScreen: displayWidth(context) * 1,
+                    withIcons: false
+                ),
               ),
             ),
               SliverGrid(
@@ -262,11 +240,6 @@ class _ThemePageState extends State<ThemePage> {
                     ),
               )],
         ),
-        // Positioned(
-        //   top: displayHeight(context) * 0.04,
-        //   right: displayWidth(context) * 0.04,
-        //   child: _buildUploadButton("upload", Icons.file_upload),
-        // ),
       ],
     );
   }
@@ -295,13 +268,9 @@ class _ThemePageState extends State<ThemePage> {
       setState(() {
         isLoading = true;
       });
-      // if (index > 0) {
-        await http.get(url).then((http.Response response) =>
-            saveImage(base64.encode(response.bodyBytes), version));
-
-      // }
+      await http.get(url).then((http.Response response) =>
+        saveImage(base64.encode(response.bodyBytes), version));
     }
-
     return GestureDetector(
       onTap: showImage,
       child: Card(

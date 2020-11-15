@@ -2,20 +2,24 @@ library constants;
 
 import 'dart:ui';
 
-const String NAME = "Cartão Digital";
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:virtual_card/utils/functions.dart';
+
+const String NAME = "Image Creator";
 const String VERSION = "Versão";
 const String WT1 = "Bem-vindo!";
 const String WC1 =
-    "O Cartão Digital é uma plataforma para\ndivulgação dos seus serviços através da\ncriação de cartões de visitas de\nforma simples e rápida.";
+    "Image Creator é uma plataforma para\ndivulgação dos seus serviços através da\ncriação de imagens personalizadas de\nforma simples e rápida.";
 const String WT2 = "Simples de usar";
 const String WC2 =
-    "Você cadastra suas informações de\ncontato, escolhe um tema de fundo e\njá pode distribuir seu cartão!";
+    "Você cadastra suas informações de\ncontato, escolhe um tema de fundo e\njá pode distribuir seu imagem!";
 const String WT3 = "Informações iniciais";
 const String WC3 =
-    "Vamos criar um cartão de visita inicial,\nnão se preocupe, depois você poderá alterar\ne complementar as informações, inclusive\numa foto ou logotipo.";
+    "Vamos criar um imagem personalizada inicial,\nnão se preocupe, depois você poderá alterar\ne complementar as informações, inclusive\numa foto ou logotipo.";
 const String WT4 = "Dados para contato";
 const String WC4 =
-    "Fique tranquilo, é apenas para fazer\nseu cartão inicial, não será repassado e\nvocê não receberá emails ou ligações.";
+    "Fique tranquilo, é apenas para fazer\nseu imagem inicial, não será repassado e\nvocê não receberá emails ou ligações.";
 const String WT5 = "Divulgue e ganhe!";
 const String WC5 =
     "Compartilhe os serviços com seus\ncontatos, grupos de whatsapp, facebook\npara ser sempre lembrado.";
@@ -27,21 +31,129 @@ const String GOTIT = "Vamos lá!";
 const List<String> TIPTITLE = [
   'Dica do dia',
   'Compartilhe',
-  'Sua imagem é tudo',
-  'Personalize o cartão',
+  'Imcremente sua imagem',
+  'Imagem de fundo',
   'Transparência',
   'Faça seu layout',
   'Seu conteúdo',
 ];
 
-const List<String> TIPMESSAGE = [
-  'Os ícones do lado esquerdo dos campos aparecerão somente se estiverem habilitados.',
-  'Compartilhe clicando no botão \'enviar\' e divulgue seus serviços, convites, felicitações, etc...',
-  'Inclua uma imagem que pode ser uma foto ou o logotipo no botão \'Incluir imagem...\' acima.',
-  'Você pode trocar a imagem de fundo do cartão, entre em \'configurar\', \'imagem\', selecione uma imagem ou faça upload.',
-  'Controle a transparência na imagem de fundo do cartão, entre em \'configurar\', \'cores\', arraste o botão do meio e veja o efeito...',
-  'Altere a posição das informações, entre em \'configurar\', \'posição\', selecione a informação e arraste-a para o local desejado.',
-  'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer no cartão.',
+const Color colorShare = Color(0xCC32C652);
+const Color colorBack = Colors.black54;
+
+List<Widget> TIPMESSAGE = [
+  Text(
+    'Os ícones do lado esquerdo aparecerão somente se estiverem habilitados',
+    style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+    textAlign: TextAlign.center,
+  ),
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: colorBack),
+        children: [
+          TextSpan(
+            text: 'Divulgue seus serviços, convites, feeds em redes sociais compartilhando a imagem em ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
+        ],
+      )),
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black87),
+        children: [
+          TextSpan(
+            text: 'Clique no botão ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessage(
+              "Incluir foto...", 106.0)),
+          TextSpan(
+            text: ' acima para incluir uma foto da galeria na imagem ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+        ],
+      )),
+  RichText(
+    textAlign: TextAlign.center,
+      text: TextSpan(
+    style: TextStyle(color: Colors.black87),
+    children: [
+      TextSpan(
+        text: 'Troque a imagem de fundo clicando em ',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+      ),
+      WidgetSpan(child: Functions.buildMessageWidgets(
+          [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+      TextSpan(
+        text: ' e ',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+      ),
+      WidgetSpan(child: Functions.buildMessageWidgets(
+          [Icon(Icons.panorama, size: 22, color: Colors.white,)], 40.0)),
+      TextSpan(
+        text: ' selecione uma imagem ou faça upload em ',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+      ),
+      WidgetSpan(child: Functions.buildMessageWidgets(
+          [Icon(Icons.file_upload, size: 22, color: Colors.white,)], 40.0)),
+    ],
+  )),
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black87),
+        children: [
+          TextSpan(
+            text: 'Controle a opacidade da imagem de fundo, clique em  ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' e ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.panorama, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' , deslize o botão do lado direito e veja o efeito ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+        ],
+      )),
+
+  RichText(
+      textAlign: TextAlign.center,
+      text: TextSpan(
+        style: TextStyle(color: Colors.black87),
+        children: [
+          TextSpan(
+            text: 'Altere a posição das informações, clique em  ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' e ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+          WidgetSpan(child: Functions.buildMessageWidgets(
+              [Icon(Icons.color_lens, size: 22, color: Colors.white,), Icon(Icons.zoom_out_map_sharp, size: 22, color: Colors.white,)], 40.0)),
+          TextSpan(
+            text: ' segure o item e arraste para o local desejado ',
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+          ),
+        ],
+      )),
+  Text(
+    'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem',
+    style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+    textAlign: TextAlign.center,
+  ),
 ];
 
 const List<Color> TIPCOLOR = [
@@ -63,7 +175,3 @@ const List<String> TIPANIMATION = [
   'assets/lottiefiles/position.json',
   'assets/lottiefiles/done.json',
 ];
-
-
-
-

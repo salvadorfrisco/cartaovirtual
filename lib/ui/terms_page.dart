@@ -36,7 +36,7 @@ class TermsPage extends StatelessWidget {
                       'entre terminais por meio de diferentes redes.'),
               _text(
                   '   (iii) ',
-                  ' Aplicativo: aplicativo da Frisk por meio dos quais o Usuário acessa os serviços e '
+                  ' Aplicativo: aplicativo da Frisk por meio dos quais o usuário acessa os serviços e '
                       'conteúdos disponibilizados pela Frisk, aqui também denominado como "Plataforma".'),
               _text(
                   '   (iv) ',
@@ -44,7 +44,7 @@ class TermsPage extends StatelessWidget {
                       'outros dispositivos que se conectem a Internet.'),
               _text(
                   '   (v) ',
-                  ' Usuários todas as pessoas físicas que utilizarão os Aplicativos, maiores de 18 '
+                  ' usuários todas as pessoas físicas que utilizarão os Aplicativos, maiores de 18 '
                       '(dezoito) anos ou emancipadas e totalmente capazes de praticar os atos da vida civil ou os '
                       'absolutamente ou relativamente incapazes devidamente representados ou assistidos.\n'),
               _text('1.2. ',
@@ -78,85 +78,85 @@ class TermsPage extends StatelessWidget {
               _text(
                   '2.1 ',
                   ' Este Termo de Uso apresenta as condições gerais aplicáveis ao uso do '
-                      'Aplicativo Cartão de Visita Digital oferecidos pela Frisk.\n'),
+                      'Aplicativo Image Creator oferecidos pela Frisk.\n'),
               _text('3. FUNCIONAMENTO DO APLICATIVO\n', ''),
               _text(
                   '3.1 ',
-                  ' O Aplicativo Cartão de Visita Digital possui áreas de conteúdo aberto para que o Usuário acesse conteúdo e possa cadastrar '
+                  ' O Aplicativo Image Creator possui áreas de conteúdo aberto para que o usuário acesse conteúdo e possa cadastrar '
                       'alguns dados pessoais, tais como: nome completo, e-mail, telefone, celular, profissão, inclusive outros dados para '
                       'divulgação de canais para contato, incluindo endereços de redes sociais e conteúdos livres.'),
               _text(
                   '   (i) ',
-                  ' O Usuário se responsabiliza pela precisão e veracidade dos dados informados e reconhece '
+                  ' O usuário se responsabiliza pela precisão e veracidade dos dados informados e reconhece '
                       'que a inconsistência destes poderá implicar a impossibilidade de utilizar o Aplicativo.'),
               _text(
                   '   (ii) ',
-                  ' O Usuário assume inteira responsabilidade pelos dados informados e a boa utilização do Aplicativo, '
+                  ' O usuário assume inteira responsabilidade pelos dados informados e a boa utilização do Aplicativo, '
                       'isentando a Frisk de qualquer responsabilidade.'),
               _text(
                   '   (iii) ',
-                  ' O Usuário poderá, a qualquer momento, desinstalar o Aplicativo por sua conta, sendo que os dados informados '
+                  ' O usuário poderá, a qualquer momento, desinstalar o Aplicativo por sua conta, sendo que os dados informados '
                       'serão automaticamente excluídos de forma permanente.\n'),
               _text('4. PRIVACIDADE\n', ''),
               _text(
                   '4.1. ',
-                  ' CONTEÚDOS ENVIADOS PELOS USUÁRIOS:\n\n'
-                      '   O Aplicativo permite o envio e/ou transmissão de conteúdos pelos Usuários,'
+                  ' CONTEÚDOS ENVIADOS PELOS usuárioS:\n\n'
+                      '   O Aplicativo permite o envio e/ou transmissão de conteúdos pelos usuários,'
                       'tais como imagens e mensagens, fotografias, obras audiovisuais, marcas, textos, etc. '
                       '(“Conteúdos”) para divulgação em áreas de conteúdo aberto do Aplicativo.\nNeste '
-                      'caso, o Usuário declara estar ciente e expressamente concordar que as informações cadastradas, '
+                      'caso, o usuário declara estar ciente e expressamente concordar que as informações cadastradas, '
                       'bem como quaisquer Conteúdos por ele enviados e/ou transmitidos pelo Aplicativo poderão ser acessados e visualizados '
-                      'por quaisquer outros Usuários, observadas as normas que dispõem sobre o sigilo bancário, sem que Frisk tenha qualquer '
+                      'por quaisquer outros usuários, observadas as normas que dispõem sobre o sigilo bancário, sem que Frisk tenha qualquer '
                       'responsabilidade sobre tais Conteúdos.\n'),
-              _text('4.2. ', ' INFORMAÇÕES DOS USUÁRIOS\n'),
+              _text('4.2. ', ' INFORMAÇÕES DOS usuárioS\n'),
               _text('4.2.1. ',
-                  ' Existem 02 (duas) formas de coleta de informações dos Usuários (“Informações”):'),
+                  ' Existem 02 (duas) formas de coleta de informações dos usuários (“Informações”):'),
               _text(
                   '    (i) ',
-                  ' por meio do cadastro realizado pelo próprio Usuário no Aplicativo, conforme item 3 e '
+                  ' por meio do cadastro realizado pelo próprio usuário no Aplicativo, conforme item 3 e '
                       'subitens acima (“Funcionamento do Aplicativo”);'),
               _text(
                   '    (ii) ',
                   ' por meio do uso de cookies ou de outra tecnologia'
-                      'que permita armazenar informações a respeito da navegação do Usuário no Aplicativo'
+                      'que permita armazenar informações a respeito da navegação do usuário no Aplicativo'
                       '(“Registros de Navegação”).'),
               _text(
                   '4.2.2. ',
-                  ' As Informações dos Usuários são coletadas, armazenadas, tratadas, processadas e '
+                  ' As Informações dos usuários são coletadas, armazenadas, tratadas, processadas e '
                       'utilizadas pela Frisk com as seguintes finalidades:'),
               _text('    (i) ',
                   ' desenvolver, manter e aperfeiçoar os recursos e funcionalidades do Aplicativo;'),
               _text('    (ii) ',
-                  ' possibilitar o acesso e o uso dos recursos e funcionalidades do Aplicativo pelos Usuários;'),
+                  ' possibilitar o acesso e o uso dos recursos e funcionalidades do Aplicativo pelos usuários;'),
               _text(
                   '    (iii) ',
                   ' analisar o desempenho do Aplicativo, medir a audiência do Aplicativo,'
-                      'verificar os hábitos de navegação dos Usuários no Aplicativo, a forma pela qual '
+                      'verificar os hábitos de navegação dos usuários no Aplicativo, a forma pela qual '
                       'chegaram na página do Aplicativo (por exemplo, através de links de outros sites, '
                       'buscadores ou diretamente pelo endereço), avaliar estatísticas relacionadas ao número de '
                       'acessos e uso do Aplicativo, seus recursos e funcionalidades;'),
               _text('    (iv) ',
                   ' análises relacionadas à segurança do Aplicativo, aperfeiçoamento e desenvolvimento de ferramentas antifraude;'),
               _text('    (v) ',
-                  ' melhorar as experiências de navegação dos Usuários no Aplicativo;'),
+                  ' melhorar as experiências de navegação dos usuários no Aplicativo;'),
               _text(
                   '    (vi) ',
                   ' permitir o fornecimento de serviços mais personalizados e adequados às necessidades dos'
-                      'Usuários, tais como páginas de perfil, atualizações, conteúdos e anúncios relevantes;'),
+                      'usuários, tais como páginas de perfil, atualizações, conteúdos e anúncios relevantes;'),
               _text('    (vii) ',
-                  ' permitir a comunicação entre os Usuários e a Frisk, inclusive mediante o envio e recebimento de e-mails;'),
+                  ' permitir a comunicação entre os usuários e a Frisk, inclusive mediante o envio e recebimento de e-mails;'),
               _text('    (viii) ',
                   ' identificar os perfis, hábitos e necessidades para eventuais ofertas de serviços e estratégias da Frisk.'),
               _text(
                   '4.2.3. ',
-                  ' A Frisk preserva a privacidade dos Usuários e não compartilha seus dados e'
-                      'informações com terceiros, salvo mediante consentimento do próprio Usuário, por força de lei ou ordem judicial.'),
+                  ' A Frisk preserva a privacidade dos usuários e não compartilha seus dados e'
+                      'informações com terceiros, salvo mediante consentimento do próprio usuário, por força de lei ou ordem judicial.'),
               _text(
                   '4.2.4. ',
-                  ' O Usuário está ciente e autoriza que os seus Registros de Navegação no Site e/ou '
+                  ' O usuário está ciente e autoriza que os seus Registros de Navegação no Site e/ou '
                       'Aplicativo sejam fornecidos pela Frisk a seus respectivos parceiros ou contratados para '
                       'prestar qualquer serviço relativo ao Aplicativo, sem indicação individualizada do '
-                      'Usuário que permita sua identificação e para as finalidades previstas no item 3.2.2.\n'),
+                      'usuário que permita sua identificação e para as finalidades previstas no item 3.2.2.\n'),
               _text('5. COOKIES\n', ''),
               _text(
                   '5.1. ',
@@ -166,7 +166,7 @@ class TermsPage extends StatelessWidget {
                   ' Em sua navegação no Aplicativo, poderão ser utilizados 04 (quatro) tipos de cookies:'),
               _text(
                   '    (i) ',
-                  ' Cookies de Autenticação: servem para reconhecer um determinado Usuário, possibilitando '
+                  ' Cookies de Autenticação: servem para reconhecer um determinado usuário, possibilitando '
                       'o acesso e utilização do Aplicativo com conteúdo e/ou serviços restritos e'
                       'proporcionando experiências de navegação mais personalizadas.'),
               _text(
@@ -174,67 +174,61 @@ class TermsPage extends StatelessWidget {
                   ' Cookies de Segurança: são utilizados para ativar recursos de segurança dos Sites e/ou '
                       'Aplicativos, com a finalidade de auxiliar o monitoramento e/ou detecção de atividades '
                       'maliciosas ou vedadas por estes Termos de Uso e Política de Privacidade, bem como de '
-                      'proteger as informações do Usuário do acesso por terceiros não autorizados.'),
+                      'proteger as informações do usuário do acesso por terceiros não autorizados.'),
               _text(
                   '    (iii) ',
                   ' Cookies de Pesquisa, Análise e Desempenho: a finalidade deste tipo de cookie é ajudar a '
                       'entender o desempenho do Aplicativo, medir a audiência do Aplicativo, '
-                      'verificar os hábitos de navegação dos Usuários no Aplicativo, bem como a forma pela '
+                      'verificar os hábitos de navegação dos usuários no Aplicativo, bem como a forma pela '
                       'qual chegou na página do Aplicativo (por exemplo, através de links de outros sites, '
                       'buscadores ou diretamente pelo endereço).'),
               _text(
                   '    (iv) ',
-                  ' Cookies de Propaganda: são usados para apresentar publicidade relevante ao Usuário, '
+                  ' Cookies de Propaganda: são usados para apresentar publicidade relevante ao usuário, '
                       'tanto dentro quanto fora do Aplicativo ou em sites de parceiros, bem como para saber '
-                      'se os Usuários que visualizaram a publicidade visitaram o Aplicativo após terem visto '
+                      'se os usuários que visualizaram a publicidade visitaram o Aplicativo após terem visto '
                       'a publicidade. Os Cookies de Propaganda também podem ser utilizados para lembrar eventuais '
-                      'pesquisas realizadas pelos Usuários no Aplicativo e, com base nas pesquisas realizadas '
-                      'pelos Usuários no Aplicativo, apresentar aos Usuários anúncios relacionados aos seus interesses.'),
+                      'pesquisas realizadas pelos usuários no Aplicativo e, com base nas pesquisas realizadas '
+                      'pelos usuários no Aplicativo, apresentar aos usuários anúncios relacionados aos seus interesses.'),
               _text(
                   '5.3. ',
                   ' Para os fins descritos no item 4.2, a Frisk poderá coletar, armazenar, tratar, processar e'
-                      'utilizar as seguintes informações a respeito da navegação do Usuário no Aplicativo,'
+                      'utilizar as seguintes informações a respeito da navegação do usuário no Aplicativo,'
                       'que integram os “Registros de Navegação”:'),
-              _text(
-                  '    (i) ',
-                  ' Localização geográfica - Permite a aplicação usar o GPS para obter a localização aproximada '
-                      'do usuário, o aplicativo usa para obter a localização do usuário e mostrar as redes credenciadas, dentre outros;'),
+              _text('    (i) ',
+                  ' Galeria de fotos – permite acessar a galeria de fotos para efetuar upload de arquivos para compor a '
+                      'imagem no Aplicativo;'),
               _text('    (ii) ',
-                  ' Câmera – permite a aplicação usar a câmera para definir uma fotografia ao perfil do Usuário no Aplicativo;'),
+                  ' Câmera – permite usar a câmera para tirar foto para compor a imagem no Aplicativo;'),
               _text(
                   '    (iii) ',
-                  ' Telefone e Microfone -- Permissão necessária para que o Aplicativo consiga realizar'
-                      'ligações pelo usuário, essa permissão é requerida quando o cartão está inativo e é necessário'
-                      'entrar em contato com a central;'),
-              _text(
-                  '    (iv) ',
-                  ' Conta e Contatos - Permissão necessária para funcionalidade compartilhar o aplicativo com'
+                  ' Conta e Contatos - Permissão necessária para funcionalidade compartilhar o aplicativo com '
                       'amigos, para que o Aplicativo possa acessar contas pessoais;'),
               _text(
-                  '    (v) ',
-                  ' Armazenamento local - Permite que a aplicação grave arquivos no celular. Utilizamos para'
+                  '    (iv) ',
+                  ' Armazenamento local - Permite que a aplicação grave arquivos no celular. Utilizamos para '
                       'salvar as informações cadastradas;'),
               _text(
-                  '    (vi) ', ' Sistema operacional utilizado pelo Usuário;'),
-              _text('    (vii) ', ' Navegador e suas respectivas versões;'),
-              _text('    (viii) ', ' Resolução de tela;'),
-              _text('    (ix) ',
+                  '    (v) ', ' Sistema operacional utilizado pelo usuário;'),
+              _text('    (vi) ', ' Navegador e suas respectivas versões;'),
+              _text('    (vii) ', ' Resolução de tela;'),
+              _text('    (viii) ',
                   ' Dart, Kotlin, Swift (linguagens de programação);'),
+              _text('    (ix) ',
+                  ' Código ID (IMEI) do aparelho mobile pelo qual o usuário acessou o Aplicativo;'),
               _text('    (x) ',
-                  ' Código ID (IMEI) do aparelho mobile pelo qual o Usuário acessou o Aplicativo;'),
+                  ' Informações referentes à data e hora de uso do Aplicativo por um determinado usuário, a partir de um ID do aparelho;'),
               _text('    (xi) ',
-                  ' Informações referentes à data e hora de uso do Aplicativo por um determinado Usuário, a partir de um ID do aparelho;'),
-              _text('    (xii) ',
-                  ' Informações referentes às quantidades e localização de toques e tentativas de uso do Aplicativo, bem como de páginas acessadas pelo Usuário.\n'),
+                  ' Informações referentes às quantidades e localização de toques e tentativas de uso do Aplicativo, bem como de páginas acessadas pelo usuário.\n'),
               _text(
                   '5.4. ',
-                  ' O Usuário poderá desabilitar o armazenamento local de dados por meio das opções de configuração do seu'
-                      'aparelho. Contudo, ao decidir pela proibição, o Usuário está ciente e reconhece que é possível que o Aplicativo '
+                  ' O usuário poderá desabilitar o armazenamento local de dados por meio das opções de configuração do seu'
+                      'aparelho. Contudo, ao decidir pela proibição, o usuário está ciente e reconhece que é possível que o Aplicativo '
                       'não desempenhe todas as suas funcionalidades.\n'),
               _text('6. RESPONSABILIDADES\n', ''),
               _text(
                   '6.1. ',
-                  ' O Usuário não poderá praticar as seguintes ações com relação ao Aplicativo, no'
+                  ' O usuário não poderá praticar as seguintes ações com relação ao Aplicativo, no'
                       'todo ou em parte, sem prejuízo de outras que sejam consideradas ilegais, contrariem a ordem'
                       'pública ou atentem contra a moral e os bons costumes:'),
               _text(
@@ -267,7 +261,7 @@ class TermsPage extends StatelessWidget {
                       '(inclusive de origem, raça, sexo, cor, orientação sexual e idade) ou qualquer forma de '
                       'discriminação, bem como o ódio ou atividades ilegais;'),
               _text('    (vii) ',
-                  'Ameaçar, coagir, ou causar constrangimento físico ou moral aos demais Usuários;'),
+                  'Ameaçar, coagir, ou causar constrangimento físico ou moral aos demais usuários;'),
               _text(
                   '    (viii) ',
                   'Realizar atos que causem ou propiciem a contaminação ou prejudiquem quaisquer '
@@ -277,18 +271,18 @@ class TermsPage extends StatelessWidget {
               _text(
                   '    (ix) ',
                   'Praticar quaisquer atos em relação ao Aplicativo, direta ou indiretamente, no todo '
-                      'ou em parte, que possam causar prejuízo à Frisk, a qualquer Usuário e/ou a quaisquer terceiros;'),
-              _text('6.2. ', 'O Usuário é exclusivamente responsável:'),
+                      'ou em parte, que possam causar prejuízo à Frisk, a qualquer usuário e/ou a quaisquer terceiros;'),
+              _text('6.2. ', 'O usuário é exclusivamente responsável:'),
               _text('    (i) ',
                   'Por todos e quaisquer atos ou omissões por ele realizados no ambiente do Aplicativo;'),
               _text(
                   '    (ii) ',
                   'Pela reparação de todos e quaisquer danos, diretos ou indiretos, que sejam causados '
-                      'à Frisk, a qualquer outro Usuário, ou, ainda, a qualquer terceiro, inclusive em virtude do '
+                      'à Frisk, a qualquer outro usuário, ou, ainda, a qualquer terceiro, inclusive em virtude do '
                       'descumprimento do disposto neste TERMO. Sem prejuízo de outras medidas, '
                       'a Frisk poderá, por si ou por terceiros, a qualquer tempo, a seu exclusivo critério, sem '
                       'necessidade de qualquer aviso ou notificação prévia, suspender o acesso ao Aplicativo '
-                      'de qualquer Usuário, a qualquer tempo, caso este descumpra qualquer disposição '
+                      'de qualquer usuário, a qualquer tempo, caso este descumpra qualquer disposição '
                       'deste TERMO e demais políticas do Aplicativo ou da legislação vigente aplicável.'),
               _text('6.3. ', 'Em nenhuma hipótese, a Frisk será responsável:'),
               _text(
@@ -298,12 +292,12 @@ class TermsPage extends StatelessWidget {
                       'Aplicativo ou de alguma de suas funções ou partes, inclusive com o fim de consultar ou baixar '
                       'informações, dados, textos, imagens ou outros materiais acessíveis por meio deste Aplicativo;'),
               _text('    (ii) ',
-                  'Por qualquer ato ou omissão realizado e/ou dano causado pelo Usuário neste Site e/ou Aplicativo;'),
+                  'Por qualquer ato ou omissão realizado e/ou dano causado pelo usuário neste Site e/ou Aplicativo;'),
               _text(
                   '    (iii) ',
-                  'Pela instalação no equipamento do Usuário ou de terceiros, de vírus, trojans, malware, '
+                  'Pela instalação no equipamento do usuário ou de terceiros, de vírus, trojans, malware, '
                       'worm, bot, backdoor, spyware, rootkit, ou de quaisquer outros dispositivos que venham a ser '
-                      'criados, em decorrência da navegação na Internet pelo Usuário.'),
+                      'criados, em decorrência da navegação na Internet pelo usuário.'),
               _text(
                   '    (iv) ',
                   'Pelo uso indevido por qualquer usuário ou terceiros do Aplicativo, no todo ou em '
@@ -323,7 +317,7 @@ class TermsPage extends StatelessWidget {
                       'maior ou de qualquer outra falha ou problema não atribuíveis à Frisk;'),
               _text(
                   '6.7. ',
-                  'A responsabilidade de fornecimento da prestação do serviço é do Usuário, sendo certo que o '
+                  'A responsabilidade de fornecimento da prestação do serviço é do usuário, sendo certo que o '
                       'Aplicativo apenas funciona como o canal digital de divulgação (publicidade).\n'),
               _text('7. PROPRIEDADE INTELECTUAL\n', ''),
               _text(
@@ -349,7 +343,7 @@ class TermsPage extends StatelessWidget {
               _text(
                   '8.4 ',
                   'A tolerância quanto ao eventual descumprimento de quaisquer das disposições '
-                      'deste TERMO deste Aplicativo por qualquer Usuário não constituirá renúncia ao '
+                      'deste TERMO deste Aplicativo por qualquer usuário não constituirá renúncia ao '
                       'direito de exigir o cumprimento da obrigação.'),
               _text('8.5. ',
                   'A Frisk poderá, a qualquer tempo, a seu exclusivo critério e sem necessidade de qualquer aviso prévio:'),
@@ -364,7 +358,7 @@ class TermsPage extends StatelessWidget {
                       'acordo a qualquer momento. Qualquer correção será obrigatória e válida imediatamente após a '
                       'postagem do acordo modificado em nosso Aplicativo. A continuidade do uso do Aplicativo '
                       'implica em concordância com qualquer alteração nos termos e condições e deverá ser '
-                      'integralmente observada pelos Usuários.'),
+                      'integralmente observada pelos usuários.'),
               _text(
                   '8.7. ',
                   'As marcas registradas, nomes, logotipos e marcas de serviços mostrados são legalmente, '
@@ -374,8 +368,8 @@ class TermsPage extends StatelessWidget {
                       'e não pode ser reproduzido total ou parcialmente sem sua expressa permissão escrita.'),
               _text(
                   '8.8. ',
-                  ' O Usuário está ciente e concorda com a coleta, armazenamento, tratamento, '
-                      'processamento e uso das Informações enviadas e/ou transmitidas pelo Usuário nos termos aqui estabelecidos.'),
+                  ' O usuário está ciente e concorda com a coleta, armazenamento, tratamento, '
+                      'processamento e uso das Informações enviadas e/ou transmitidas pelo usuário nos termos aqui estabelecidos.'),
               _text(
                   '8.9. ',
                   ' A Frisk poderá, a qualquer momento, alterar as disposições constantes neste termo, se '
@@ -384,13 +378,13 @@ class TermsPage extends StatelessWidget {
               _text(
                   '8.10. ',
                   ' A Frisk poderá divulgar notificações ou mensagens através do Aplicativo para informar '
-                      'os Usuários a respeito de mudanças nos serviços ou no Termo de Uso, Navegação, Política, '
+                      'os usuários a respeito de mudanças nos serviços ou no Termo de Uso, Navegação, Política, '
                       'Privacidade e Compartilhamento, ou outros assuntos relevantes.'),
               _text(
                   '',
                   'Este TERMO é regido de acordo com a legislação brasileira. Quaisquer disputas ou '
                       'controvérsias oriundas de quaisquer atos praticados no âmbito do Aplicativos pelos '
-                      'Usuários, inclusive com relação ao descumprimento deste TERMO, e/ou demais políticas do '
+                      'usuários, inclusive com relação ao descumprimento deste TERMO, e/ou demais políticas do '
                       'Aplicativo, serão processadas na Comarca da Capital do Estado de São Paulo.\n'),
               _text(
                   'DECLARO QUE AO UTILIZAR O APLICATIVO LI E CONCORDO COM O CONTEÚDO DO TERMO DE USO E POLÍTICA DE PRIVACIDADE\n',
@@ -408,7 +402,7 @@ class TermsPage extends StatelessWidget {
       child: RichText(
         text: TextSpan(
           style: TextStyle(color: color),
-          children: <TextSpan>[
+          children: [
             TextSpan(
               text: txtBold,
               style: TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),

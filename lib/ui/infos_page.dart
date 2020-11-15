@@ -13,6 +13,7 @@ import 'package:virtual_card/utils/infos_helper.dart';
 import 'package:virtual_card/utils/keyboard_utils.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import 'package:virtual_card/widgets/custom_app_bar.dart';
+import '../main_page.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
 
@@ -39,6 +40,7 @@ class _InfosPageState extends State<InfosPage> {
   CardInfo cardInfo;
   double _sizeWidth;
   ScrollController _scrollController = ScrollController();
+  static const Color colorBack = Colors.black54;
 
   @override
   Widget build(BuildContext context) {
@@ -102,6 +104,7 @@ class _InfosPageState extends State<InfosPage> {
   saveImage(img64, version) {
     setState(() {
       StorageService.savePhotoLocal64(img64, 'profileImage', version);
+      cardInfo.hasPhoto = true;
       isLoading = false;
     });
   }
@@ -115,13 +118,6 @@ class _InfosPageState extends State<InfosPage> {
             resizeToAvoidBottomInset: false,
             resizeToAvoidBottomPadding: false,
             key: _scaffoldKey,
-            appBar: CustomAppBar(
-                title: "Informações do Cartão",
-                formChanged: formChanged,
-                formSaved: formSaved,
-                actionBack: saveData
-                // actionSave: saveData
-                ),
             body: _body()));
   }
 
@@ -146,7 +142,7 @@ class _InfosPageState extends State<InfosPage> {
           child: SingleChildScrollView(
             controller: _scrollController,
             child: Padding(
-              padding: const EdgeInsets.only(top: 18.0),
+              padding: const EdgeInsets.only(top: 48.0),
               child: Column(
                 children: [
                   itemCard(contentList[0], 0),
@@ -169,7 +165,7 @@ class _InfosPageState extends State<InfosPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                            VERSION + ' 1.2.2+30',
+                            VERSION + ' 2.0.0+32',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: _sizeWidth * 0.03),
@@ -179,9 +175,25 @@ class _InfosPageState extends State<InfosPage> {
               ),
             ),
           ),
-        )
+        ),
+        Positioned(
+            top: 30.0,
+            left: 10.0,
+            child: InkWell(
+                onTap: () {
+                            saveData();
+                            _navToHome();
+                          } ,
+                child: Functions.buildCustomButton("", Icons.arrow_back, colorBack))),
+
       ]),
     );
+  }
+
+  _navToHome() {
+    Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(builder: (BuildContext context) => MainPage()),
+        ModalRoute.withName('/'));
   }
 
   _navToTerms() {
@@ -262,8 +274,8 @@ class _InfosPageState extends State<InfosPage> {
               ],
             ))
         : _buildMessage(
-            "Incluir imagem ou logotipo no cartão", () => uploadAndCrop(cnt),
-            width: 0.64);
+            "Incluir foto da galeria", () => uploadAndCrop(cnt),
+            width: 0.5);
   }
 
   _icon(ContentModel cnt) {
@@ -291,8 +303,11 @@ class _InfosPageState extends State<InfosPage> {
                     size: cnt.hasIcon ? 24.0 : 24.0,
                   ))
               : cnt.hasIcon
-                  ? _buildMessage("Excluir imagem", () => iconChanged(cnt),
-                      width: 0.3)
+                  ? _buildMessage("Excluir foto", () {
+                          cardInfo.hasPhoto = false;
+                          iconChanged(cnt);
+                        },
+                      width: 0.26)
                   : Container()),
     );
   }
@@ -380,10 +395,10 @@ class _InfosPageState extends State<InfosPage> {
           cardInfo.phone = contentList[i].txt;
           cardInfo.hasPhone = contentList[i].hasIcon;
           break;
-        case "photo":
-          cardInfo.photo = contentList[i].txt;
-          cardInfo.hasPhoto = contentList[i].hasIcon;
-          break;
+        // case "photo":
+        //   cardInfo.photo = contentList[i].txt;
+        //   cardInfo.hasPhoto = contentList[i].hasIcon;
+        //   break;
         case "email":
           cardInfo.email = contentList[i].txt;
           cardInfo.hasEmail = contentList[i].hasIcon;
@@ -496,12 +511,7 @@ class ShowTip extends StatelessWidget {
             Text(TIPTITLE[dayNumber],
                 style: TextStyle(
                     fontSize: _sizeWidth * 0.05, fontWeight: FontWeight.bold)),
-            Text(
-              TIPMESSAGE[dayNumber],
-              style: TextStyle(
-                  fontSize: _sizeWidth * 0.04, fontWeight: FontWeight.normal),
-              textAlign: TextAlign.center,
-            ),
+            TIPMESSAGE[dayNumber],
           ],
         )));
   }

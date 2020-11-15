@@ -43,8 +43,8 @@ class _HomePageState extends State<HomePage> {
   Color _appColor = Color(0xFFF2F2F2);
   double _sizeWidth;
   List<ContentModel> contentList;
-  static const Color colorShare = Color(0xCCC63252);
-  static const Color colorBack = Color(0xDD123322);
+  static const Color colorShare = Color(0xCC32C652);
+  static const Color colorBack = Colors.black54;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +99,7 @@ class _HomePageState extends State<HomePage> {
                       : -100.00, //_sizeWidth * 0.77,
                   bottom: _sizeWidth * 0.06,
                   duration: Duration(milliseconds: 450),
-                  child: _buildCustomButton("enviar", Icons.share, _share,
+                  child: _buildCustomButton("", Icons.share, _share,
                       color: colorShare))
               : Container(),
           widget.withIcons
@@ -108,7 +108,7 @@ class _HomePageState extends State<HomePage> {
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 300),
                   child:
-                      _buildCustomButton("conteúdo", Icons.person, _navInfos))
+                      _buildCustomButton("", Icons.edit, _navInfos))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
@@ -116,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 375),
                   child: _buildCustomButton(
-                      "configurar", Icons.settings, _navConfig))
+                      "", Icons.settings, _navConfig))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
@@ -124,7 +124,7 @@ class _HomePageState extends State<HomePage> {
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 450),
                   child: _buildCustomButton(
-                      "cartões", Icons.view_module, _navCards))
+                      "", Icons.widgets, _navCards))
               : Container(),
           // widget.withIcons
           //     ? AnimatedPositioned(
@@ -182,8 +182,10 @@ class _HomePageState extends State<HomePage> {
       return Positioned(
           top: cnt.posY * (_sizeWidth / displayWidth(context)),
           left: cnt.posX * (_sizeWidth / displayWidth(context)),
-          child: (cnt.type == 'photo')
-              ? _buildPicture()
+          child: RotationTransition(
+                  turns: new AlwaysStoppedAnimation(cnt.angle / 360),
+                  child: (cnt.type == 'photo')
+              ? _buildPicture(cnt)
               : Row(
             children: [
               (cnt.icon != null)
@@ -193,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                     Functions.buildIcon(cnt.type),
                     color: cnt.color,
                     size: cnt.size *
-                        (_sizeWidth / displayWidth(context)),
+                        (_sizeWidth / displayWidth(context)) * cnt.scale,
                   ))
                   : SizedBox(width: 0),
               Text(
@@ -207,17 +209,17 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500),
               ),
             ],
-          ));
+          )));
     }
   }
 
-  _buildPicture() {
+  _buildPicture(cnt) {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
-              width: _sizeWidth * 0.4,
-              height: _sizeWidth * 0.4,
+              width: _sizeWidth * 0.4 * cnt.scale,
+              height: _sizeWidth * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
                 shape: (widget.cardInfo.photoCircle) ? BoxShape.circle : BoxShape.rectangle,
                 image: new DecorationImage(
@@ -272,14 +274,14 @@ class _HomePageState extends State<HomePage> {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.18,
+            width: MediaQuery.of(context).size.width * 0.17,
             height: MediaQuery.of(context).size.width * 0.14,
             decoration: BoxDecoration(
                 color: color,
                 border: Border.all(
                   color: Colors.white,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.04))),
+                borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.044))),
             child: FittedBox(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -293,7 +295,7 @@ class _HomePageState extends State<HomePage> {
     try {
       if (Platform.isAndroid) {
         await Share.shareFiles([imagePath],
-            text: 'Crie seu cartão digital, baixe o app em http://onelink.to/cartaodigital');
+            text: 'Crie seu imagem digital, baixe o app em http://onelink.to/cartaodigital');
       } else {
         await Share.shareFiles([imagePath]);
       }

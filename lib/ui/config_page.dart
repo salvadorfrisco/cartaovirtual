@@ -69,7 +69,7 @@ class _ConfigPageState extends State<ConfigPage> {
         children: <Widget>[
           _buildCustomButton("", Icons.arrow_back, _navToHome),
           _buildCustomButton(
-              "textos",
+              "",
               Icons.color_lens,
               () => setState(() {
                     _indexPage = 0;
@@ -84,7 +84,7 @@ class _ConfigPageState extends State<ConfigPage> {
           //         }),
           //     actual: _indexPage == 1) : SizedBox(height: 1,),
           _buildCustomButton(
-              "imagem",
+              "",
               Icons.panorama,
               () => setState(() {
                     _indexPage = 1;
@@ -135,7 +135,7 @@ class _ConfigPageState extends State<ConfigPage> {
         child: Center(
           child: Container(
             padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.18,
+            width: MediaQuery.of(context).size.width * 0.17,
             height: MediaQuery.of(context).size.width * 0.14,
             decoration: BoxDecoration(
                 color: Colors.black54,

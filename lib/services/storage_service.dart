@@ -85,18 +85,31 @@ class StorageService {
     card.scaleTwitter = 1.0;
     card.scaleYoutube = 1.0;
     card.scaleWebsite = 1.0;
-    card.fontName = 'Arial';
-    card.fontOccupation = 'Arial';
-    card.fontPhone = 'Arial';
-    card.fontPhoto = 'Arial';
-    card.fontEmail = 'Arial';
-    card.fontFacebook = 'Arial';
-    card.fontLinkedin = 'Arial';
-    card.fontInstagram = 'Arial';
-    card.fontTwitter = 'Arial';
-    card.fontYoutube = 'Arial';
-    card.fontWebsite = 'Arial';
+    card.fontName = 'Roboto';
+    card.fontOccupation = 'Roboto';
+    card.fontPhone = 'Roboto';
+    card.fontPhoto = 'Roboto';
+    card.fontEmail = 'Roboto';
+    card.fontFacebook = 'Roboto';
+    card.fontLinkedin = 'Roboto';
+    card.fontInstagram = 'Roboto';
+    card.fontTwitter = 'Roboto';
+    card.fontYoutube = 'Roboto';
+    card.fontWebsite = 'Roboto';
     card.opacity = '1.0';
+    card.colorTextAbove = '';
+    card.colorTextBelow = '';
+    card.angleName = 0.0;
+    card.angleOccupation = 0.0;
+    card.anglePhone = 0.0;
+    card.anglePhoto = 0.0;
+    card.angleEmail = 0.0;
+    card.angleFacebook = 0.0;
+    card.angleLinkedin = 0.0;
+    card.angleInstagram = 0.0;
+    card.angleTwitter = 0.0;
+    card.angleYoutube = 0.0;
+    card.angleWebsite = 0.0;
     await _saveCard('1', card)
         .then((_) => _saveCard('2', card))
         .then((_) => _saveCard('3', card))
@@ -109,7 +122,7 @@ class StorageService {
 
   _saveCard(_version, card) async {
     card.version = _version;
-    card.colorTextAbove = (_version == '1') ? 'ffffffff' : (_version == '2') ? 'ffff0000' : (_version == '3') ? 'ffffff00' : 'ffffffff';
+    card.colorTextAbove = (_version == '1') ? 'ffffffff' : (_version == '2') ? 'ff836FFF' : (_version == '3') ? 'ffffff00' : 'ff00ffff';
     card.colorTextBelow = (_version == '1') ? 'ff00ccff' : (_version == '2') ? 'ff000000' : (_version == '3') ? 'ff996600' : 'ffffff00';
     await saveDataInitial(card, _version, false)
         .then((_) => saveDataInitial(card, _version, true));

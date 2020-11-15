@@ -32,6 +32,27 @@ class Functions {
     if (txt == 'website') return FontAwesomeIcons.globeAmericas;
   }
 
+  static buildCustomButton(txt, icon, colorBack) {
+    return Center(
+          child: Container(
+            padding: EdgeInsets.all(6.0),
+            width: 54.0,
+            height: 50.0,
+            decoration: BoxDecoration(
+                color: colorBack,
+                border: Border.all(
+                  color: Colors.white,
+                ),
+                borderRadius: BorderRadius.all(Radius.circular(20.0))),
+            child: FittedBox(
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: Functions.contentButton(txt, icon, Colors.white)),
+            ),
+          ),
+        );
+  }
+
   static contentButton(txt, icon, color, {txtSize: 15.0}) {
     List<Widget> list = [];
     if (icon != null) list.add(Icon(icon, color: color, size: (txt == '') ? 20.0 : 26.0,));
@@ -62,7 +83,9 @@ class Functions {
       txt: cardInfo.photo,
       posX: cardInfo.posXPhoto,
       posY: cardInfo.posYPhoto,
+      scale: cardInfo.scalePhoto,
       icon: (cardInfo.hasPhoto) ? Icons.camera_alt : null,
+      angle: cardInfo.anglePhoto,
     ));
     cntList.add(ContentModel(
       id: '1',
@@ -76,6 +99,7 @@ class Functions {
       scale: cardInfo.scaleName,
       color: intelligentCast<Color>(cardInfo.colorName),
       icon: (cardInfo.hasName) ? Icons.person : null,
+      angle: cardInfo.angleName,
     ));
     cntList.add(ContentModel(
       id: '2',
@@ -89,6 +113,7 @@ class Functions {
       scale: cardInfo.scaleOccupation,
       color: intelligentCast<Color>(cardInfo.colorOccupation),
       icon: (cardInfo.hasOccupation) ? Icons.business_center : null,
+      angle: cardInfo.angleOccupation,
     ));
     cntList.add(ContentModel(
       id: '3',
@@ -102,6 +127,7 @@ class Functions {
       scale: cardInfo.scalePhone,
       color: intelligentCast<Color>(cardInfo.colorPhone),
       icon: (cardInfo.hasPhone) ? FontAwesomeIcons.whatsapp : null,
+      angle: cardInfo.anglePhone,
     ));
     cntList.add(ContentModel(
       id: '4',
@@ -115,6 +141,7 @@ class Functions {
       scale: cardInfo.scaleEmail,
       color: intelligentCast<Color>(cardInfo.colorEmail),
       icon: (cardInfo.hasEmail) ? Icons.email : null,
+      angle: cardInfo.angleEmail,
     ));
     cntList.add(ContentModel(
       id: '5',
@@ -128,6 +155,7 @@ class Functions {
       scale: cardInfo.scaleFacebook,
       color: intelligentCast<Color>(cardInfo.colorFacebook),
       icon: (cardInfo.hasFacebook) ? FontAwesomeIcons.facebook : null,
+      angle: cardInfo.angleFacebook,
     ));
     cntList.add(ContentModel(
       id: '6',
@@ -141,6 +169,7 @@ class Functions {
       scale: cardInfo.scaleLinkedin,
       color: intelligentCast<Color>(cardInfo.colorLinkedin),
       icon: (cardInfo.hasLinkedin) ? FontAwesomeIcons.linkedin : null,
+      angle: cardInfo.angleLinkedin,
     ));
     cntList.add(ContentModel(
       id: '7',
@@ -154,6 +183,7 @@ class Functions {
       scale: cardInfo.scaleInstagram,
       color: intelligentCast<Color>(cardInfo.colorInstagram),
       icon: (cardInfo.hasInstagram) ? FontAwesomeIcons.instagram : null,
+      angle: cardInfo.angleInstagram,
     ));
     cntList.add(ContentModel(
       id: '8',
@@ -167,6 +197,7 @@ class Functions {
       scale: cardInfo.scaleTwitter,
       color: intelligentCast<Color>(cardInfo.colorTwitter),
       icon: (cardInfo.hasTwitter) ? FontAwesomeIcons.twitter : null,
+      angle: cardInfo.angleTwitter,
     ));
     cntList.add(ContentModel(
       id: '9',
@@ -180,6 +211,7 @@ class Functions {
       scale: cardInfo.scaleYoutube,
       color: intelligentCast<Color>(cardInfo.colorYoutube),
       icon: (cardInfo.hasYoutube) ? FontAwesomeIcons.youtube : null,
+      angle: cardInfo.angleYoutube,
     ));
     cntList.add(ContentModel(
       id: '10',
@@ -193,7 +225,60 @@ class Functions {
       scale: cardInfo.scaleWebsite,
       color: intelligentCast<Color>(cardInfo.colorWebsite),
       icon: (cardInfo.hasWebsite) ? FontAwesomeIcons.globeAmericas : null,
+      angle: cardInfo.angleWebsite,
     ));
     return cntList;
   }
+
+  static buildMessage(txt, width) {
+    return Container(
+      width: width,
+      padding: EdgeInsets.all(4),
+      decoration: BoxDecoration(
+          color: Colors.black54,
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(16))),
+      child: Center(
+          child: FittedBox(
+              child: Text(
+                txt,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ))),
+    );
+  }
+
+  static buildMessageWidgets(List<Widget> widgets, width, {backColor: Colors.black54}) {
+    return Container(
+      width: width,
+      padding: EdgeInsets.all(2),
+      decoration: BoxDecoration(
+          color: backColor,
+          border: Border.all(
+            color: Colors.white,
+          ),
+          borderRadius: BorderRadius.all(Radius.circular(10))),
+      child: Center(
+          child: FittedBox(
+              child: Row(
+                children: widgets,
+              ))),
+    );
+  }
+
+  // static textFlexible(text, {padding: const EdgeInsets.only(right: 16), style: const TextStyle(fontSize: 14.0)}) {
+  //   return Flexible(
+  //       child: Padding(
+  //         padding: padding,
+  //         child: RichText(
+  //           text,
+  //           softWrap: true,
+  //           maxLines: 5,
+  //           style: style,
+  //         ),
+  //       ));
+  // }
 }
