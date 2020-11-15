@@ -122,8 +122,8 @@ class StorageService {
 
   _saveCard(_version, card) async {
     card.version = _version;
-    // card.colorTextAbove = (_version == '1') ? 'ffffffff' : (_version == '2') ? 'ffff0000' : (_version == '3') ? 'ffffff00' : 'ffffffff';
-    // card.colorTextBelow = (_version == '1') ? 'ff00ccff' : (_version == '2') ? 'ff000000' : (_version == '3') ? 'ff996600' : 'ffffff00';
+    card.colorTextAbove = (_version == '1') ? 'ffffffff' : (_version == '2') ? 'ff836FFF' : (_version == '3') ? 'ffffff00' : 'ff00ffff';
+    card.colorTextBelow = (_version == '1') ? 'ff00ccff' : (_version == '2') ? 'ff000000' : (_version == '3') ? 'ff996600' : 'ffffff00';
     await saveDataInitial(card, _version, false)
         .then((_) => saveDataInitial(card, _version, true));
   }
@@ -161,17 +161,17 @@ class StorageService {
   saveDataInitial(CardInfo card, version, backup) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String _nameKey = 'cardInfo' + version + backup.toString();
-    // card.colorName = card.colorTextAbove;
-    // card.colorOccupation = card.colorTextAbove;
-    // card.colorPhone = card.colorTextAbove;
-    // card.colorPhoto = card.colorTextAbove;
-    // card.colorEmail = card.colorTextBelow;
-    // card.colorFacebook = card.colorTextBelow;
-    // card.colorInstagram = card.colorTextBelow;
-    // card.colorTwitter = card.colorTextBelow;
-    // card.colorLinkedin = card.colorTextBelow;
-    // card.colorYoutube = card.colorTextBelow;
-    // card.colorWebsite = card.colorTextBelow;
+    card.colorName = card.colorTextAbove;
+    card.colorOccupation = card.colorTextAbove;
+    card.colorPhone = card.colorTextAbove;
+    card.colorPhoto = card.colorTextAbove;
+    card.colorEmail = card.colorTextBelow;
+    card.colorFacebook = card.colorTextBelow;
+    card.colorInstagram = card.colorTextBelow;
+    card.colorTwitter = card.colorTextBelow;
+    card.colorLinkedin = card.colorTextBelow;
+    card.colorYoutube = card.colorTextBelow;
+    card.colorWebsite = card.colorTextBelow;
     prefs.setString(_nameKey, jsonEncode(card).toString());
   }
 

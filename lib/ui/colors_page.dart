@@ -1,14 +1,11 @@
 import 'dart:typed_data';
 import 'package:virtual_card/blocs/colors_bloc.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
-import '../utils/block_picker.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import '../utils/converter_functions.dart';
 import '../models/card_info.dart';
 import 'change_params_font.dart';
-import 'home_page_stateless.dart';
 
 const List<Color> _defaultColors = [
   Colors.red,

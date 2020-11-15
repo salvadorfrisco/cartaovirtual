@@ -182,7 +182,9 @@ class _HomePageState extends State<HomePage> {
       return Positioned(
           top: cnt.posY * (_sizeWidth / displayWidth(context)),
           left: cnt.posX * (_sizeWidth / displayWidth(context)),
-          child: (cnt.type == 'photo')
+          child: RotationTransition(
+                  turns: new AlwaysStoppedAnimation(cnt.angle / 360),
+                  child: (cnt.type == 'photo')
               ? _buildPicture(cnt)
               : Row(
             children: [
@@ -193,7 +195,7 @@ class _HomePageState extends State<HomePage> {
                     Functions.buildIcon(cnt.type),
                     color: cnt.color,
                     size: cnt.size *
-                        (_sizeWidth / displayWidth(context)),
+                        (_sizeWidth / displayWidth(context)) * cnt.scale,
                   ))
                   : SizedBox(width: 0),
               Text(
@@ -207,7 +209,7 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500),
               ),
             ],
-          ));
+          )));
     }
   }
 
