@@ -9,6 +9,7 @@ import 'package:virtual_card/utils/block_picker.dart';
 import 'package:virtual_card/utils/converter_functions.dart';
 import 'package:virtual_card/utils/font_picker.dart';
 import 'package:virtual_card/utils/functions.dart';
+import 'package:virtual_card/utils/responsive.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../models/card_info.dart';
 
@@ -130,12 +131,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   }
 
   @override
-  void dispose() {
-    _timer.cancel();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     _sizeWidth = displayWidth(context);
     _sizeHeight = displayHeight(context);
@@ -209,7 +204,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
             feedback: Material(
               child: Container(
                 child: _buildElement(cnt),
-                color: Color(0x46ddee00),
+                color: Color(0x22000000),
               ),
             ),
             onDraggableCanceled: (velocity, offset) {
@@ -297,8 +292,8 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buildButtons(cnt) {
     return Center(
       child: Container(
-        width: displayWidth(context) * (cnt.type != 'photo' ? 0.76 : 0.66),
-        height: 60,
+        width: Responsive.of(context).widthPercent(cnt.type != 'photo' ? 80 : 70),
+        height: Responsive.of(context).heightPercent(9),
         decoration: BoxDecoration(
           // color: (cnt.color == Color(0xff607d8b)) ? Colors.black12 : Colors.black38,
             color: Colors.white54,
@@ -328,7 +323,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         icon: Icon(cardInfo.photoCircle ? FontAwesomeIcons.circle : Icons.crop_square_sharp,
             color: Colors.black),
         // icon: Icon(Icons.blur_circular, color: cnt.color),
-        iconSize: 38,
+        iconSize: Responsive.of(context).widthPercent(cardInfo.photoCircle ? 9 : 11),
         onPressed: () {
           _changeShape(cnt);
         });
@@ -349,7 +344,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         padding: const EdgeInsets.only(top: 7.0),
         child: Icon(increase ? Icons.rotate_right : Icons.rotate_left,
                                color: Colors.black,
-                               size: 42),
+                               size: Responsive.of(context).widthPercent(11)),
       ),
     );
   }
@@ -357,7 +352,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buttonFont(cnt) {
     return IconButton(
         icon: Icon(FontAwesomeIcons.font, color: Colors.black),
-        iconSize: 34,
+        iconSize: Responsive.of(context).widthPercent(9),
         onPressed: () {
           _changeFont(cnt);
         });
@@ -370,7 +365,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                 ? Icons.zoom_out_map_sharp
                 : FontAwesomeIcons.compressArrowsAlt,
             color: Colors.black),
-        iconSize: (increase) ? 36 : 28,
+        iconSize: Responsive.of(context).widthPercent((increase) ? 10 : 8),
         onPressed: () {
           _changeSize(cnt, increase);
         });
@@ -379,7 +374,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buttonColor(cnt) {
     return IconButton(
         icon: Icon(FontAwesomeIcons.palette, color: Colors.black),
-        iconSize: 34,
+        iconSize: Responsive.of(context).widthPercent(9),
         onPressed: () {
           _changeColor(cnt);
         });
