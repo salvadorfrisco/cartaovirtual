@@ -140,15 +140,15 @@ class _ConfigPageState extends State<ConfigPage> {
             decoration: BoxDecoration(
                 color: Colors.black54,
                 border: Border.all(
-                  color: actual ? Colors.yellowAccent : Colors.white,
+                  color: actual ? Colors.blueAccent : Colors.white,
                 ),
                 borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.04))),
             child: FittedBox(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: (icon2 == null) ?
-                  Functions.contentButton(txt, icon, actual ? Colors.yellowAccent : Colors.white) :
-                  Functions.contentButton2(txt, icon, icon2, actual ? Colors.yellowAccent : Colors.white)),
+                  Functions.contentButton(txt, icon, actual ? Colors.orange : Colors.white) :
+                  Functions.contentButton2(txt, icon, icon2, actual ? Colors.orange : Colors.white)),
           ),
           ),
         ));

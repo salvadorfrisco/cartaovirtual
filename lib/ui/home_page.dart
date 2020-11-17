@@ -91,7 +91,12 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               )),
-          isLoading ? Center(child: CircularProgressIndicator(backgroundColor: Colors.black38,)) : Container(),
+          isLoading
+              ? Center(
+                  child: CircularProgressIndicator(
+                  backgroundColor: Colors.black38,
+                ))
+              : Container(),
           widget.withIcons
               ? AnimatedPositioned(
                   right: (buttonsOn)
@@ -107,24 +112,24 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.06,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 300),
-                  child:
-                      _buildCustomButton("", Icons.edit, _navInfos))
+                  child: _buildCustomButton("", Icons.edit, _navInfos,
+                      colorIcon: Colors.greenAccent))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
                   left: _sizeWidth * 0.294,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 375),
-                  child: _buildCustomButton(
-                      "", Icons.settings, _navConfig))
+                  child: _buildCustomButton("", Icons.settings, _navConfig,
+                      colorIcon: Colors.orange))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
                   left: _sizeWidth * 0.53,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 450),
-                  child: _buildCustomButton(
-                      "", Icons.widgets, _navCards))
+                  child: _buildCustomButton("", Icons.widgets, _navCards,
+                      colorIcon: Colors.yellow))
               : Container(),
           // widget.withIcons
           //     ? AnimatedPositioned(
@@ -155,8 +160,7 @@ class _HomePageState extends State<HomePage> {
                 : page == 'infos'
                     ? InfosPage(
                         cardInfo: widget.cardInfo,
-                        imageBackground: widget.imageBackground
-            )
+                        imageBackground: widget.imageBackground)
                     : page == 'config'
                         ? ConfigPage(
                             cardInfo: widget.cardInfo,
@@ -167,7 +171,7 @@ class _HomePageState extends State<HomePage> {
                         //         cardInfo: widget.cardInfo,
                         //         imageBackground: widget.imageBackground,
                         //         profileImage: widget.profileImage)
-                            : Container()));
+                        : Container()));
     if (result != null) {
       if (result) setState(() {});
     }
@@ -183,33 +187,34 @@ class _HomePageState extends State<HomePage> {
           top: cnt.posY * (_sizeWidth / displayWidth(context)),
           left: cnt.posX * (_sizeWidth / displayWidth(context)),
           child: RotationTransition(
-                  turns: new AlwaysStoppedAnimation(cnt.angle / 360),
-                  child: (cnt.type == 'photo')
-              ? _buildPicture(cnt)
-              : Row(
-            children: [
-              (cnt.icon != null)
-                  ? Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Icon(
-                    Functions.buildIcon(cnt.type),
-                    color: cnt.color,
-                    size: cnt.size *
-                        (_sizeWidth / displayWidth(context)) * cnt.scale,
-                  ))
-                  : SizedBox(width: 0),
-              Text(
-                cnt.txt,
-                textScaleFactor: cnt.scale,
-                style: TextStyle(
-                    fontFamily: cnt.font,
-                    fontSize: cnt.size *
-                        (_sizeWidth / displayWidth(context)),
-                    color: cnt.color,
-                    fontWeight: FontWeight.w500),
-              ),
-            ],
-          )));
+              turns: new AlwaysStoppedAnimation(cnt.angle / 360),
+              child: (cnt.type == 'photo')
+                  ? _buildPicture(cnt)
+                  : Row(
+                      children: [
+                        (cnt.icon != null)
+                            ? Padding(
+                                padding: const EdgeInsets.only(right: 8.0),
+                                child: Icon(
+                                  Functions.buildIcon(cnt.type),
+                                  color: cnt.color,
+                                  size: cnt.size *
+                                      (_sizeWidth / displayWidth(context)) *
+                                      cnt.scale,
+                                ))
+                            : SizedBox(width: 0),
+                        Text(
+                          cnt.txt,
+                          textScaleFactor: cnt.scale,
+                          style: TextStyle(
+                              fontFamily: cnt.font,
+                              fontSize: cnt.size *
+                                  (_sizeWidth / displayWidth(context)),
+                              color: cnt.color,
+                              fontWeight: FontWeight.w500),
+                        ),
+                      ],
+                    )));
     }
   }
 
@@ -221,7 +226,9 @@ class _HomePageState extends State<HomePage> {
               width: _sizeWidth * 0.4 * cnt.scale,
               height: _sizeWidth * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
-                shape: (widget.cardInfo.photoCircle) ? BoxShape.circle : BoxShape.rectangle,
+                shape: (widget.cardInfo.photoCircle)
+                    ? BoxShape.circle
+                    : BoxShape.rectangle,
                 image: new DecorationImage(
                   fit: BoxFit.cover,
                   image: MemoryImage(widget.profileImage),
@@ -263,12 +270,14 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
       // openMenu();
     });
-    _capturePng().then((imgPath) => _shareImage(imgPath).then((value) => setState(() {
-          isLoading = false;
-        })));
+    _capturePng()
+        .then((imgPath) => _shareImage(imgPath).then((value) => setState(() {
+              isLoading = false;
+            })));
   }
 
-  _buildCustomButton(txt, icon, action, {color: colorBack}) {
+  _buildCustomButton(txt, icon, action,
+      {color: colorBack, colorIcon: Colors.white}) {
     return InkWell(
         onTap: action,
         child: Center(
@@ -281,11 +290,12 @@ class _HomePageState extends State<HomePage> {
                 border: Border.all(
                   color: Colors.white,
                 ),
-                borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.044))),
+                borderRadius: BorderRadius.all(Radius.circular(
+                    MediaQuery.of(context).size.width * 0.044))),
             child: FittedBox(
               child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, Colors.white)),
+                  children: Functions.contentButton(txt, icon, colorIcon)),
             ),
           ),
         ));
@@ -295,7 +305,8 @@ class _HomePageState extends State<HomePage> {
     try {
       if (Platform.isAndroid) {
         await Share.shareFiles([imagePath],
-            text: 'Crie seu imagem digital, baixe o app em http://onelink.to/cartaodigital');
+            text:
+                'Crie seu imagem digital, baixe o app em http://onelink.to/cartaodigital');
       } else {
         await Share.shareFiles([imagePath]);
       }
