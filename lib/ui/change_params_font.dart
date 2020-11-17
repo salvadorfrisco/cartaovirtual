@@ -215,12 +215,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
           child: Draggable(
             child: Container(child: _buildElement(cnt)),
             feedback: _buildElement(cnt, feed: true),
-            // Material(
-            //   child: Container(
-            //     child: _buildElement(cnt),
-            //     color: Color(0x22000000),
-            //   ),
-            // ),
             onDraggableCanceled: (velocity, offset) {
               RenderBox renderBox = context.findRenderObject();
               _position = renderBox.globalToLocal(offset);
@@ -256,7 +250,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
       child: RotationTransition(
         turns: new AlwaysStoppedAnimation(cnt.angle / 360),
         child: (cnt.type == 'photo')
-            ? _buildPicture(cnt)
+            ? _buildPicture(cnt, feed)
             : Row(
                 children: [
                   (cnt.icon != null)
@@ -567,7 +561,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   } // cnt.posX + getSizeAndPosition(key).width > displayWidth(context);
 
   _canDecreaseSize(cnt, key) {
-    if (getSizeAndPosition(key).width < 120) {
+    if (getSizeAndPosition(key).width < (cnt.type == 'photo' ? 40 : 120)) {
       setState(() {});
       return false;
     }
@@ -631,7 +625,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
           widget.cardInfo.scalePhoto = widget.cardInfo.scalePhoto +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scalePhoto > 0.6
+                  : widget.cardInfo.scalePhoto > 0.4
                       ? -0.1
                       : 0.0);
           widget.cardInfo.posXPhoto = widget.cardInfo.posXPhoto + factorSize;
@@ -785,6 +779,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     setState(() {
       cardInfo.photoCircle = !cardInfo.photoCircle;
     });
+    saveData();
   }
 
   _changeAngle(cnt, {increase = true}) {
@@ -837,10 +832,11 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     saveData();
   }
 
-  _buildPicture(cnt) {
+  _buildPicture(cnt, feed) {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
+              key: feed ? null : getKey(cnt),
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
               width: _sizeWidth * 0.4 * cnt.scale,
               height: _sizeWidth * 0.4 * cnt.scale,
