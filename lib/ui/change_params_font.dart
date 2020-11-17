@@ -172,6 +172,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   opacity: double.parse(widget.cardInfo.opacity),
                   child: Container(
                     decoration: new BoxDecoration(
+                      border: Border.all(color: Colors.orange),
                       image: new DecorationImage(
                         fit: BoxFit.cover,
                         image: widget.imageBackground != null
