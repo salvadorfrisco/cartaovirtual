@@ -193,7 +193,7 @@ class _ThemePageState extends State<ThemePage> {
                         MediaQuery.of(context).size.width * 0.07))),
                 child: FittedBox(
                   child: Column(
-                      children: Functions.contentButton(icon, Colors.white)),
+                      children: Functions.contentButton(icon, Colors.orange)),
                 ),
               ),
             )));

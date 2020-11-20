@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/utils/block_picker.dart';
@@ -221,8 +221,10 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               _dx = _position.dx;
               _dy = _position.dy;
 
-              if ((_dx + getSizeAndPosition(_key).width / 2) > _sizeWidth)
-                _dx = _sizeWidth - getSizeAndPosition(_key).width / 2;
+              if ((_dx + getSizeAndPosition(_key).width * .6) > _sizeWidth)
+                _dx = _sizeWidth -
+                    getSizeAndPosition(_key).width / 2 -
+                    Responsive.of(context).widthPercent(6);
               else if (_dx + getSizeAndPosition(_key).width / 2 < -10) _dx = 0;
 
               if (_dy < 0)
@@ -330,8 +332,8 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     return IconButton(
         icon: Icon(
             cardInfo.photoCircle
-                ? FontAwesomeIcons.circle
-                : Icons.crop_square_sharp,
+                ? UniconsLine.circle
+                : UniconsLine.square,
             color: Colors.black),
         // icon: Icon(Icons.blur_circular, color: cnt.color),
         iconSize:
@@ -363,7 +365,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
 
   _buttonFont(cnt) {
     return IconButton(
-        icon: Icon(FontAwesomeIcons.font, color: Colors.black),
+        icon: Icon(UniconsLine.font, color: Colors.black),
         iconSize: Responsive.of(context).widthPercent(9),
         onPressed: () {
           _changeFont(cnt);
@@ -393,20 +395,20 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         _timer.cancel();
       },
       child: Padding(
-        padding: EdgeInsets.only(top: ((increase) ? 6 : 9), left: 8, right: 8),
+        padding: EdgeInsets.only(top: 6, left: 8, right: 8),
         child: Icon(
             increase
                 ? Icons.zoom_out_map_sharp
-                : FontAwesomeIcons.compressArrowsAlt,
+                : UniconsLine.compress_arrows,
             color: _action ? Colors.black : Colors.black38,
-            size: Responsive.of(context).widthPercent((increase) ? 10 : 8)),
+            size: Responsive.of(context).widthPercent(10)),
       ),
     );
   }
 
   _buttonColor(cnt) {
     return IconButton(
-        icon: Icon(FontAwesomeIcons.palette, color: Colors.black),
+        icon: Icon(Icons.color_lens, color: Colors.black),
         iconSize: Responsive.of(context).widthPercent(9),
         onPressed: () {
           _changeColor(cnt);
@@ -561,13 +563,16 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   } // cnt.posX + getSizeAndPosition(key).width > displayWidth(context);
 
   _canDecreaseSize(cnt, key) {
-    if (getSizeAndPosition(key).width < (cnt.type == 'photo' ? 40 : 120)) {
+    if (cnt.type == 'photo' && getSizeAndPosition(key).width < 40) {
+      setState(() {});
+      return false;
+    } else
+    if (getSizeAndPosition(key).width / cnt.txt.length < 6) {
       setState(() {});
       return false;
     }
     if (cnt.posX * -1 < getSizeAndPosition(key).width / 2) return true;
     if (cnt.posX > 0) return true;
-
     setState(() {});
     return false;
   } // cnt.posX < 0 && getSizeAndPosition(key).width < ((cnt.posX * -1) * 2);

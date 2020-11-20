@@ -1,6 +1,6 @@
 name: virtual_card
 description: Criação e compartilhamento de imagens personalizadas
-version: 2.0.4+36
+version: 2.0.5+37
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -10,7 +10,6 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  font_awesome_flutter: ^8.10.0
   mask_text_input_formatter: ^1.1.0
   cupertino_icons: ^1.0.0
 #  esys_flutter_share: ^1.0.2

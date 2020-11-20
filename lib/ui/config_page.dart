@@ -74,12 +74,14 @@ class _ConfigPageState extends State<ConfigPage> {
         children: <Widget>[
           _buildCustomButton(
               "Alterar fonte, formato, cor, rotacionar, tamanho",
-              Icons.color_lens,
+            UniconsLine.font,
               () => setState(() {
                     _indexPage = 0;
                   }),
               actual: _indexPage == 0,
-              icon2: Icons.zoom_out_map_sharp,),
+            icon2: Icons.color_lens,
+            icon3: Icons.zoom_out_map_sharp,
+            icon4: Icons.rotate_right,),
           _buildCustomButton(
               "Alterar fundo, opacidade, com upload de imagem",
               UniconsLine.image,
@@ -115,7 +117,7 @@ class _ConfigPageState extends State<ConfigPage> {
     }
   }
 
-  _buildCustomButton(tip, icon, action, {actual: false, icon2}) {
+  _buildCustomButton(tip, icon, action, {actual: false, icon2, icon3, icon4}) {
     return InkWell(
         onTap: action,
         child: Tooltip(
@@ -139,7 +141,7 @@ class _ConfigPageState extends State<ConfigPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: (icon2 == null) ?
                     Functions.contentButton(icon, actual ? Colors.orange : Colors.white) :
-                    Functions.contentButton2(icon, icon2, actual ? Colors.orange : Colors.white)),
+                    Functions.contentButton4(icon, icon2, icon3, icon4, actual ? Colors.orange : Colors.white)),
             ),
             ),
           ),

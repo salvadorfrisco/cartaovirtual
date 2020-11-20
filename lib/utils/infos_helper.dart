@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unicons/unicons.dart';
 // import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 formField(cnt, width, callback, index, callbackTap) {
@@ -67,34 +67,34 @@ getIcon(type) {
       return Icons.person;
       break;
     case "occupation":
-      return Icons.business_center;
+      return UniconsLine.bag_alt;
       break;
     case "phone":
-      return FontAwesomeIcons.whatsapp;
+      return UniconsLine.whatsapp;
       break;
     case "photo":
-      return Icons.camera_alt;
+      return UniconsLine.camera;
       break;
     case "email":
-      return Icons.email;
+      return UniconsLine.envelope;
       break;
     case "facebook":
-      return FontAwesomeIcons.facebook;
+      return UniconsLine.facebook;
       break;
     case "instagram":
-      return FontAwesomeIcons.instagram;
+      return UniconsLine.instagram;
       break;
     case "twitter":
-      return FontAwesomeIcons.twitter;
+      return UniconsLine.twitter;
       break;
     case "linkedin":
-      return FontAwesomeIcons.linkedin;
+      return UniconsLine.linkedin;
       break;
     case "youtube":
-      return FontAwesomeIcons.youtube;
+      return UniconsLine.youtube;
       break;
     case "website":
-      return FontAwesomeIcons.globeAmericas;
+      return UniconsLine.globe;
       break;
   }
 }

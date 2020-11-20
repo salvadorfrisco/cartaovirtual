@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/utils/functions.dart';
+import 'package:virtual_card/utils/responsive.dart';
 
 class CropPage extends StatefulWidget {
   final String version;
@@ -39,39 +40,23 @@ class _CropPageState extends State<CropPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          width: MediaQuery.of(context).size.width,
-          height: MediaQuery.of(context).size.height,
-          child: imageFile != null ? Image.file(imageFile) : Container(child: Text('Upload'),),) ,
-      ),
-
+      body: Container(
+        color: Colors.white10,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        child: imageFile != null ? Image.file(imageFile) : SizedBox()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: EdgeInsets.only(top: Responsive.of(context).heightPercent(89), left: 30.0, right: 30.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Functions.buildCustomButton(_close, UniconsLine.cancel),
-            // _buildUploadButton(
-            //     "cancelar",
-            //     Icons.cancel,
-            //     close),
-            Functions.buildCustomButton(_adjust, UniconsLine.crop_alt),
-            // _buildUploadButton(
-            //     "ajustar",
-            //     Icons.crop,
-            //         ),
-            Functions.buildCustomButton(_save, UniconsLine.save),
-            // _buildUploadButton(
-            //     "salvar",
-            //     Icons.check,
-            //         () { saveImage(imageFile);
-            //              Navigator.pop(context, imageFile.readAsBytesSync());
-            //            } ),
+            Functions.buildCustomButton(_close, UniconsLine.times, colorBack: Colors.redAccent),
+            Functions.buildCustomButton(_adjust, UniconsLine.crop_alt, colorBack: Colors.blueAccent),
+            Functions.buildCustomButton(_save, UniconsLine.check, colorBack: Colors.green),
           ],
         ),
-      )
+      ),
     );
   }
 

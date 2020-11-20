@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
-
 import 'converter_functions.dart';
 
 class Functions {
@@ -20,16 +19,16 @@ class Functions {
 
   static buildIcon(txt) {
     if (txt == 'name') return Icons.person;
-    if (txt == 'occupation') return Icons.business_center;
-    if (txt == 'phone') return FontAwesomeIcons.whatsapp;
-    if (txt == 'photo') return Icons.camera_alt;
-    if (txt == 'email') return Icons.email;
-    if (txt == 'facebook') return FontAwesomeIcons.facebook;
-    if (txt == 'instagram') return FontAwesomeIcons.instagram;
-    if (txt == 'twitter') return FontAwesomeIcons.twitter;
-    if (txt == 'linkedin') return FontAwesomeIcons.linkedin;
-    if (txt == 'youtube') return FontAwesomeIcons.youtube;
-    if (txt == 'website') return FontAwesomeIcons.globeAmericas;
+    if (txt == 'occupation') return UniconsLine.bag_alt;
+    if (txt == 'phone') return UniconsLine.whatsapp;
+    if (txt == 'photo') return UniconsLine.camera;
+    if (txt == 'email') return UniconsLine.envelope;
+    if (txt == 'facebook') return UniconsLine.facebook;
+    if (txt == 'instagram') return UniconsLine.instagram;
+    if (txt == 'twitter') return UniconsLine.twitter;
+    if (txt == 'linkedin') return UniconsLine.linkedin;
+    if (txt == 'youtube') return UniconsLine.youtube;
+    if (txt == 'website') return UniconsLine.globe;
   }
 
   static buildCustomButton(action, icon, {colorBack: Colors.black38, tip: ''}) {
@@ -74,11 +73,11 @@ class Functions {
     return list;
   }
 
-  static contentButton2(icon, icon2, color) {
+  static contentButton4(icon1, icon2, icon3, icon4, color) {
     List<Widget> list = [];
-    list.add(Row(children: [
+    list.add(Column(children: [ Row(children: [
       Icon(
-        icon,
+        icon1,
         color: color,
         size: 26.0,
       ),
@@ -86,8 +85,19 @@ class Functions {
         icon2,
         color: color,
         size: 26.0,
+      ),]),
+      Row(children: [
+      Icon(
+        icon3,
+        color: color,
+        size: 26.0,
       ),
-    ]));
+      Icon(
+        icon4,
+        color: color,
+        size: 26.0,
+      ),
+      ]),]),);
     return list;
   }
 
@@ -143,7 +153,7 @@ class Functions {
       font: cardInfo.fontPhone,
       scale: cardInfo.scalePhone,
       color: intelligentCast<Color>(cardInfo.colorPhone),
-      icon: (cardInfo.hasPhone) ? FontAwesomeIcons.whatsapp : null,
+      icon: (cardInfo.hasPhone) ? UniconsLine.whatsapp : null,
       angle: cardInfo.anglePhone,
     ));
     cntList.add(ContentModel(
@@ -171,7 +181,7 @@ class Functions {
       font: cardInfo.fontFacebook,
       scale: cardInfo.scaleFacebook,
       color: intelligentCast<Color>(cardInfo.colorFacebook),
-      icon: (cardInfo.hasFacebook) ? FontAwesomeIcons.facebook : null,
+      icon: (cardInfo.hasFacebook) ? UniconsLine.facebook : null,
       angle: cardInfo.angleFacebook,
     ));
     cntList.add(ContentModel(
@@ -185,7 +195,7 @@ class Functions {
       font: cardInfo.fontLinkedin,
       scale: cardInfo.scaleLinkedin,
       color: intelligentCast<Color>(cardInfo.colorLinkedin),
-      icon: (cardInfo.hasLinkedin) ? FontAwesomeIcons.linkedin : null,
+      icon: (cardInfo.hasLinkedin) ? UniconsLine.linkedin : null,
       angle: cardInfo.angleLinkedin,
     ));
     cntList.add(ContentModel(
@@ -199,7 +209,7 @@ class Functions {
       font: cardInfo.fontInstagram,
       scale: cardInfo.scaleInstagram,
       color: intelligentCast<Color>(cardInfo.colorInstagram),
-      icon: (cardInfo.hasInstagram) ? FontAwesomeIcons.instagram : null,
+      icon: (cardInfo.hasInstagram) ? UniconsLine.instagram : null,
       angle: cardInfo.angleInstagram,
     ));
     cntList.add(ContentModel(
@@ -213,7 +223,7 @@ class Functions {
       font: cardInfo.fontTwitter,
       scale: cardInfo.scaleTwitter,
       color: intelligentCast<Color>(cardInfo.colorTwitter),
-      icon: (cardInfo.hasTwitter) ? FontAwesomeIcons.twitter : null,
+      icon: (cardInfo.hasTwitter) ? UniconsLine.twitter : null,
       angle: cardInfo.angleTwitter,
     ));
     cntList.add(ContentModel(
@@ -227,7 +237,7 @@ class Functions {
       font: cardInfo.fontYoutube,
       scale: cardInfo.scaleYoutube,
       color: intelligentCast<Color>(cardInfo.colorYoutube),
-      icon: (cardInfo.hasYoutube) ? FontAwesomeIcons.youtube : null,
+      icon: (cardInfo.hasYoutube) ? UniconsLine.youtube : null,
       angle: cardInfo.angleYoutube,
     ));
     cntList.add(ContentModel(
@@ -241,7 +251,7 @@ class Functions {
       font: cardInfo.fontWebsite,
       scale: cardInfo.scaleWebsite,
       color: intelligentCast<Color>(cardInfo.colorWebsite),
-      icon: (cardInfo.hasWebsite) ? FontAwesomeIcons.globeAmericas : null,
+      icon: (cardInfo.hasWebsite) ? UniconsLine.globe : null,
       angle: cardInfo.angleWebsite,
     ));
     return cntList;
