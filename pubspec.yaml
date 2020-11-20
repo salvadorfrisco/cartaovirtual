@@ -1,6 +1,6 @@
 name: virtual_card
 description: Criação e compartilhamento de imagens personalizadas
-version: 2.0.3+35
+version: 2.0.4+36
 
 environment:
   sdk: ">=2.1.0 <3.0.0"
@@ -29,6 +29,7 @@ dependencies:
   bloc_pattern: ^2.5.1
   json_serializable: ^3.5.0
   path_provider: ^1.6.21
+  unicons: ^1.0.0+5
 
 dev_dependencies:
   flutter_test:

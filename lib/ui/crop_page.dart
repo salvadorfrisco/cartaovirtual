@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:io';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/utils/functions.dart';
 
@@ -51,68 +52,78 @@ class _CropPageState extends State<CropPage> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            _buildUploadButton(
-                "cancelar",
-                Icons.cancel,
-                close),
-            _buildUploadButton(
-                "ajustar",
-                Icons.crop,
-                    () {
-                  if (state == AppState.free)
-                    _pickImage();
-                  else if (state == AppState.picked)
-                    _cropImage();
-                  else if (state == AppState.cropped) _clearImage();
-                }),
-            _buildUploadButton(
-                "salvar",
-                Icons.check,
-                    () { saveImage(imageFile);
-                         Navigator.pop(context, imageFile.readAsBytesSync());
-                       } ),
+            Functions.buildCustomButton(_close, UniconsLine.cancel),
+            // _buildUploadButton(
+            //     "cancelar",
+            //     Icons.cancel,
+            //     close),
+            Functions.buildCustomButton(_adjust, UniconsLine.crop_alt),
+            // _buildUploadButton(
+            //     "ajustar",
+            //     Icons.crop,
+            //         ),
+            Functions.buildCustomButton(_save, UniconsLine.save),
+            // _buildUploadButton(
+            //     "salvar",
+            //     Icons.check,
+            //         () { saveImage(imageFile);
+            //              Navigator.pop(context, imageFile.readAsBytesSync());
+            //            } ),
           ],
         ),
       )
     );
   }
 
-  _buildUploadButton(txt, icon, action) {
-    return InkWell(
-        onTap: action,
-        child: Container(
-          padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-          width: MediaQuery.of(context).size.width * 0.18,
-          height: MediaQuery.of(context).size.width * 0.14,
-          decoration: BoxDecoration(
-              color: Colors.black54,
-              border: Border.all(
-                color: Colors.white,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.04))),
-          child: FittedBox(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: Functions.contentButton(txt, icon, Colors.white)),
-          ),
-        ));
-  }
+  // _buildUploadButton(txt, icon, action) {
+  //   return InkWell(
+  //       onTap: action,
+  //       child: Container(
+  //         padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
+  //         width: MediaQuery.of(context).size.width * 0.18,
+  //         height: MediaQuery.of(context).size.width * 0.14,
+  //         decoration: BoxDecoration(
+  //             color: Colors.black54,
+  //             border: Border.all(
+  //               color: Colors.white,
+  //             ),
+  //             borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.04))),
+  //         child: FittedBox(
+  //           child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+  //               children: Functions.contentButton(txt, icon, Colors.white)),
+  //         ),
+  //       ));
+  // }
 
   _pickImage() async {
     final pickedFile = await _picker.getImage(source: ImageSource.gallery);
-    if (pickedFile == null) close();
+    if (pickedFile == null) _close();
     else {
       imageFile = File(pickedFile.path);
       if (imageFile != null) {
         setState(() {
           state = AppState.picked;
         });
-      } else close();
+      } else _close();
     }
   }
 
-  close() {
+  _adjust() {
+    if (state == AppState.free)
+      _pickImage();
+    else if (state == AppState.picked)
+      _cropImage();
+    else if (state == AppState.cropped) _clearImage();
+  }
+
+  _close() {
     Navigator.pop(context, null);
+  }
+
+  _save() {
+    saveImage(imageFile);
+    Navigator.pop(context, imageFile.readAsBytesSync());
   }
 
   saveImage(File imageUploaded) {

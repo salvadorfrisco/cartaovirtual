@@ -4,6 +4,7 @@ import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
 
 const String NAME = "Image Creator";
@@ -57,7 +58,7 @@ List<Widget> TIPMESSAGE = [
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
           ),
           WidgetSpan(child: Functions.buildMessageWidgets(
-              [Icon(Icons.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
+              [Icon(UniconsLine.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
         ],
       )),
   RichText(
@@ -87,19 +88,19 @@ List<Widget> TIPMESSAGE = [
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
       ),
       WidgetSpan(child: Functions.buildMessageWidgets(
-          [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+          [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
       TextSpan(
         text: ' e ',
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
       ),
       WidgetSpan(child: Functions.buildMessageWidgets(
-          [Icon(Icons.panorama, size: 22, color: Colors.white,)], 40.0)),
+          [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
       TextSpan(
         text: ' selecione uma imagem ou faça upload em ',
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
       ),
       WidgetSpan(child: Functions.buildMessageWidgets(
-          [Icon(Icons.file_upload, size: 22, color: Colors.white,)], 40.0)),
+          [Icon(UniconsLine.image_upload, size: 22, color: Colors.white,)], 40.0)),
     ],
   )),
   RichText(
@@ -112,13 +113,13 @@ List<Widget> TIPMESSAGE = [
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
           ),
           WidgetSpan(child: Functions.buildMessageWidgets(
-              [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+              [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
           TextSpan(
             text: ' e ',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
           ),
           WidgetSpan(child: Functions.buildMessageWidgets(
-              [Icon(Icons.panorama, size: 22, color: Colors.white,)], 40.0)),
+              [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
           TextSpan(
             text: ' , deslize o botão do lado direito e veja o efeito ',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
@@ -136,7 +137,7 @@ List<Widget> TIPMESSAGE = [
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
           ),
           WidgetSpan(child: Functions.buildMessageWidgets(
-              [Icon(Icons.settings, size: 22, color: Colors.white,)], 40.0)),
+              [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
           TextSpan(
             text: ' e ',
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),

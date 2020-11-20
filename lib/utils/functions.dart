@@ -32,45 +32,62 @@ class Functions {
     if (txt == 'website') return FontAwesomeIcons.globeAmericas;
   }
 
-  static buildCustomButton(txt, icon, colorBack) {
-    return Center(
-          child: Container(
-            padding: EdgeInsets.all(6.0),
-            width: 54.0,
-            height: 50.0,
+  static buildCustomButton(action, icon, {colorBack: Colors.black38, tip: ''}) {
+    return InkWell(
+        onTap: action,
+        child: Tooltip(
             decoration: BoxDecoration(
-                color: colorBack,
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(20.0))),
-            child: FittedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, Colors.white)),
+              color: Colors.teal,
             ),
-          ),
-        );
+            message: tip,
+            child: Center(
+              child: Container(
+                padding: EdgeInsets.all(6.0),
+                width: 54.0,
+                height: 50.0,
+                decoration: BoxDecoration(
+                    color: colorBack,
+                    border: Border.all(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(20.0))),
+                child: FittedBox(
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: Functions.contentButton(icon, Colors.white)),
+                ),
+              ),
+            )));
   }
 
-  static contentButton(txt, icon, color, {txtSize: 15.0}) {
+  static contentButton(icon, color, {txt: '', txtSize: 15.0}) {
     List<Widget> list = [];
-    if (icon != null) list.add(Icon(icon, color: color, size: (txt == '') ? 20.0 : 26.0,));
+    if (icon != null)
+      list.add(Icon(
+        icon,
+        color: color,
+        size: (txt == '') ? 20.0 : 26.0,
+      ));
     if (txt != "")
-      list.add(
-          FittedBox(child: Text(txt, style: TextStyle(fontSize: txtSize, color: color))));
+      list.add(FittedBox(
+          child: Text(txt, style: TextStyle(fontSize: txtSize, color: color))));
     return list;
   }
 
-  static contentButton2(txt, icon, icon2, color) {
+  static contentButton2(icon, icon2, color) {
     List<Widget> list = [];
-    list.add(Row(children:[
-      Icon(icon, color: color, size: (txt == '') ? 20.0 : 26.0,),
-      Icon(icon2, color: color, size: (txt == '') ? 20.0 : 26.0,),
+    list.add(Row(children: [
+      Icon(
+        icon,
+        color: color,
+        size: 26.0,
+      ),
+      Icon(
+        icon2,
+        color: color,
+        size: 26.0,
+      ),
     ]));
-    if (txt != "")
-      list.add(
-          FittedBox(child: Text(txt, style: TextStyle(fontSize: 15.0, color: color))));
     return list;
   }
 
@@ -243,15 +260,16 @@ class Functions {
       child: Center(
           child: FittedBox(
               child: Text(
-                txt,
-                style: TextStyle(
-                  color: Colors.white,
-                ),
-              ))),
+        txt,
+        style: TextStyle(
+          color: Colors.white,
+        ),
+      ))),
     );
   }
 
-  static buildMessageWidgets(List<Widget> widgets, width, {backColor: Colors.black54}) {
+  static buildMessageWidgets(List<Widget> widgets, width,
+      {backColor: Colors.black54}) {
     return Container(
       width: width,
       padding: EdgeInsets.all(2),
@@ -264,8 +282,8 @@ class Functions {
       child: Center(
           child: FittedBox(
               child: Row(
-                children: widgets,
-              ))),
+        children: widgets,
+      ))),
     );
   }
 

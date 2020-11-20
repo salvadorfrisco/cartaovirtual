@@ -4,6 +4,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:lottie/lottie.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/common/constants.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/services/storage_service.dart';
@@ -179,15 +180,15 @@ class _InfosPageState extends State<InfosPage> {
         Positioned(
             top: 30.0,
             left: 10.0,
-            child: InkWell(
-                onTap: () {
-                            saveData();
-                            _navToHome();
-                          } ,
-                child: Functions.buildCustomButton("", Icons.arrow_back, colorBack))),
+            child: Functions.buildCustomButton(_actionButtonLeft, UniconsLine.arrow_left, tip: 'Voltar')),
 
       ]),
     );
+  }
+
+  _actionButtonLeft() {
+    saveData();
+    _navToHome();
   }
 
   _navToHome() {

@@ -1,6 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter/cupertino.dart';
+import 'package:unicons/unicons.dart';
+import 'package:virtual_card/utils/functions.dart';
 import '../main_page.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -35,14 +37,21 @@ class _CardsPageState extends State<CardsPage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Color(0xff0a1032),
-//        appBar: AppBar(
-//          leading: IconButton(
-//            icon: Icon(Icons.arrow_back, color: Colors.white),
-//            onPressed: () { _navToHome(); },
-//          ),),
-        body: _buildGridCards(),
+        backgroundColor: Color(0xfff4ffdf),
+        body: _build(),
       ),
+    );
+  }
+
+  _build() {
+    return Stack(
+      children: [
+        _buildGridCards(),
+        Positioned(
+            top: 30.0,
+            left: 10.0,
+            child: Functions.buildCustomButton(_navToHome, UniconsLine.arrow_left, tip: 'Voltar')),
+      ],
     );
   }
 
@@ -66,13 +75,15 @@ class _CardsPageState extends State<CardsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildCard("1"),
+            SizedBox(width: 2.0,),
             _buildCard("2"),
           ],
         ),
-        SizedBox(height: 10.0,),
+        SizedBox(height: 6.0,),
         Row(
           children: <Widget>[
             _buildCard("3"),
+            SizedBox(width: 3.0,),
             _buildCard("4"),
           ],
         )
@@ -87,21 +98,23 @@ class _CardsPageState extends State<CardsPage> {
         save();
       },
       child: Opacity(
-        opacity: _version == version ? 1.0 : 0.7,
+        opacity: _version == version ? 1.0 : 0.8,
         child: Container(
           color: _version == version
               ? Colors.yellowAccent
               : Colors.transparent,
           width: MediaQuery.of(context).size.width * .9 / 2.04,
           height: MediaQuery.of(context).size.height * .8 / 1.97,
-          margin: EdgeInsets.only(
-              left: 10.0),
+          // margin: EdgeInsets.only(left: 6.0),
           child: Padding(
-            padding: const EdgeInsets.all(3.0),
+            padding: EdgeInsets.only(right: (version == '1') ? 4.0 : 0.0, left: (version == '3') ? 6.0 : 2.0, top: (version == '2') ? 2.0 : 4.0),
             child: IgnorePointer(
-              child: HomePageCard(
-                version: version
+              child: Container(
+                margin: EdgeInsets.all(4.0),
+                child: HomePageCard(
+                  version: version
             ),
+              ),
           ),
         ),
       ),

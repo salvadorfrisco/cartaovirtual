@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtual_card/utils/sizes_helpers.dart';
@@ -91,8 +92,12 @@ class _ThemePageState extends State<ThemePage> {
                                 right: 4,
                                 child: Column(children: [
                                   _transparencyControl(),
-                                  SizedBox(height: 12,),
-                                  _buildUploadButton("", Icons.file_upload),
+                                  SizedBox(
+                                    height: 12,
+                                  ),
+                                  _buildUploadButton(
+                                      "Fazer upload de imagem da galeria",
+                                      UniconsLine.image_upload),
                                 ])),
                             isLoading
                                 ? Center(
@@ -109,29 +114,34 @@ class _ThemePageState extends State<ThemePage> {
   _transparencyControl() {
     return RotatedBox(
         quarterTurns: 1,
-        child: Container(
-          width: displayWidth(context) * 0.5,
-          height: 40,
-          decoration: BoxDecoration(
-              color: Colors.black38,
-              border: Border.all(
-                color: Colors.white,
-              ),
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          child: Slider(
-              value: double.parse(cardInfo.opacity) * 10,
-              min: 0.0,
-              max: 10.0,
-              divisions: 40,
-              activeColor: Colors.white,
-              inactiveColor: Colors.black,
-              onChanged: (double newValue) {
-                setState(() {
-                  cardInfo.opacity = (newValue / 10).toString();
-                  storage.saveData(cardInfo, false);
-                });
-              }),
-        ));
+        child: Tooltip(
+            decoration: BoxDecoration(
+              color: Colors.teal,
+            ),
+            message: "Alterar a opacidade da imagem de fundo",
+            child: Container(
+              width: displayWidth(context) * 0.5,
+              height: 40,
+              decoration: BoxDecoration(
+                  color: Colors.black38,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: Slider(
+                  value: double.parse(cardInfo.opacity) * 10,
+                  min: 0.0,
+                  max: 10.0,
+                  divisions: 40,
+                  activeColor: Colors.white,
+                  inactiveColor: Colors.black,
+                  onChanged: (double newValue) {
+                    setState(() {
+                      cardInfo.opacity = (newValue / 10).toString();
+                      storage.saveData(cardInfo, false);
+                    });
+                  }),
+            )));
   }
 
   uploadAndCrop() async {
@@ -160,28 +170,33 @@ class _ThemePageState extends State<ThemePage> {
     await uploadAndCrop();
   }
 
-  _buildUploadButton(txt, icon) {
+  _buildUploadButton(tip, icon) {
     return InkWell(
         onTap: upload,
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.15,
-            height: MediaQuery.of(context).size.width * 0.16,
+        child: Tooltip(
             decoration: BoxDecoration(
-                color: Colors.black38,
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(
-                    Radius.circular(MediaQuery.of(context).size.width * 0.07))),
-            child: FittedBox(
-              child: Column(
-                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, Colors.white, txtSize: 10.0)),
+              color: Colors.teal,
             ),
-          ),
-        ));
+            message: tip,
+            child: Center(
+              child: Container(
+                padding:
+                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
+                width: MediaQuery.of(context).size.width * 0.15,
+                height: MediaQuery.of(context).size.width * 0.16,
+                decoration: BoxDecoration(
+                    color: Colors.black38,
+                    border: Border.all(
+                      color: Colors.white,
+                    ),
+                    borderRadius: BorderRadius.all(Radius.circular(
+                        MediaQuery.of(context).size.width * 0.07))),
+                child: FittedBox(
+                  child: Column(
+                      children: Functions.contentButton(icon, Colors.white)),
+                ),
+              ),
+            )));
   }
 
   Widget _selectModel(BuildContext context) {
@@ -209,36 +224,36 @@ class _ThemePageState extends State<ThemePage> {
                     imageBackground: imageBackground,
                     profileImage: widget.profileImage,
                     widthScreen: displayWidth(context) * 1,
-                    withIcons: false
-                ),
+                    withIcons: false),
               ),
             ),
-              SliverGrid(
-                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                      maxCrossAxisExtent: 200.0,
-                      mainAxisSpacing: 0.0,
-                      crossAxisSpacing: 0.80,
-                      childAspectRatio: 0.75,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (BuildContext context, int index) {
-                        int indexImg = index + 1;
-                        String img =
-                            'https://picsum.photos/seed/$indexImg/$_sizeWidth/$_sizeHeight';
-                        return (_connectionStatus == 'ConnectivityResult.none' && index > 0)
-                            ? Center(
-                                child: Text(
-                                "Para carregar as imagens é necessário se conectar a internet.",
-                                style: TextStyle(color: Colors.red),
-                                textAlign: TextAlign.center,
-                              ))
-                            : showImageCard(img, widget.cardInfo.version, index);
-                      },
-                      childCount: (_connectionStatus == 'ConnectivityResult.none')
-                          ? 2
-                          : 1000,
-                    ),
-              )],
+            SliverGrid(
+              gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200.0,
+                mainAxisSpacing: 0.0,
+                crossAxisSpacing: 0.80,
+                childAspectRatio: 0.75,
+              ),
+              delegate: SliverChildBuilderDelegate(
+                (BuildContext context, int index) {
+                  int indexImg = index + 1;
+                  String img =
+                      'https://picsum.photos/seed/$indexImg/$_sizeWidth/$_sizeHeight';
+                  return (_connectionStatus == 'ConnectivityResult.none' &&
+                          index > 0)
+                      ? Center(
+                          child: Text(
+                          "Para carregar as imagens é necessário se conectar a internet.",
+                          style: TextStyle(color: Colors.red),
+                          textAlign: TextAlign.center,
+                        ))
+                      : showImageCard(img, widget.cardInfo.version, index);
+                },
+                childCount:
+                    (_connectionStatus == 'ConnectivityResult.none') ? 2 : 1000,
+              ),
+            )
+          ],
         ),
       ],
     );
@@ -269,8 +284,9 @@ class _ThemePageState extends State<ThemePage> {
         isLoading = true;
       });
       await http.get(url).then((http.Response response) =>
-        saveImage(base64.encode(response.bodyBytes), version));
+          saveImage(base64.encode(response.bodyBytes), version));
     }
+
     return GestureDetector(
       onTap: showImage,
       child: Card(
@@ -279,8 +295,8 @@ class _ThemePageState extends State<ThemePage> {
             // index >= 0
             // ?
             Image.network(url, fit: BoxFit.cover)
-            // : _buildPictureUploaded(version)
-            ,
+        // : _buildPictureUploaded(version)
+        ,
       ),
     );
   }

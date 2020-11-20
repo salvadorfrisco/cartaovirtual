@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
@@ -104,7 +105,7 @@ class _HomePageState extends State<HomePage> {
                       : -100.00, //_sizeWidth * 0.77,
                   bottom: _sizeWidth * 0.06,
                   duration: Duration(milliseconds: 450),
-                  child: _buildCustomButton("", Icons.share, _share,
+                  child: _buildCustomButton("Compartilhar a Imagem", UniconsLine.share, _share,
                       color: colorShare))
               : Container(),
           widget.withIcons
@@ -112,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.06,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 300),
-                  child: _buildCustomButton("", Icons.edit, _navInfos,
+                  child: _buildCustomButton("Editar informações", UniconsLine.edit_alt, _navInfos,
                       colorIcon: Colors.greenAccent))
               : Container(),
           widget.withIcons
@@ -120,7 +121,7 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.294,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 375),
-                  child: _buildCustomButton("", Icons.settings, _navConfig,
+                  child: _buildCustomButton("Configurar itens", UniconsLine.setting, _navConfig,
                       colorIcon: Colors.orange))
               : Container(),
           widget.withIcons
@@ -128,16 +129,9 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.53,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 450),
-                  child: _buildCustomButton("", Icons.widgets, _navCards,
+                  child: _buildCustomButton("Selecionar imagens", UniconsLine.apps, _navCards,
                       colorIcon: Colors.yellow))
               : Container(),
-          // widget.withIcons
-          //     ? AnimatedPositioned(
-          //         left: _sizeWidth * 0.77,
-          //         bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
-          //         duration: Duration(milliseconds: 500),
-          //         child: _buildCustomButton("backup", Icons.backup, _navBackup))
-          //     : Container(),
         ]),
       ),
     );
@@ -276,26 +270,32 @@ class _HomePageState extends State<HomePage> {
             })));
   }
 
-  _buildCustomButton(txt, icon, action,
+  _buildCustomButton(tip, icon, action,
       {color: colorBack, colorIcon: Colors.white}) {
     return InkWell(
         onTap: action,
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.17,
-            height: MediaQuery.of(context).size.width * 0.14,
-            decoration: BoxDecoration(
-                color: color,
-                border: Border.all(
-                  color: Colors.white,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(
-                    MediaQuery.of(context).size.width * 0.044))),
-            child: FittedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: Functions.contentButton(txt, icon, colorIcon)),
+        child: Tooltip(
+          decoration: BoxDecoration(
+            color: Colors.teal,
+          ),
+          message: tip,
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
+              width: MediaQuery.of(context).size.width * 0.17,
+              height: MediaQuery.of(context).size.width * 0.14,
+              decoration: BoxDecoration(
+                  color: color,
+                  border: Border.all(
+                    color: Colors.white,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(
+                      MediaQuery.of(context).size.width * 0.044))),
+              child: FittedBox(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: Functions.contentButton(icon, colorIcon)),
+              ),
             ),
           ),
         ));
@@ -306,7 +306,7 @@ class _HomePageState extends State<HomePage> {
       if (Platform.isAndroid) {
         await Share.shareFiles([imagePath],
             text:
-                'Crie seu imagem digital, baixe o app em http://onelink.to/cartaodigital');
+                'Crie imagens personalizadas, baixe o app em http://onelink.to/imagecreator');
       } else {
         await Share.shareFiles([imagePath]);
       }

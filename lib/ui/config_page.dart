@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:unicons/unicons.dart';
 import 'package:virtual_card/ui/colors_page.dart';
 import 'package:virtual_card/ui/position_page.dart';
 import 'package:virtual_card/ui/theme_page.dart';
@@ -54,7 +55,11 @@ class _ConfigPageState extends State<ConfigPage> {
                     _dy = _sizeHeight - 90;
                 });
               },
-            ))
+            )),
+        Positioned(
+            top: 30.0,
+            left: 10.0,
+            child: Functions.buildCustomButton(_navToHome, UniconsLine.arrow_left, tip: 'Voltar')),
       ],
     )));
   }
@@ -65,27 +70,19 @@ class _ConfigPageState extends State<ConfigPage> {
       width: _sizeWidth,
       color: Colors.transparent,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
-          _buildCustomButton("", Icons.arrow_back, _navToHome),
           _buildCustomButton(
-              "",
+              "Alterar fonte, formato, cor, rotacionar, tamanho",
               Icons.color_lens,
               () => setState(() {
                     _indexPage = 0;
                   }),
               actual: _indexPage == 0,
               icon2: Icons.zoom_out_map_sharp,),
-          // (_indexPage == 0) ? _buildCustomButton(
-          //     "posição",
-          //     Icons.all_out,
-          //     () => setState(() {
-          //           _indexPage = 1;
-          //         }),
-          //     actual: _indexPage == 1) : SizedBox(height: 1,),
           _buildCustomButton(
-              "",
-              Icons.panorama,
+              "Alterar fundo, opacidade, com upload de imagem",
+              UniconsLine.image,
               () => setState(() {
                     _indexPage = 1;
                   }),
@@ -109,17 +106,6 @@ class _ConfigPageState extends State<ConfigPage> {
           profileImage: widget.profileImage,
         );
         break;
-      // case 1:
-      //   return Stack(
-      //     children: <Widget>[
-      //       PositionPage(
-      //         cardInfo: widget.cardInfo,
-      //         imageBackground: widget.imageBackground,
-      //         profileImage: widget.profileImage,
-      //       ),
-      //     ],
-      //   );
-      //   break;
       case 1:
         return ThemePage(
           cardInfo: widget.cardInfo,
@@ -129,27 +115,33 @@ class _ConfigPageState extends State<ConfigPage> {
     }
   }
 
-  _buildCustomButton(txt, icon, action, {actual: false, icon2}) {
+  _buildCustomButton(tip, icon, action, {actual: false, icon2}) {
     return InkWell(
         onTap: action,
-        child: Center(
-          child: Container(
-            padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
-            width: MediaQuery.of(context).size.width * 0.17,
-            height: MediaQuery.of(context).size.width * 0.14,
-            decoration: BoxDecoration(
-                color: Colors.black54,
-                border: Border.all(
-                  color: actual ? Colors.blueAccent : Colors.white,
-                ),
-                borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.04))),
-            child: FittedBox(
-              child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: (icon2 == null) ?
-                  Functions.contentButton(txt, icon, actual ? Colors.orange : Colors.white) :
-                  Functions.contentButton2(txt, icon, icon2, actual ? Colors.orange : Colors.white)),
+        child: Tooltip(
+          decoration: BoxDecoration(
+            color: Colors.teal,
           ),
+          message: tip,
+          child: Center(
+            child: Container(
+              padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
+              width: MediaQuery.of(context).size.width * 0.17,
+              height: MediaQuery.of(context).size.width * 0.14,
+              decoration: BoxDecoration(
+                  color: Colors.black54,
+                  border: Border.all(
+                    color: actual ? Colors.blueAccent : Colors.white,
+                  ),
+                  borderRadius: BorderRadius.all(Radius.circular(MediaQuery.of(context).size.width * 0.04))),
+              child: FittedBox(
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: (icon2 == null) ?
+                    Functions.contentButton(icon, actual ? Colors.orange : Colors.white) :
+                    Functions.contentButton2(icon, icon2, actual ? Colors.orange : Colors.white)),
+            ),
+            ),
           ),
         ));
   }
