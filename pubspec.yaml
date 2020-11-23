@@ -29,6 +29,7 @@ dependencies:
   json_serializable: ^3.5.0
   path_provider: ^1.6.21
   unicons: ^1.0.0+5
+  ripple_color_selection: ^0.0.4
 
 dev_dependencies:
   flutter_test:
@@ -60,6 +61,66 @@ flutter:
     - assets/lottiefiles/five-stars.json
     - assets/lottiefiles/share.json
     - assets/lottiefiles/background.json
+    - assets/images/back_1.jpg
+    - assets/images/back_2.jpg
+    - assets/images/back_3.jpg
+    - assets/images/back_4.jpg
+    - assets/images/back_5.jpg
+    - assets/images/back_6.jpg
+    - assets/images/back_7.jpg
+    - assets/images/back_8.jpg
+    - assets/images/back_9.jpg
+    - assets/images/back_10.jpg
+    - assets/images/back_11.jpg
+    - assets/images/back_12.jpg
+    - assets/images/back_13.jpg
+    - assets/images/back_14.jpg
+    - assets/images/back_15.jpg
+    - assets/images/back_16.jpg
+    - assets/images/back_17.jpg
+    - assets/images/back_18.jpg
+    - assets/images/back_19.jpg
+    - assets/images/back_20.jpg
+    - assets/images/back_21.gif
+    - assets/images/back_22.gif
+    - assets/images/back_23.gif
+    - assets/images/back_24.gif
+    - assets/images/back_25.gif
+    - assets/images/back_26.gif
+    - assets/images/back_27.gif
+    - assets/images/back_28.gif
+    - assets/images/back_29.gif
+    - assets/images/back_30.gif
+    - assets/images/back_31.gif
+    - assets/images/back_32.gif
+    - assets/images/back_33.gif
+    - assets/images/back_34.gif
+    - assets/images/back_35.gif
+    - assets/images/back_36.gif
+    - assets/images/back_37.gif
+    - assets/images/back_38.gif
+    - assets/images/back_39.gif
+    - assets/images/back_40.gif
+    - assets/images/back_41.gif
+    - assets/images/back_42.gif
+    - assets/images/back_43.gif
+    - assets/images/back_44.gif
+    - assets/images/back_45.gif
+    - assets/images/back_46.gif
+    - assets/images/back_47.gif
+    - assets/images/back_48.gif
+    - assets/images/back_49.gif
+    - assets/images/back_50.gif
+    - assets/images/back_51.gif
+    - assets/images/back_52.gif
+    - assets/images/back_53.gif
+    - assets/images/back_54.gif
+    - assets/images/back_55.gif
+    - assets/images/back_56.gif
+    - assets/images/back_57.gif
+    - assets/images/back_58.gif
+    - assets/images/back_59.gif
+    - assets/images/back_60.gif
   fonts:
     - family: Arcade
       fonts:

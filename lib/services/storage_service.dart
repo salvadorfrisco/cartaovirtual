@@ -172,6 +172,9 @@ class StorageService {
     card.colorLinkedin = card.colorTextBelow;
     card.colorYoutube = card.colorTextBelow;
     card.colorWebsite = card.colorTextBelow;
+    // TODO Ver se vai dar certo
+    card.colorTextAbove = "0";
+    card.colorTextBelow = "0";
     prefs.setString(_nameKey, jsonEncode(card).toString());
   }
 

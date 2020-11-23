@@ -7,6 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:http/http.dart' as http;
+import 'package:virtual_card/utils/responsive.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +89,7 @@ class _ThemePageState extends State<ThemePage> {
                           children: <Widget>[
                             _selectModel(context),
                             Positioned(
-                                top: displayHeight(context) / 8,
+                                top: Responsive.of(context).heightPercent(8),
                                 right: 4,
                                 child: Column(children: [
                                   _transparencyControl(),
@@ -181,7 +182,7 @@ class _ThemePageState extends State<ThemePage> {
             child: Center(
               child: Container(
                 padding:
-                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.012),
+                    EdgeInsets.all(MediaQuery.of(context).size.width * 0.018),
                 width: MediaQuery.of(context).size.width * 0.15,
                 height: MediaQuery.of(context).size.width * 0.16,
                 decoration: BoxDecoration(

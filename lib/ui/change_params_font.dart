@@ -131,7 +131,20 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   final GlobalKey _keyLinkedin = GlobalKey();
   final GlobalKey _keyYoutube = GlobalKey();
   final GlobalKey _keyWebsite = GlobalKey();
+  final GlobalKey _keyNameSize = GlobalKey();
+  final GlobalKey _keyOccupationSize = GlobalKey();
+  final GlobalKey _keyPhoneSize = GlobalKey();
+  final GlobalKey _keyPhotoSize = GlobalKey();
+  final GlobalKey _keyEmailSize = GlobalKey();
+  final GlobalKey _keyFacebookSize = GlobalKey();
+  final GlobalKey _keyInstagramSize = GlobalKey();
+  final GlobalKey _keyTwitterSize = GlobalKey();
+  final GlobalKey _keyLinkedinSize = GlobalKey();
+  final GlobalKey _keyYoutubeSize = GlobalKey();
+  final GlobalKey _keyWebsiteSize = GlobalKey();
   Size elementSize;
+
+  double factorSizeX, factorSizeY, widthOld, heightOld;
 
   @override
   void initState() {
@@ -208,12 +221,61 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         height: 0,
       );
     } else {
-      var _key = getKey(cnt);
+      var _key = getKey(cnt, true);
+      var _keySize = getKey(cnt, false);
       return Positioned(
           top: cnt.posY,
           left: cnt.posX,
           child: Draggable(
-            child: Container(child: _buildElement(cnt)),
+            child: Container(
+              child: Column(
+                  children: [
+                    Container(
+                      width: 80,
+                      child: FittedBox(
+                        fit: BoxFit.fitHeight,
+                        child: Row(
+                          children: [
+                            Icon(
+                                Icons.arrow_drop_down,
+                                color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
+                                size: 40),
+                            Icon(
+                                Icons.arrow_drop_down,
+                                color: (_field == cnt.type && _buttonsOn) ? Colors.red : Colors.transparent,
+                                size: 40),
+                            Icon(
+                                Icons.arrow_drop_down,
+                                color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
+                                size: 40),
+                          ],
+                        ),
+                      ),
+                    ),
+                _buildElement(cnt),
+    Container(
+    width: 80,
+    child: FittedBox(
+    fit: BoxFit.fitHeight,
+    child: Row(
+                  children: [
+                    Icon(
+                        Icons.arrow_drop_up,
+                        color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
+                        size: 40),
+                    Icon(
+                        Icons.arrow_drop_up,
+                        color: (_field == cnt.type && _buttonsOn) ? Colors.red : Colors.transparent,
+                        size: 40,
+                        key: _keySize),
+                    Icon(
+                        Icons.arrow_drop_up,
+                        color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
+                        size: 40),
+                  ],
+                ))),
+              ]),
+            ),
             feedback: _buildElement(cnt, feed: true),
             onDraggableCanceled: (velocity, offset) {
               RenderBox renderBox = context.findRenderObject();
@@ -221,11 +283,12 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               _dx = _position.dx;
               _dy = _position.dy;
 
-              if ((_dx + getSizeAndPosition(_key).width * .6) > _sizeWidth)
+              if ((_dx + getSizeAndPosition(_key).width * .5) > _sizeWidth)
                 _dx = _sizeWidth -
                     getSizeAndPosition(_key).width / 2 -
-                    Responsive.of(context).widthPercent(6);
-              else if (_dx + getSizeAndPosition(_key).width / 2 < -10) _dx = 0;
+                    Responsive.of(context).widthPercent(10);
+              else if (_dx + getSizeAndPosition(_key).width / 2 < -10)
+                _dx = getSizeAndPosition(_key).width / 2 * -1;
 
               if (_dy < 0)
                 _dy = 0;
@@ -269,7 +332,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   Text(
                     cnt.txt,
                     textScaleFactor: cnt.scale,
-                    key: feed ? null : getKey(cnt),
+                    key: feed ? null : getKey(cnt, true),
                     style: TextStyle(
                         fontFamily: cnt.font,
                         fontSize:
@@ -318,8 +381,8 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
             (cnt.type != 'photo') ? _buttonFont(cnt) : SizedBox(),
             (cnt.type != 'photo') ? _buttonColor(cnt) : SizedBox(),
             (cnt.type == 'photo') ? _buttonShape(cnt) : SizedBox(),
-            _buttonSizeFont(cnt),
-            _buttonSizeFont(cnt, increase: false),
+            _buttonSize(cnt, false),
+            _buttonSize(cnt, true),
             _buttonRotate(cnt, increase: false),
             _buttonRotate(cnt),
           ],
@@ -331,9 +394,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buttonShape(cnt) {
     return IconButton(
         icon: Icon(
-            cardInfo.photoCircle
-                ? UniconsLine.circle
-                : UniconsLine.square,
+            cardInfo.photoCircle ? UniconsLine.circle : UniconsLine.square,
             color: Colors.black),
         // icon: Icon(Icons.blur_circular, color: cnt.color),
         iconSize:
@@ -372,24 +433,12 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         });
   }
 
-  _buttonSizeFont(cnt, {increase = true}) {
-    var _key = getKey(cnt);
-    bool _action = false;
-    if (increase)
-      _action = _canIncreaseSize(cnt, _key);
-    else
-      _action = _canDecreaseSize(cnt, _key);
+  _buttonSize(cnt, increase) {
     return GestureDetector(
-      onTap: () => _action ? _changeSize(cnt, increase) : {},
+      onTap: () => _changeSize(cnt, increase),
       onLongPress: () {
-        _timer = Timer.periodic(Duration(milliseconds: 60), (Timer t) {
-          _action = false;
-          if (increase)
-            _action = _canIncreaseSize(cnt, _key);
-          else
-            _action = _canDecreaseSize(cnt, _key);
-          _action ? _changeSize(cnt, increase) : {};
-        });
+        _timer = Timer.periodic(Duration(milliseconds: 60),
+                (Timer t) => _changeSize(cnt, increase));
       },
       onLongPressUp: () {
         _timer.cancel();
@@ -397,10 +446,9 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
       child: Padding(
         padding: EdgeInsets.only(top: 6, left: 8, right: 8),
         child: Icon(
-            increase
-                ? Icons.zoom_out_map_sharp
-                : UniconsLine.compress_arrows,
-            color: _action ? Colors.black : Colors.black38,
+            increase ? Icons.zoom_out_map_sharp : UniconsLine.compress_arrows,
+            // color: canIncreaseSize(cnt, _key) ? Colors.black : Colors.black38,
+            color: Colors.black,
             size: Responsive.of(context).widthPercent(10)),
       ),
     );
@@ -512,84 +560,69 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     saveData(pop: true);
   }
 
-  getKey(cnt) {
+  getKey(cnt, content) {
     switch (cnt.type) {
       case "name":
-        return _keyName;
+        return content ? _keyName : _keyNameSize;
         break;
       case "occupation":
-        return _keyOccupation;
+        return content ? _keyOccupation : _keyOccupationSize;
         break;
       case "phone":
-        return _keyPhone;
+        return content ? _keyPhone : _keyPhoneSize;
         break;
       case "photo":
-        return _keyPhoto;
+        return content ? _keyPhoto : _keyPhotoSize;
         break;
       case "email":
-        return _keyEmail;
+        return content ? _keyEmail : _keyEmailSize;
         break;
       case "facebook":
-        return _keyFacebook;
+        return content ? _keyFacebook : _keyFacebookSize;
         break;
       case "instagram":
-        return _keyInstagram;
+        return content ? _keyInstagram : _keyInstagramSize;
         break;
       case "twitter":
-        return _keyTwitter;
+        return content ? _keyTwitter : _keyTwitterSize;
         break;
       case "linkedin":
-        return _keyLinkedin;
+        return content ? _keyLinkedin : _keyLinkedinSize;
         break;
       case "youtube":
-        return _keyYoutube;
+        return content ? _keyYoutube : _keyYoutubeSize;
         break;
       case "website":
-        return _keyWebsite;
+        return content ? _keyWebsite : _keyWebsiteSize;
         break;
     }
   }
 
-  _canIncreaseSize(cnt, key) {
-    if (getSizeAndPosition(key).width + cnt.posX > displayWidth(context)) {
-      setState(() {});
+  canIncreaseSize(cnt, keySize) {
+    final RenderBox renderSign = keySize.currentContext.findRenderObject();
+    final positionRed = renderSign.localToGlobal(Offset.zero);
+    if (positionRed.dx > displayWidth(context) * .95 ||
+        positionRed.dy > displayHeight(context) * .95)
       return false;
-    }
-    if (getSizeAndPosition(key).width > displayWidth(context)) {
-      setState(() {});
-      return false;
-    }
     return true;
-  } // cnt.posX + getSizeAndPosition(key).width > displayWidth(context);
+  }
 
-  _canDecreaseSize(cnt, key) {
-    if (cnt.type == 'photo' && getSizeAndPosition(key).width < 40) {
-      setState(() {});
+  canDecreaseSize(cnt, keySize) {
+    final RenderBox renderSign = keySize.currentContext.findRenderObject();
+    final positionRed = renderSign.localToGlobal(Offset.zero);
+    if (positionRed.dx < 10 || positionRed.dy < 10)
       return false;
-    } else
-    if (getSizeAndPosition(key).width / cnt.txt.length < 6) {
-      setState(() {});
-      return false;
-    }
-    if (cnt.posX * -1 < getSizeAndPosition(key).width / 2) return true;
-    if (cnt.posX > 0) return true;
-    setState(() {});
-    return false;
-  } // cnt.posX < 0 && getSizeAndPosition(key).width < ((cnt.posX * -1) * 2);
+    return true;
+  }
 
   _changeSize(cnt, increase) {
-    var _key = getKey(cnt);
+    var _keySize = getKey(cnt, false);
     bool _action = false;
-    double factorSize = (increase)
-        ? -2
-        : (cnt.scale > 0.6)
-            ? 3
-            : 0;
 
     if (increase)
-      _action = _canIncreaseSize(cnt, _key);
+       _action = canIncreaseSize(cnt, _keySize);
     else
-      _action = _canDecreaseSize(cnt, _key);
+      _action = canDecreaseSize(cnt, _keySize);
 
     if (_action) {
       switch (cnt.type) {
@@ -600,8 +633,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleName > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXName = widget.cardInfo.posXName + factorSize;
-          widget.cardInfo.posYName = widget.cardInfo.posYName + factorSize;
           break;
         case "occupation":
           widget.cardInfo.scaleOccupation = widget.cardInfo.scaleOccupation +
@@ -610,10 +641,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleOccupation > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXOccupation =
-              widget.cardInfo.posXOccupation + factorSize;
-          widget.cardInfo.posYOccupation =
-              widget.cardInfo.posYOccupation + factorSize;
           break;
         case "phone":
           widget.cardInfo.scalePhone = widget.cardInfo.scalePhone +
@@ -622,9 +649,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scalePhone > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXPhone = widget.cardInfo.posXPhone + factorSize;
-          widget.cardInfo.posYPhone = widget.cardInfo.posYPhone + factorSize;
-
           break;
         case "photo":
           widget.cardInfo.scalePhoto = widget.cardInfo.scalePhoto +
@@ -633,8 +657,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scalePhoto > 0.4
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXPhoto = widget.cardInfo.posXPhoto + factorSize;
-          widget.cardInfo.posYPhoto = widget.cardInfo.posYPhoto + factorSize;
           break;
         case "email":
           widget.cardInfo.scaleEmail = widget.cardInfo.scaleEmail +
@@ -643,8 +665,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleEmail > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXEmail = widget.cardInfo.posXEmail + factorSize;
-          widget.cardInfo.posYEmail = widget.cardInfo.posYEmail + factorSize;
           break;
         case "facebook":
           widget.cardInfo.scaleFacebook = widget.cardInfo.scaleFacebook +
@@ -653,10 +673,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleFacebook > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXFacebook =
-              widget.cardInfo.posXFacebook + factorSize;
-          widget.cardInfo.posYFacebook =
-              widget.cardInfo.posYFacebook + factorSize;
           break;
         case "instagram":
           widget.cardInfo.scaleInstagram = widget.cardInfo.scaleInstagram +
@@ -665,10 +681,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleInstagram > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXInstagram =
-              widget.cardInfo.posXInstagram + factorSize;
-          widget.cardInfo.posYInstagram =
-              widget.cardInfo.posYInstagram + factorSize;
           break;
         case "twitter":
           widget.cardInfo.scaleTwitter = widget.cardInfo.scaleTwitter +
@@ -677,10 +689,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleTwitter > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXTwitter =
-              widget.cardInfo.posXTwitter + factorSize;
-          widget.cardInfo.posYTwitter =
-              widget.cardInfo.posYTwitter + factorSize;
           break;
         case "linkedin":
           widget.cardInfo.scaleLinkedin = widget.cardInfo.scaleLinkedin +
@@ -689,10 +697,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleLinkedin > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXLinkedin =
-              widget.cardInfo.posXLinkedin + factorSize;
-          widget.cardInfo.posYLinkedin =
-              widget.cardInfo.posYLinkedin + factorSize;
           break;
         case "youtube":
           widget.cardInfo.scaleYoutube = widget.cardInfo.scaleYoutube +
@@ -701,10 +705,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleYoutube > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXYoutube =
-              widget.cardInfo.posXYoutube + factorSize;
-          widget.cardInfo.posYYoutube =
-              widget.cardInfo.posYYoutube + factorSize;
           break;
         case "website":
           widget.cardInfo.scaleWebsite = widget.cardInfo.scaleWebsite +
@@ -713,10 +713,6 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   : widget.cardInfo.scaleWebsite > 0.6
                       ? -0.1
                       : 0.0);
-          widget.cardInfo.posXWebsite =
-              widget.cardInfo.posXWebsite + factorSize;
-          widget.cardInfo.posYWebsite =
-              widget.cardInfo.posYWebsite + factorSize;
           break;
       }
       saveData();
@@ -841,7 +837,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
-              key: feed ? null : getKey(cnt),
+              key: feed ? null : getKey(cnt, true),
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
               width: _sizeWidth * 0.4 * cnt.scale,
               height: _sizeWidth * 0.4 * cnt.scale,

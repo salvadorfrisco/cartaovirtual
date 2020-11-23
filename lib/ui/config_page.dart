@@ -5,6 +5,7 @@ import 'package:unicons/unicons.dart';
 import 'package:virtual_card/ui/colors_page.dart';
 import 'package:virtual_card/ui/position_page.dart';
 import 'package:virtual_card/ui/theme_page.dart';
+import 'package:virtual_card/ui/theme_page_colors.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../main_page.dart';
@@ -83,12 +84,19 @@ class _ConfigPageState extends State<ConfigPage> {
             icon3: Icons.zoom_out_map_sharp,
             icon4: Icons.rotate_right,),
           _buildCustomButton(
-              "Alterar fundo, opacidade, com upload de imagem",
+              "Imagem de fundo, opacidade, com upload de imagem",
               UniconsLine.image,
-              () => setState(() {
-                    _indexPage = 1;
-                  }),
+                  () => setState(() {
+                _indexPage = 1;
+              }),
               actual: _indexPage == 1),
+          _buildCustomButton(
+              "Alterar cor de fundo, opacidade",
+              UniconsLine.palette,
+                  () => setState(() {
+                _indexPage = 2;
+              }),
+              actual: _indexPage == 2),
         ],
       ),
     );
@@ -110,6 +118,12 @@ class _ConfigPageState extends State<ConfigPage> {
         break;
       case 1:
         return ThemePage(
+          cardInfo: widget.cardInfo,
+          profileImage: widget.profileImage,
+        );
+        break;
+      case 2:
+        return ThemePageColors(
           cardInfo: widget.cardInfo,
           profileImage: widget.profileImage,
         );
