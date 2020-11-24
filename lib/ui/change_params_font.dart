@@ -97,6 +97,19 @@ const List<String> _defaultFonts = [
   'Zornic',
 ];
 
+extension GlobalKeyEx on GlobalKey {
+  Rect get globalPaintBounds {
+    final renderObject = currentContext?.findRenderObject();
+    var translation = renderObject?.getTransformTo(null)?.getTranslation();
+    if (translation != null && renderObject.paintBounds != null) {
+      return renderObject.paintBounds
+          .shift(Offset(translation.x, translation.y));
+    } else {
+      return null;
+    }
+  }
+}
+
 class ChangeParamFonts extends StatefulWidget {
   ChangeParamFonts(
       {Key key, this.cardInfo, this.imageBackground, this.profileImage})
@@ -120,7 +133,10 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   double _dx, _dy;
   Offset _position;
   Timer _timer;
+
   final GlobalKey _keyName = GlobalKey();
+  // Rect get nameRect => _keyName.globalPaintBounds;
+
   final GlobalKey _keyOccupation = GlobalKey();
   final GlobalKey _keyPhone = GlobalKey();
   final GlobalKey _keyPhoto = GlobalKey();
@@ -282,6 +298,10 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               _position = renderBox.globalToLocal(offset);
               _dx = _position.dx;
               _dy = _position.dy;
+
+              // print('absolute coordinates on screen: ${nameRect}');
+              // print("AQUI dx: $_dx");
+              // print("AQUI dy: $_dy");
 
               if ((_dx + getSizeAndPosition(_key).width * .5) > _sizeWidth)
                 _dx = _sizeWidth -

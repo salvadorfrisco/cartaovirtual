@@ -129,14 +129,18 @@ class _ThemePageColorsState extends State<ThemePageColors> {
   }
 
   changeTextureFine() async {
+
+    int indexSumBelow = (widget.cardInfo.colorTextBelow.length > 2 ? 0 : int.parse(widget.cardInfo.colorTextBelow));
+    int indexSumAbove = (widget.cardInfo.colorTextAbove.length > 2 ? 0 : int.parse(widget.cardInfo.colorTextAbove));
+
     if (widget.cardInfo.colorTextBelow == "20")
       widget.cardInfo.colorTextBelow = "0";
     else
       widget.cardInfo.colorTextBelow = "20";
     storage.saveData(widget.cardInfo, false);
-    int indexImg = int.parse(widget.cardInfo.colorTextAbove) +
+    int indexImg = indexSumAbove +
         1 +
-        int.parse(widget.cardInfo.colorTextBelow);
+    indexSumBelow;
     String img = 'assets/images/back_' +
         indexImg.toString() +
         '.' +
@@ -241,7 +245,7 @@ class _ThemePageColorsState extends State<ThemePageColors> {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   int indexImg =
-                      index + 1 + int.parse(widget.cardInfo.colorTextBelow);
+                      index + 1 + (widget.cardInfo.colorTextBelow.length > 2 ? 0 : int.parse(widget.cardInfo.colorTextBelow));
                   String img = 'assets/images/back_' +
                       indexImg.toString() +
                       '.' +

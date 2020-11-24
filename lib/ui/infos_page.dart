@@ -166,7 +166,7 @@ class _InfosPageState extends State<InfosPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                            VERSION + ' 2.0.5+37',
+                            VERSION + ' 2.0.6+38',
                             style: TextStyle(
                                 color: Colors.black,
                                 fontSize: _sizeWidth * 0.03),
