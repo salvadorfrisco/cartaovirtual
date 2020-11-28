@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/cupertino.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
@@ -7,6 +6,7 @@ import '../main_page.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'home_page_card.dart';
+import 'package:virtual_card/generated/l10n.dart';
 
 class CardsPage extends StatefulWidget {
   CardsPage({Key key, this.version, this.profileImage}) : super(key: key);
@@ -50,7 +50,7 @@ class _CardsPageState extends State<CardsPage> {
         Positioned(
             top: 30.0,
             left: 10.0,
-            child: Functions.buildCustomButton(_navToHome, UniconsLine.arrow_left, tip: 'Voltar')),
+            child: Functions.buildCustomButton(_navToHome, UniconsLine.arrow_left, tip: S.of(context).goBack)),
       ],
     );
   }

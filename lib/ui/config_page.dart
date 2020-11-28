@@ -10,6 +10,7 @@ import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../main_page.dart';
 import '../models/card_info.dart';
+import 'package:virtual_card/generated/l10n.dart';
 
 class ConfigPage extends StatefulWidget {
   ConfigPage({Key key, this.cardInfo, this.imageUploaded, this.imageBackground, this.profileImage}) : super(key: key);
@@ -50,10 +51,15 @@ class _ConfigPageState extends State<ConfigPage> {
                   RenderBox renderBox = context.findRenderObject();
                   _dy = (_sizeHeight - renderBox.globalToLocal(offset).dy)
                      - _sizeHeight * 0.12;
+                  print(_dy);
+                  print(_sizeHeight);
                   if (_dy < 0)
                     _dy = 0;
-                  else if (_dy + 90 > _sizeHeight)
-                    _dy = _sizeHeight - 90;
+                  else if (_dy + 110 > _sizeHeight)
+                    _dy = _sizeHeight - 120;
+
+                  // Ajuste para posicionar corretamente na vertical, não alterar
+                  _dy = _dy + 22;
                 });
               },
             )),
@@ -74,7 +80,7 @@ class _ConfigPageState extends State<ConfigPage> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: <Widget>[
           _buildCustomButton(
-              "Alterar fonte, formato, cor, rotacionar, tamanho",
+            S.of(context).changeImageComponents,
             UniconsLine.font,
               () => setState(() {
                     _indexPage = 0;
@@ -84,14 +90,17 @@ class _ConfigPageState extends State<ConfigPage> {
             icon3: Icons.zoom_out_map_sharp,
             icon4: Icons.rotate_right,),
           _buildCustomButton(
-              "Imagem de fundo, opacidade, com upload de imagem",
+              S.of(context).changeBackgroundImage + ', ' +
+              S.of(context).opacity + ', ' +
+              S.of(context).imageUpload,
               UniconsLine.image,
                   () => setState(() {
                 _indexPage = 1;
               }),
               actual: _indexPage == 1),
           _buildCustomButton(
-              "Alterar cor de fundo, opacidade",
+              S.of(context).changeBackgroundColor + ', ' +
+              S.of(context).opacity,
               UniconsLine.palette,
                   () => setState(() {
                 _indexPage = 2;

@@ -237,59 +237,39 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         height: 0,
       );
     } else {
-      var _key = getKey(cnt, true);
-      var _keySize = getKey(cnt, false);
+      var _keyContent = getKey(cnt);
+      var _keyCenterPoint = getKey(cnt, content: false);
       return Positioned(
           top: cnt.posY,
           left: cnt.posX,
           child: Draggable(
             child: Container(
-              child: Column(
-                  children: [
-                    Container(
-                      width: 80,
-                      child: FittedBox(
+              child: Column(children: [
+                _buildElement(cnt),
+                Container(
+                    width: 80,
+                    child: FittedBox(
                         fit: BoxFit.fitHeight,
                         child: Row(
                           children: [
-                            Icon(
-                                Icons.arrow_drop_down,
-                                color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
+                            Icon(Icons.arrow_drop_up,
+                                color: (_field == cnt.type && _buttonsOn)
+                                    ? Colors.white
+                                    : Colors.transparent,
                                 size: 40),
-                            Icon(
-                                Icons.arrow_drop_down,
-                                color: (_field == cnt.type && _buttonsOn) ? Colors.red : Colors.transparent,
-                                size: 40),
-                            Icon(
-                                Icons.arrow_drop_down,
-                                color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
+                            Icon(Icons.arrow_drop_up,
+                                color: (_field == cnt.type && _buttonsOn)
+                                    ? Colors.red
+                                    : Colors.transparent,
+                                size: 40,
+                                key: _keyCenterPoint),
+                            Icon(Icons.arrow_drop_up,
+                                color: (_field == cnt.type && _buttonsOn)
+                                    ? Colors.white
+                                    : Colors.transparent,
                                 size: 40),
                           ],
-                        ),
-                      ),
-                    ),
-                _buildElement(cnt),
-    Container(
-    width: 80,
-    child: FittedBox(
-    fit: BoxFit.fitHeight,
-    child: Row(
-                  children: [
-                    Icon(
-                        Icons.arrow_drop_up,
-                        color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
-                        size: 40),
-                    Icon(
-                        Icons.arrow_drop_up,
-                        color: (_field == cnt.type && _buttonsOn) ? Colors.red : Colors.transparent,
-                        size: 40,
-                        key: _keySize),
-                    Icon(
-                        Icons.arrow_drop_up,
-                        color: (_field == cnt.type && _buttonsOn) ? Colors.white : Colors.transparent,
-                        size: 40),
-                  ],
-                ))),
+                        ))),
               ]),
             ),
             feedback: _buildElement(cnt, feed: true),
@@ -303,17 +283,19 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               // print("AQUI dx: $_dx");
               // print("AQUI dy: $_dy");
 
-              if ((_dx + getSizeAndPosition(_key).width * .5) > _sizeWidth)
+              if ((_dx + getSizeAndPosition(_keyContent).width * .5) >
+                  _sizeWidth)
                 _dx = _sizeWidth -
-                    getSizeAndPosition(_key).width / 2 -
+                    getSizeAndPosition(_keyContent).width / 2 -
                     Responsive.of(context).widthPercent(10);
-              else if (_dx + getSizeAndPosition(_key).width / 2 < -10)
-                _dx = getSizeAndPosition(_key).width / 2 * -1;
+              else if (_dx + getSizeAndPosition(_keyContent).width / 2 < -10)
+                _dx = getSizeAndPosition(_keyContent).width / 2 * -1;
 
               if (_dy < 0)
                 _dy = 0;
               else if (_dy > _sizeHeight - _sizeHeight * 0.08)
                 _dy = _sizeHeight - _sizeHeight * 0.08;
+
               cnt.posX = _dx;
               cnt.posY = _dy;
               savePos(cnt.type, cnt.posX, cnt.posY);
@@ -352,7 +334,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                   Text(
                     cnt.txt,
                     textScaleFactor: cnt.scale,
-                    key: feed ? null : getKey(cnt, true),
+                    key: feed ? null : getKey(cnt),
                     style: TextStyle(
                         fontFamily: cnt.font,
                         fontSize:
@@ -458,7 +440,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
       onTap: () => _changeSize(cnt, increase),
       onLongPress: () {
         _timer = Timer.periodic(Duration(milliseconds: 60),
-                (Timer t) => _changeSize(cnt, increase));
+            (Timer t) => _changeSize(cnt, increase));
       },
       onLongPressUp: () {
         _timer.cancel();
@@ -467,7 +449,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         padding: EdgeInsets.only(top: 6, left: 8, right: 8),
         child: Icon(
             increase ? Icons.zoom_out_map_sharp : UniconsLine.compress_arrows,
-            // color: canIncreaseSize(cnt, _key) ? Colors.black : Colors.black38,
+            // color: canIncreaseSize(cnt, _keyContent) ? Colors.black : Colors.black38,
             color: Colors.black,
             size: Responsive.of(context).widthPercent(10)),
       ),
@@ -580,7 +562,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     saveData(pop: true);
   }
 
-  getKey(cnt, content) {
+  getKey(cnt, {content = true}) {
     switch (cnt.type) {
       case "name":
         return content ? _keyName : _keyNameSize;
@@ -622,27 +604,25 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     final RenderBox renderSign = keySize.currentContext.findRenderObject();
     final positionRed = renderSign.localToGlobal(Offset.zero);
     if (positionRed.dx > displayWidth(context) * .95 ||
-        positionRed.dy > displayHeight(context) * .95)
-      return false;
+        positionRed.dy > displayHeight(context) * .95) return false;
     return true;
   }
 
   canDecreaseSize(cnt, keySize) {
     final RenderBox renderSign = keySize.currentContext.findRenderObject();
     final positionRed = renderSign.localToGlobal(Offset.zero);
-    if (positionRed.dx < 10 || positionRed.dy < 10)
-      return false;
+    if (positionRed.dx < 10 || positionRed.dy < 10) return false;
     return true;
   }
 
   _changeSize(cnt, increase) {
-    var _keySize = getKey(cnt, false);
+    var _keyCenterPoint = getKey(cnt, content: false);
     bool _action = false;
 
     if (increase)
-       _action = canIncreaseSize(cnt, _keySize);
+      _action = canIncreaseSize(cnt, _keyCenterPoint);
     else
-      _action = canDecreaseSize(cnt, _keySize);
+      _action = canDecreaseSize(cnt, _keyCenterPoint);
 
     if (_action) {
       switch (cnt.type) {
@@ -857,7 +837,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     if ((widget.cardInfo.hasPhoto)) {
       return widget.profileImage != null
           ? Container(
-              key: feed ? null : getKey(cnt, true),
+              key: feed ? null : getKey(cnt),
               margin: EdgeInsets.only(top: _sizeWidth * 0.03),
               width: _sizeWidth * 0.4 * cnt.scale,
               height: _sizeWidth * 0.4 * cnt.scale,

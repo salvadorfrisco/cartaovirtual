@@ -6,6 +6,8 @@ import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../utils/card_navigator.dart';
 import '../widgets/walkthrough.dart';
+import 'package:virtual_card/generated/l10n.dart';
+import '../utils/extensions.dart';
 
 class IntroScreen extends StatefulWidget {
   @override
@@ -161,7 +163,7 @@ class IntroScreenState extends State<IntroScreen> {
                     firstPage
                         ? Container()
                         : FlatButton(
-                            child: Text(BACK,
+                            child: Text(S.of(context).goBack.capitalize(),
                                 style: TextStyle(
                                     color: Colors.black,
                                     fontWeight: FontWeight.bold,
@@ -170,7 +172,7 @@ class IntroScreenState extends State<IntroScreen> {
                               controller.jumpToPage(currentPage - 1);
                             }),
                     FlatButton(
-                      child: Text(lastPage ? GOTIT : NEXT,
+                      child: Text(lastPage ? S.of(context).comeOn.capitalize() : S.of(context).next.capitalize(),
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold,

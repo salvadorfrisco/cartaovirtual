@@ -24,10 +24,10 @@ const String WC4 =
 const String WT5 = "Divulgue e ganhe!";
 const String WC5 =
     "Compartilhe os serviços com seus\ncontatos, grupos de whatsapp, facebook\npara ser sempre lembrado.";
-const String BACK = "Voltar";
-const String SKIP = "Pular";
-const String NEXT = "Avançar";
-const String GOTIT = "Vamos lá!";
+// const String BACK = "Voltar";
+// const String SKIP = "Pular";
+// const String NEXT = "Avançar";
+// const String GOTIT = "Vamos lá!";
 
 const List<String> TIPTITLE = [
   'Dica do dia',

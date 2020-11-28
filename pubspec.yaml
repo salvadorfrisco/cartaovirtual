@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
+  intl: ^0.16.1
   mask_text_input_formatter: ^1.1.0
   cupertino_icons: ^1.0.0
 #  esys_flutter_share: ^1.0.2
@@ -45,6 +46,7 @@ flutter_native_splash:
   color: "#F2F2F2"
 
 flutter:
+  generate: true
   uses-material-design: true
   assets:
     - assets/icon/icon.png
@@ -297,3 +299,6 @@ flutter:
       fonts:
         - asset: assets/fonts/Zornic.ttf
 
+flutter_intl:
+  main_locale: en_US
+  enabled: true

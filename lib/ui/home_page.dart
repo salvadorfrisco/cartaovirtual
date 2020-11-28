@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
@@ -15,6 +16,7 @@ import 'cards_page.dart';
 import 'config_page.dart';
 import 'infos_page.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:virtual_card/generated/l10n.dart';
 
 class HomePage extends StatefulWidget {
   HomePage(
@@ -64,6 +66,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody() {
+    print("getCurrentLocale");
+    print(Intl.getCurrentLocale());
     return SafeArea(
       child: Scaffold(
         body: Stack(fit: StackFit.expand, children: [
@@ -105,7 +109,7 @@ class _HomePageState extends State<HomePage> {
                       : -100.00, //_sizeWidth * 0.77,
                   bottom: _sizeWidth * 0.06,
                   duration: Duration(milliseconds: 450),
-                  child: _buildCustomButton("Compartilhar a Imagem", UniconsLine.share, _share,
+                  child: _buildCustomButton(S.of(context).shareImage, UniconsLine.share, _share,
                       color: colorShare))
               : Container(),
           widget.withIcons
@@ -113,7 +117,7 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.06,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 300),
-                  child: _buildCustomButton("Editar informações", UniconsLine.edit_alt, _navInfos,
+                  child: _buildCustomButton(S.of(context).editInformations, UniconsLine.edit_alt, _navInfos,
                       colorIcon: Colors.greenAccent))
               : Container(),
           widget.withIcons
@@ -121,7 +125,7 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.294,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 375),
-                  child: _buildCustomButton("Configurar itens", UniconsLine.setting, _navConfig,
+                  child: _buildCustomButton(S.of(context).configureItems, UniconsLine.setting, _navConfig,
                       colorIcon: Colors.orange))
               : Container(),
           widget.withIcons
@@ -129,7 +133,7 @@ class _HomePageState extends State<HomePage> {
                   left: _sizeWidth * 0.53,
                   bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
                   duration: Duration(milliseconds: 450),
-                  child: _buildCustomButton("Selecionar imagens", UniconsLine.apps, _navCards,
+                  child: _buildCustomButton(S.of(context).selectImages, UniconsLine.apps, _navCards,
                       colorIcon: Colors.yellow))
               : Container(),
         ]),
