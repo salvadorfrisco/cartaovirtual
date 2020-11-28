@@ -27,10 +27,11 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static _notInlinedMessages(_) => <String, Function> {
+    "appName" : MessageLookupByLibrary.simpleMessage("image creator"),
     "changeBackgroundColor" : MessageLookupByLibrary.simpleMessage("change background color"),
     "changeBackgroundImage" : MessageLookupByLibrary.simpleMessage("change background image"),
     "changeImageComponents" : MessageLookupByLibrary.simpleMessage("change image components"),
-    "comeOn" : MessageLookupByLibrary.simpleMessage("come on"),
+    "comeOn" : MessageLookupByLibrary.simpleMessage("let\'s go"),
     "configureItems" : MessageLookupByLibrary.simpleMessage("configure items"),
     "editInformations" : MessageLookupByLibrary.simpleMessage("edit informations"),
     "firstSuggestedDrinkName" : MessageLookupByLibrary.simpleMessage("Drip Coffee (Cup)"),
@@ -58,6 +59,17 @@ class MessageLookup extends MessageLookupByLibrary {
     "secondSuggestedDrinkName" : MessageLookupByLibrary.simpleMessage("Espresso (Shot)"),
     "selectImages" : MessageLookupByLibrary.simpleMessage("select images"),
     "shareImage" : MessageLookupByLibrary.simpleMessage("share image"),
-    "thirdSuggestedDrinkName" : MessageLookupByLibrary.simpleMessage("Latte (Mug)")
+    "thirdSuggestedDrinkName" : MessageLookupByLibrary.simpleMessage("Latte (Mug)"),
+    "version" : MessageLookupByLibrary.simpleMessage("version"),
+    "wc1" : MessageLookupByLibrary.simpleMessage("image Creator is a platform for\nshare your services by creating\npersonalized images in a\nsimple and fast way."),
+    "wc2" : MessageLookupByLibrary.simpleMessage("you register your information\ncontact, choose a background theme and\nyou can now distribute your image!"),
+    "wc3" : MessageLookupByLibrary.simpleMessage("let\'s create a custom initial image,\ndon\'t worry, then you can change\nand complement the information, including\na photo or logo."),
+    "wc4" : MessageLookupByLibrary.simpleMessage("rest assured, it\'s just to do\nyour initial image, will not be passed on and\nyou will not receive emails or calls."),
+    "wc5" : MessageLookupByLibrary.simpleMessage("share services with your\ncontacts, whatsapp groups, facebook\nto always be remembered."),
+    "wt1" : MessageLookupByLibrary.simpleMessage("welcome"),
+    "wt2" : MessageLookupByLibrary.simpleMessage("simple to use"),
+    "wt3" : MessageLookupByLibrary.simpleMessage("initial information"),
+    "wt4" : MessageLookupByLibrary.simpleMessage("contact details"),
+    "wt5" : MessageLookupByLibrary.simpleMessage("share and win!")
   };
 }

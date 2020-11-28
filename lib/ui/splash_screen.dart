@@ -5,6 +5,8 @@ import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/ui/intro_screen.dart';
 import '../main_page.dart';
 import 'package:flutter/material.dart';
+import 'package:virtual_card/generated/l10n.dart';
+import '../utils/extensions.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -59,7 +61,7 @@ class _SplashScreenState extends State<SplashScreen> {
                         padding: EdgeInsets.only(top: 10.0),
                       ),
                       Text(
-                        NAME,
+                        S.of(context).appName.capitalize(),
                         style: TextStyle(
                             color: Colors.black45,
                             fontWeight: FontWeight.bold,

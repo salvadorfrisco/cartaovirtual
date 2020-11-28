@@ -79,36 +79,36 @@ class IntroScreenState extends State<IntroScreen> {
                     PageView(
                       children: <Widget>[
                         Walkthrough(
-                          title: WT1,
-                          content: WC1,
+                          title: S.of(context).wt1.capitalize(),
+                          content: S.of(context).wc1.capitalize(),
                           repeatAnimation: true,
                           animationIcon: 'assets/lottiefiles/services.json',
                           withField: false,
                         ),
                         Walkthrough(
-                          title: WT2,
-                          content: WC2,
+                          title: S.of(context).wt2.capitalize(),
+                          content: S.of(context).wc2.capitalize(),
                           repeatAnimation: false,
                           animationIcon: 'assets/lottiefiles/done.json',
                           withField: false,
                         ),
                         Walkthrough(
-                          title: WT3,
-                          content: WC3,
+                          title: S.of(context).wt3.capitalize(),
+                          content: S.of(context).wc3.capitalize(),
                           repeatAnimation: true,
                           animationIcon: 'assets/lottiefiles/fill_name.json',
                           withField: true,
                         ),
                         Walkthrough(
-                          title: WT4,
-                          content: WC4,
+                          title: S.of(context).wt4.capitalize(),
+                          content: S.of(context).wc4.capitalize(),
                           repeatAnimation: false,
                           animationIcon: 'assets/lottiefiles/fill_cell.json',
                           withField: true,
                         ),
                         Walkthrough(
-                          title: WT5,
-                          content: WC5,
+                          title: S.of(context).wt5.capitalize(),
+                          content: S.of(context).wc5.capitalize(),
                           repeatAnimation: false,
                           animationIcon: 'assets/lottiefiles/trophy.json',
                           withField: false,
@@ -125,7 +125,7 @@ class IntroScreenState extends State<IntroScreen> {
                             padding: EdgeInsets.only(
                                 left: _sizeWidth * 0.14, top: _sizeHeight * 0.3, right: _sizeWidth * 0.14),
                             child: _buildTextField(
-                                "Digite seu nome",
+                                "Digite seu nome",1
                                 _nameController,
                                 _sizeWidth * 0.07,
                                 'Latu',
@@ -139,7 +139,7 @@ class IntroScreenState extends State<IntroScreen> {
                             child: Column(
                               children: <Widget>[
                                 _buildTextField(
-                                    "celular",
+                                    "celular",1
                                     _phoneController,
                                     _sizeWidth * 0.072,
                                     'Latu',
@@ -192,13 +192,13 @@ class IntroScreenState extends State<IntroScreen> {
   Widget _readTerms() {
     return Column(
       children: <Widget>[
-        Text("Ao avançar declaro que li e concordo com os",
+        Text("Ao avançar declaro que li e concordo com os"1,
       style: TextStyle(
         color: Colors.blue,
         fontSize: _sizeWidth * 0.038),),
         GestureDetector(
             onTap: () => CardNavigator.navToTerms(context),
-            child: Text("Termos de Uso e Política de Privacidade",
+            child: Text("Termos de Uso e Política de Privacidade",1
             style: TextStyle(
               color: Colors.blue,
               fontSize: _sizeWidth * 0.04,
@@ -219,9 +219,9 @@ class IntroScreenState extends State<IntroScreen> {
                 autofocus: true,
                 onFieldSubmitted: (v) {
                   if (v.isEmpty) {
-                    _showSnackBar('Digite seu nome');
+                    _showSnackBar('Digite seu nome');1
                   } else if (v.length < 5) {
-                    _showSnackBar('O nome deve ter no mínimo 5 caracteres');
+                    _showSnackBar('O nome deve ter no mínimo 5 caracteres');1
                   }
                 },
                 style: TextStyle(
@@ -243,9 +243,9 @@ class IntroScreenState extends State<IntroScreen> {
     if (_nameController.text.length >= 5) {
       _nameFilled = true;
     } else if (_nameController.text.length == 0) {
-      _showSnackBar('Favor preencher o nome');
+      _showSnackBar('Favor preencher o nome');1
     } else {
-      _showSnackBar('O nome deve ter no mínimo 5 letras');
+      _showSnackBar('O nome deve ter no mínimo 5 letras');''
     }
     return _nameFilled;
   }
@@ -255,23 +255,11 @@ class IntroScreenState extends State<IntroScreen> {
     if (_phoneController.text.length == 15) {
       _phoneFilled = true;
     } else if (_phoneController.text.length == 0) {
-      _showSnackBar('Favor preencher seu celular');
+      _showSnackBar('Favor preencher seu celular');1
     } else {
-      _showSnackBar('Celular inválido');
+      _showSnackBar('Celular inválido');1
     }
     return _phoneFilled;
-  }
-
-  bool _validateEmail() {
-    _emailFilled = false;
-    if (_emailController.text.length < 5) {
-      _emailFilled = true;
-    } else if (_emailController.text.length == 0) {
-      _showSnackBar('Favor preencher seu email');
-    } else {
-      _showSnackBar('Email inválido');
-    }
-    return _emailFilled;
   }
 
   void _showSnackBar(String message, {backColor: Colors.teal}) {
@@ -290,7 +278,7 @@ class IntroScreenState extends State<IntroScreen> {
       _initializeCards();
       if (_validateName()) controller.jumpToPage(currentPage + 1);
     } else if (currentPage == 3) {
-      if (_validatephone() || _validateEmail())
+      if (_validatephone())
         controller.jumpToPage(currentPage + 1);
     } else {
       controller.jumpToPage(currentPage + 1);

@@ -135,10 +135,10 @@ class S {
     );
   }
 
-  /// `come on`
+  /// `let's go`
   String get comeOn {
     return Intl.message(
-      'come on',
+      'let\'s go',
       name: 'comeOn',
       desc: '',
       args: [],
@@ -150,6 +150,126 @@ class S {
     return Intl.message(
       'next',
       name: 'next',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `image creator`
+  String get appName {
+    return Intl.message(
+      'image creator',
+      name: 'appName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `welcome`
+  String get wt1 {
+    return Intl.message(
+      'welcome',
+      name: 'wt1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `image Creator is a platform for\nshare your services by creating\npersonalized images in a\nsimple and fast way.`
+  String get wc1 {
+    return Intl.message(
+      'image Creator is a platform for\nshare your services by creating\npersonalized images in a\nsimple and fast way.',
+      name: 'wc1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `simple to use`
+  String get wt2 {
+    return Intl.message(
+      'simple to use',
+      name: 'wt2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `you register your information\ncontact, choose a background theme and\nyou can now distribute your image!`
+  String get wc2 {
+    return Intl.message(
+      'you register your information\ncontact, choose a background theme and\nyou can now distribute your image!',
+      name: 'wc2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `initial information`
+  String get wt3 {
+    return Intl.message(
+      'initial information',
+      name: 'wt3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `let's create a custom initial image,\ndon't worry, then you can change\nand complement the information, including\na photo or logo.`
+  String get wc3 {
+    return Intl.message(
+      'let\'s create a custom initial image,\ndon\'t worry, then you can change\nand complement the information, including\na photo or logo.',
+      name: 'wc3',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `contact details`
+  String get wt4 {
+    return Intl.message(
+      'contact details',
+      name: 'wt4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `rest assured, it's just to do\nyour initial image, will not be passed on and\nyou will not receive emails or calls.`
+  String get wc4 {
+    return Intl.message(
+      'rest assured, it\'s just to do\nyour initial image, will not be passed on and\nyou will not receive emails or calls.',
+      name: 'wc4',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `share and win!`
+  String get wt5 {
+    return Intl.message(
+      'share and win!',
+      name: 'wt5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `share services with your\ncontacts, whatsapp groups, facebook\nto always be remembered.`
+  String get wc5 {
+    return Intl.message(
+      'share services with your\ncontacts, whatsapp groups, facebook\nto always be remembered.',
+      name: 'wc5',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `version`
+  String get version {
+    return Intl.message(
+      'version',
+      name: 'version',
       desc: '',
       args: [],
     );
