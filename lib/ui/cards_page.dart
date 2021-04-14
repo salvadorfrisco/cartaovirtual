@@ -2,6 +2,7 @@ import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
+import 'package:virtual_card/widgets/show_banner.dart';
 import '../main_page.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +87,11 @@ class _CardsPageState extends State<CardsPage> {
             SizedBox(width: 3.0,),
             _buildCard("4"),
           ],
+        ),
+        Container(
+          height: 50,
+          // margin: EdgeInsets.only(top: 5.0),
+          child: ShowBanner(),
         )
       ],
     );

@@ -1,6 +1,6 @@
 name: virtual_card
 description: Criação e compartilhamento de imagens personalizadas
-version: 2.0.7+39
+version: 2.0.8+40
 
 environment:
   sdk: ">=2.7.0 <3.0.0"
