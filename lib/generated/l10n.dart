@@ -175,10 +175,10 @@ class S {
     );
   }
 
-  /// `image Creator is a platform for\nshare your services by creating\npersonalized images in a\nsimple and fast way.`
+  /// `image Creator is a platform for share your services by creating personalized images in a simple and fast way.`
   String get wc1 {
     return Intl.message(
-      'image Creator is a platform for\nshare your services by creating\npersonalized images in a\nsimple and fast way.',
+      'image Creator is a platform for share your services by creating personalized images in a simple and fast way.',
       name: 'wc1',
       desc: '',
       args: [],
@@ -195,10 +195,10 @@ class S {
     );
   }
 
-  /// `you register your information\ncontact, choose a background theme and\nyou can now distribute your image!`
+  /// `you register your information contact, choose a background theme and you can now distribute your image!`
   String get wc2 {
     return Intl.message(
-      'you register your information\ncontact, choose a background theme and\nyou can now distribute your image!',
+      'you register your information contact, choose a background theme and you can now distribute your image!',
       name: 'wc2',
       desc: '',
       args: [],
@@ -215,10 +215,10 @@ class S {
     );
   }
 
-  /// `let's create a custom initial image,\ndon't worry, then you can change\nand complement the information, including\na photo or logo.`
+  /// `let's create a custom initial image, don't worry, then you can change and complement the information, including a photo or logo.`
   String get wc3 {
     return Intl.message(
-      'let\'s create a custom initial image,\ndon\'t worry, then you can change\nand complement the information, including\na photo or logo.',
+      'let\'s create a custom initial image, don\'t worry, then you can change and complement the information, including a photo or logo.',
       name: 'wc3',
       desc: '',
       args: [],
@@ -235,10 +235,10 @@ class S {
     );
   }
 
-  /// `rest assured, it's just to do\nyour initial image, will not be passed on and\nyou will not receive emails or calls.`
+  /// `rest assured, it's just to do your initial image, will not be passed on and you will not receive emails or calls.`
   String get wc4 {
     return Intl.message(
-      'rest assured, it\'s just to do\nyour initial image, will not be passed on and\nyou will not receive emails or calls.',
+      'rest assured, it\'s just to do your initial image, will not be passed on and you will not receive emails or calls.',
       name: 'wc4',
       desc: '',
       args: [],
@@ -255,10 +255,10 @@ class S {
     );
   }
 
-  /// `share services with your\ncontacts, whatsapp groups, facebook\nto always be remembered.`
+  /// `share services with your contacts, whatsapp groups, facebook to always be remembered.`
   String get wc5 {
     return Intl.message(
-      'share services with your\ncontacts, whatsapp groups, facebook\nto always be remembered.',
+      'share services with your contacts, whatsapp groups, facebook to always be remembered.',
       name: 'wc5',
       desc: '',
       args: [],
@@ -270,6 +270,86 @@ class S {
     return Intl.message(
       'version',
       name: 'version',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Write your name`
+  String get writeYourName {
+    return Intl.message(
+      'Write your name',
+      name: 'writeYourName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cell Phone`
+  String get cellPhone {
+    return Intl.message(
+      'Cell Phone',
+      name: 'cellPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Moving forward, I declare that\nI have read and agree with the`
+  String get declarationReaded {
+    return Intl.message(
+      'Moving forward, I declare that\nI have read and agree with the',
+      name: 'declarationReaded',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Terms of Use and Privacy Policy`
+  String get termsOfUse {
+    return Intl.message(
+      'Terms of Use and Privacy Policy',
+      name: 'termsOfUse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The name must be at least 5 characters`
+  String get ruleName {
+    return Intl.message(
+      'The name must be at least 5 characters',
+      name: 'ruleName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in the name`
+  String get pleaseWriteYourName {
+    return Intl.message(
+      'Please fill in the name',
+      name: 'pleaseWriteYourName',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill in your cell phone`
+  String get pleaseWriteYourCellPhone {
+    return Intl.message(
+      'Please fill in your cell phone',
+      name: 'pleaseWriteYourCellPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid cell phone`
+  String get invalidCellPhone {
+    return Intl.message(
+      'Invalid cell phone',
+      name: 'invalidCellPhone',
       desc: '',
       args: [],
     );

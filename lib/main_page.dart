@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 import 'package:virtual_card/utils/sizes_helpers.dart';
+import 'package:virtual_card/widgets/show_banner.dart';
 import 'models/card_info.dart';
 import 'ui/home_page.dart';
 //import 'utils/status_bar_manager.dart';
@@ -53,12 +54,22 @@ class _MainPageState extends State<MainPage> {
   _buildMainScreen() {
     return Scaffold(
       key: scaffoldKey,
-      body: HomePage(
-        cardInfo: cardInfo,
-        widthScreen: displayWidth(context),
-        imageBackground: imageBackground,
-        profileImage: profileImage,
-        withIcons: true,
+      body: Column(
+        children: [
+          Expanded(
+            child: HomePage(
+              cardInfo: cardInfo,
+              widthScreen: displayWidth(context),
+              imageBackground: imageBackground,
+              profileImage: profileImage,
+              withIcons: true,
+            ),
+          ),
+          Container(
+            height: 50,
+            child: ShowBanner(),
+          )
+        ],
       ),
     );
   }

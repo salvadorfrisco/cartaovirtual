@@ -13,7 +13,6 @@ import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/infos_helper.dart';
 import 'package:virtual_card/utils/keyboard_utils.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
-import 'package:virtual_card/widgets/custom_app_bar.dart';
 import '../main_page.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
@@ -46,132 +45,6 @@ class _InfosPageState extends State<InfosPage> {
 
   @override
   Widget build(BuildContext context) {
-    const List<String> TIPTITLE = [
-      'Dica do dia',
-      'Compartilhe',
-      'Imcremente sua imagem',
-      'Imagem de fundo',
-      'Transparência',
-      'Faça seu layout',
-      'Seu conteúdo',
-    ];
-
-    List<Widget> TIPMESSAGE = [
-      Text(
-        'Os ícones do lado esquerdo aparecerão somente se estiverem habilitados',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-        textAlign: TextAlign.center,
-      ),
-      RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(color: colorBack),
-            children: [
-              TextSpan(
-                text: 'Divulgue seus serviços, convites, feeds em redes sociais compartilhando a imagem em ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
-            ],
-          )),
-      RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(color: Colors.black87),
-            children: [
-              TextSpan(
-                text: 'Clique no botão ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessage(
-                  "Incluir foto...", 106.0)),
-              TextSpan(
-                text: ' acima para incluir uma foto da galeria na imagem ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-            ],
-          )),
-      RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(color: Colors.black87),
-            children: [
-              TextSpan(
-                text: 'Troque a imagem de fundo clicando em ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
-              TextSpan(
-                text: ' e ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
-              TextSpan(
-                text: ' selecione uma imagem ou faça upload em ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.image_upload, size: 22, color: Colors.white,)], 40.0)),
-            ],
-          )),
-      RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(color: Colors.black87),
-            children: [
-              TextSpan(
-                text: 'Controle a opacidade da imagem de fundo, clique em  ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
-              TextSpan(
-                text: ' e ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
-              TextSpan(
-                text: ' , deslize o botão do lado direito e veja o efeito ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-            ],
-          )),
-
-      RichText(
-          textAlign: TextAlign.center,
-          text: TextSpan(
-            style: TextStyle(color: Colors.black87),
-            children: [
-              TextSpan(
-                text: 'Altere a posição das informações, clique em  ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
-              TextSpan(
-                text: ' e ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(Icons.color_lens, size: 22, color: Colors.white,), Icon(Icons.zoom_out_map_sharp, size: 22, color: Colors.white,)], 40.0)),
-              TextSpan(
-                text: ' segure o item e arraste para o local desejado ',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-              ),
-            ],
-          )),
-      Text(
-        'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem',
-        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
-        textAlign: TextAlign.center,
-      ),
-    ];
-
-
     _sizeWidth = displayWidth(context);
     if (didLoad) {
       return buildBody();
@@ -244,7 +117,7 @@ class _InfosPageState extends State<InfosPage> {
         },
         child: Scaffold(
             resizeToAvoidBottomInset: false,
-            resizeToAvoidBottomPadding: false,
+            // resizeToAvoidBottomPadding: false,
             key: _scaffoldKey,
             body: _body()));
   }
@@ -607,6 +480,132 @@ class ShowTip extends StatelessWidget {
   }
 
   _tip(dayNumber) {
+
+    const List<String> TIPTITLE = [
+      'Dica do dia',
+      'Compartilhe',
+      'Imcremente sua imagem',
+      'Imagem de fundo',
+      'Transparência',
+      'Faça seu layout',
+      'Seu conteúdo',
+    ];
+
+    List<Widget> TIPMESSAGE = [
+      Text(
+        'Os ícones do lado esquerdo aparecerão somente se estiverem habilitados',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+        textAlign: TextAlign.center,
+      ),
+      RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(color: colorBack),
+            children: [
+              TextSpan(
+                text: 'Divulgue seus serviços, convites, feeds em redes sociais compartilhando a imagem em ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
+            ],
+          )),
+      RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(color: Colors.black87),
+            children: [
+              TextSpan(
+                text: 'Clique no botão ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessage(
+                  "Incluir foto...", 106.0)),
+              TextSpan(
+                text: ' acima para incluir uma foto da galeria na imagem ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+            ],
+          )),
+      RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(color: Colors.black87),
+            children: [
+              TextSpan(
+                text: 'Troque a imagem de fundo clicando em ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
+              TextSpan(
+                text: ' e ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
+              TextSpan(
+                text: ' selecione uma imagem ou faça upload em ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.image_upload, size: 22, color: Colors.white,)], 40.0)),
+            ],
+          )),
+      RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(color: Colors.black87),
+            children: [
+              TextSpan(
+                text: 'Controle a opacidade da imagem de fundo, clique em  ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
+              TextSpan(
+                text: ' e ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
+              TextSpan(
+                text: ' , deslize o botão do lado direito e veja o efeito ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+            ],
+          )),
+
+      RichText(
+          textAlign: TextAlign.center,
+          text: TextSpan(
+            style: TextStyle(color: Colors.black87),
+            children: [
+              TextSpan(
+                text: 'Altere a posição das informações, clique em  ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
+              TextSpan(
+                text: ' e ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+              WidgetSpan(child: Functions.buildMessageWidgets(
+                  [Icon(Icons.color_lens, size: 22, color: Colors.white,), Icon(Icons.zoom_out_map_sharp, size: 22, color: Colors.white,)], 40.0)),
+              TextSpan(
+                text: ' segure o item e arraste para o local desejado ',
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+              ),
+            ],
+          )),
+      Text(
+        'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem',
+        style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
+        textAlign: TextAlign.center,
+      ),
+    ];
+
     return Container(
         alignment: Alignment.bottomCenter,
         margin: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),

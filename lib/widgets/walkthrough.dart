@@ -26,26 +26,6 @@ class Walkthrough extends StatefulWidget {
 
 class WalkthroughState extends State<Walkthrough>
     with SingleTickerProviderStateMixin {
-//  Animation animation;
-//  AnimationController animationController;
-
-//  @override
-//  void initState() {
-//    super.initState();
-//    animationController =
-//        AnimationController(value: 1.0, duration: Duration(milliseconds: 500));
-//    animation = Tween(begin: 250.0, end: 0.0).animate(
-//        CurvedAnimation(parent: animationController, curve: Curves.easeInOut));
-//    animation.addListener(() => setState(() {}));
-//    animationController.forward();
-//  }
-
-//  @override
-//  void dispose() {
-//    animationController.dispose();
-//    super.dispose();
-//  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -92,17 +72,14 @@ class WalkthroughState extends State<Walkthrough>
             Container(height: widget.withField ? displayHeight(context) * 0.14 : 0),
             Padding(
               padding: EdgeInsets.only(top: widget.withField ? 0 : displayHeight(context) * 0.04),
-              child: FittedBox(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(widget.content,
-                      softWrap: true,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 15.0,
-                          color: Colors.black)),
-                ),
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(widget.content,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 15.0,
+                        color: Colors.black)),
               ),
             ),
             widget.animationBelow != null

@@ -125,7 +125,7 @@ class IntroScreenState extends State<IntroScreen> {
                             padding: EdgeInsets.only(
                                 left: _sizeWidth * 0.14, top: _sizeHeight * 0.3, right: _sizeWidth * 0.14),
                             child: _buildTextField(
-                                "Digite seu nome",1
+                                "Digite seu nome",
                                 _nameController,
                                 _sizeWidth * 0.07,
                                 'Latu',
@@ -139,7 +139,7 @@ class IntroScreenState extends State<IntroScreen> {
                             child: Column(
                               children: <Widget>[
                                 _buildTextField(
-                                    "celular",1
+                                    "celular",
                                     _phoneController,
                                     _sizeWidth * 0.072,
                                     'Latu',
@@ -191,14 +191,16 @@ class IntroScreenState extends State<IntroScreen> {
 
   Widget _readTerms() {
     return Column(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text("Ao avançar declaro que li e concordo com os"1,
+        Text(S.of(context).declarationReaded,
       style: TextStyle(
         color: Colors.blue,
         fontSize: _sizeWidth * 0.038),),
         GestureDetector(
             onTap: () => CardNavigator.navToTerms(context),
-            child: Text("Termos de Uso e Política de Privacidade",1
+            child: Text(S.of(context).termsOfUse,
             style: TextStyle(
               color: Colors.blue,
               fontSize: _sizeWidth * 0.04,
@@ -219,9 +221,9 @@ class IntroScreenState extends State<IntroScreen> {
                 autofocus: true,
                 onFieldSubmitted: (v) {
                   if (v.isEmpty) {
-                    _showSnackBar('Digite seu nome');1
+                    _showSnackBar(S.of(context).writeYourName);
                   } else if (v.length < 5) {
-                    _showSnackBar('O nome deve ter no mínimo 5 caracteres');1
+                    _showSnackBar(S.of(context).ruleName);
                   }
                 },
                 style: TextStyle(
@@ -243,21 +245,21 @@ class IntroScreenState extends State<IntroScreen> {
     if (_nameController.text.length >= 5) {
       _nameFilled = true;
     } else if (_nameController.text.length == 0) {
-      _showSnackBar('Favor preencher o nome');1
+      _showSnackBar(S.of(context).pleaseWriteYourName);
     } else {
-      _showSnackBar('O nome deve ter no mínimo 5 letras');''
+      _showSnackBar(S.of(context).ruleName);
     }
     return _nameFilled;
   }
 
-  bool _validatephone() {
+  bool _validatePhone() {
     _phoneFilled = false;
     if (_phoneController.text.length == 15) {
       _phoneFilled = true;
     } else if (_phoneController.text.length == 0) {
-      _showSnackBar('Favor preencher seu celular');1
+      _showSnackBar(S.of(context).pleaseWriteYourCellPhone);
     } else {
-      _showSnackBar('Celular inválido');1
+      _showSnackBar(S.of(context).invalidCellPhone);
     }
     return _phoneFilled;
   }
@@ -278,7 +280,7 @@ class IntroScreenState extends State<IntroScreen> {
       _initializeCards();
       if (_validateName()) controller.jumpToPage(currentPage + 1);
     } else if (currentPage == 3) {
-      if (_validatephone())
+      if (_validatePhone())
         controller.jumpToPage(currentPage + 1);
     } else {
       controller.jumpToPage(currentPage + 1);

@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:typed_data';
-import 'package:connectivity/connectivity.dart';
+// import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:unicons/unicons.dart';
@@ -40,36 +40,36 @@ class _ThemePageState extends State<ThemePage> {
   Uint8List imageUploaded, imageBackground, profileImage;
   bool isLoading = false;
   String _connectionStatus = 'Unknown';
-  final Connectivity _connectivity = Connectivity();
-  StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  // final Connectivity _connectivity = Connectivity();
+  // StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   @override
   void initState() {
     super.initState();
     setInitialData();
-    initConnectivity();
-    _connectivitySubscription =
-        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    // initConnectivity();
+    // _connectivitySubscription =
+    //     _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
   }
 
-  @override
-  void dispose() {
-    _connectivitySubscription.cancel();
-    super.dispose();
-  }
+  // @override
+  // void dispose() {
+  //   _connectivitySubscription.cancel();
+  //   super.dispose();
+  // }
 
-  Future<void> initConnectivity() async {
-    ConnectivityResult result;
-    try {
-      result = await _connectivity.checkConnectivity();
-    } on PlatformException catch (e) {
-      print(e.toString());
-    }
-    if (!mounted) {
-      return Future.value(null);
-    }
-    return _updateConnectionStatus(result);
-  }
+  // Future<void> initConnectivity() async {
+  //   ConnectivityResult result;
+  //   try {
+  //     result = await _connectivity.checkConnectivity();
+  //   } on PlatformException catch (e) {
+  //     print(e.toString());
+  //   }
+  //   if (!mounted) {
+  //     return Future.value(null);
+  //   }
+  //   return _updateConnectionStatus(result);
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -302,18 +302,18 @@ class _ThemePageState extends State<ThemePage> {
     );
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-    switch (result) {
-      case ConnectivityResult.wifi:
-      case ConnectivityResult.mobile:
-      case ConnectivityResult.none:
-        setState(() => _connectionStatus = result.toString());
-        break;
-      default:
-        setState(() => _connectionStatus = 'Failed to get connectivity.');
-        break;
-    }
-  }
+  // Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  //   switch (result) {
+  //     case ConnectivityResult.wifi:
+  //     case ConnectivityResult.mobile:
+  //     case ConnectivityResult.none:
+  //       setState(() => _connectionStatus = result.toString());
+  //       break;
+  //     default:
+  //       setState(() => _connectionStatus = 'Failed to get connectivity.');
+  //       break;
+  //   }
+  // }
 
   AlertDialog buildAlertDialog(title, msg) {
     return AlertDialog(

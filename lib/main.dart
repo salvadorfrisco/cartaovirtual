@@ -4,7 +4,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:virtual_card/ui/terms_page.dart';
+import 'ad_state.dart';
 import 'main_page.dart';
 import 'ui/intro_screen.dart';
 import 'ui/splash_screen.dart';
@@ -29,11 +32,16 @@ void _enablePlatformOverrideForDesktop() {
 void main() {
   _enablePlatformOverrideForDesktop();
   WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized();
+  final initFuture = MobileAds.instance.initialize();
+  final adState = AdState(initFuture);
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
       .then((_) {
     runApp(
-        MaterialApp(
+        Provider.value(
+            value: adState,
+            builder: (context, child) => MaterialApp(
             title: 'Image Creator',
             localizationsDelegates: [
               // 1
@@ -51,53 +59,10 @@ void main() {
             ),
             debugShowCheckedModeBanner: false,
             home: SplashScreen(),
-            routes: routes));
+            routes: routes)
+        ),
+    );
   });
 }
 
-// void main() {
-//   runApp(MyApp());
-// }
-//
-// class MyApp extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Image Creator',
-//       localizationsDelegates: [
-//         // 1
-//         S.delegate,
-//         // 2
-//         GlobalMaterialLocalizations.delegate,
-//         GlobalWidgetsLocalizations.delegate,
-//         GlobalCupertinoLocalizations.delegate,
-//       ],
-//       supportedLocales: S.delegate.supportedLocales,
-//       theme: ThemeData(
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: MyHomePage(),
-//     );
-//   }
-// }
-//
-// class MyHomePage extends StatefulWidget {
-//   @override
-//   _MyHomePageState createState() => _MyHomePageState();
-// }
-//
-// class _MyHomePageState extends State<MyHomePage> {
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         // The [AppBar] title text should update its message
-//         // according to the system locale of the target platform.
-//         // Switching between English and Spanish locales should
-//         // cause this text to update.
-//         title: Text(AppLocalizations.of(context).helloWorld),
-//       ),
-//     );
-//   }
-// }
 
