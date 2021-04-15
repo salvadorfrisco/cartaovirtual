@@ -66,8 +66,6 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget buildBody() {
-    print("getCurrentLocale");
-    print(Intl.getCurrentLocale());
     return SafeArea(
       child: Scaffold(
         body: Stack(fit: StackFit.expand, children: [
