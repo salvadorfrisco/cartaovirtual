@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:unicons/unicons.dart';
+import 'package:virtual_card/generated/l10n.dart';
+import '../utils/extensions.dart';
 // import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-formField(cnt, width, callback, index, callbackTap) {
+formField(context, cnt, width, callback, index, callbackTap) {
   return SizedBox(
     height: getSize(cnt.type) + 18,
     width: width,
@@ -22,7 +24,7 @@ formField(cnt, width, callback, index, callbackTap) {
             borderSide: BorderSide(color: Colors.black45),
           ),
           contentPadding: EdgeInsets.all(8.0),
-          hintText: getHint(cnt.type),
+          hintText: getHint(context, cnt.type),
           hintStyle: TextStyle(
               color: Colors.black38,
               fontSize: getSize(cnt.type) - 4,
@@ -43,6 +45,41 @@ formField(cnt, width, callback, index, callbackTap) {
           callback(value, index);
         }),
   );
+}
+
+getHint(context, type) {
+  switch (type) {
+    case "name":
+      return S.of(context).nameHint.capitalize();
+      break;
+    case "occupation":
+      return S.of(context).occupationHint.capitalize();
+      break;
+    case "phone":
+      return S.of(context).cellPhoneHint.capitalize();
+      break;
+    case "email":
+      return S.of(context).emailAddressHint.capitalize();
+      break;
+    case "facebook":
+      return S.of(context).facebookAddressHint.capitalize();
+      break;
+    case "instagram":
+      return S.of(context).instagramAddressHint.capitalize();
+      break;
+    case "twitter":
+      return S.of(context).twitterAddressHint.capitalize();
+      break;
+    case "linkedin":
+      return S.of(context).linkedinAddressHint.capitalize();
+      break;
+    case "youtube":
+      return S.of(context).youtubeAddressHint.capitalize();
+      break;
+    case "website":
+      return S.of(context).websiteAddressHint.capitalize();
+      break;
+  }
 }
 
 getPicture(profileImage, sizeWidth, photoCircle) {
@@ -95,41 +132,6 @@ getIcon(type) {
       break;
     case "website":
       return UniconsLine.globe;
-      break;
-  }
-}
-
-getHint(type) {
-  switch (type) {
-    case "name":
-      return "digite o nome";
-      break;
-    case "occupation":
-      return "digite a profissão ou serviço";
-      break;
-    case "phone":
-      return "digite o telefone celular";
-      break;
-    case "email":
-      return "endereço do e-mail ou qualquer texto";
-      break;
-    case "facebook":
-      return "endereço do Facebook (opcional)";
-      break;
-    case "instagram":
-      return "endereço do Instagram (opcional)";
-      break;
-    case "twitter":
-      return "endereço do Twitter ou qualquer texto";
-      break;
-    case "linkedin":
-      return "endereço do Linkedin ou qualquer texto";
-      break;
-    case "youtube":
-      return "endereço do Youtube ou qualquer texto";
-      break;
-    case "website":
-      return "endereço do site ou qualquer texto";
       break;
   }
 }

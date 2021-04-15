@@ -125,7 +125,7 @@ class IntroScreenState extends State<IntroScreen> {
                             padding: EdgeInsets.only(
                                 left: _sizeWidth * 0.14, top: _sizeHeight * 0.3, right: _sizeWidth * 0.14),
                             child: _buildTextField(
-                                "Digite seu nome",
+                                S.of(context).writeYourName.capitalize(),
                                 _nameController,
                                 _sizeWidth * 0.07,
                                 'Latu',
@@ -139,7 +139,7 @@ class IntroScreenState extends State<IntroScreen> {
                             child: Column(
                               children: <Widget>[
                                 _buildTextField(
-                                    "celular",
+                                    S.of(context).cellPhone.capitalize(),
                                     _phoneController,
                                     _sizeWidth * 0.072,
                                     'Latu',

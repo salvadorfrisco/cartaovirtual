@@ -355,205 +355,311 @@ class S {
     );
   }
 
-  /// `Death by Caffeine Calculator`
-  String get formPageAppBarTitle {
+  /// `type the name`
+  String get nameHint {
     return Intl.message(
-      'Death by Caffeine Calculator',
-      name: 'formPageAppBarTitle',
+      'type the name',
+      name: 'nameHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Drip Coffee (Cup)`
-  String get firstSuggestedDrinkName {
+  /// `enter profession or service`
+  String get occupationHint {
     return Intl.message(
-      'Drip Coffee (Cup)',
-      name: 'firstSuggestedDrinkName',
+      'enter profession or service',
+      name: 'occupationHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Espresso (Shot)`
-  String get secondSuggestedDrinkName {
+  /// `enter cell phone`
+  String get cellPhoneHint {
     return Intl.message(
-      'Espresso (Shot)',
-      name: 'secondSuggestedDrinkName',
+      'enter cell phone',
+      name: 'cellPhoneHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Latte (Mug)`
-  String get thirdSuggestedDrinkName {
+  /// `email address or any text`
+  String get emailAddressHint {
     return Intl.message(
-      'Latte (Mug)',
-      name: 'thirdSuggestedDrinkName',
+      'email address or any text',
+      name: 'emailAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Body Weight`
-  String get formPageWeightInputLabel {
+  /// `Facebook address (optional)`
+  String get facebookAddressHint {
     return Intl.message(
-      'Body Weight',
-      name: 'formPageWeightInputLabel',
+      'Facebook address (optional)',
+      name: 'facebookAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `pounds`
-  String get formPageWeightInputSuffix {
+  /// `Instagram address (optional)`
+  String get instagramAddressHint {
     return Intl.message(
-      'pounds',
-      name: 'formPageWeightInputSuffix',
+      'Instagram address (optional)',
+      name: 'instagramAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Choose a drink`
-  String get formPageRadioListLabel {
+  /// `Twitter address or any text`
+  String get twitterAddressHint {
     return Intl.message(
-      'Choose a drink',
-      name: 'formPageRadioListLabel',
+      'Twitter address or any text',
+      name: 'twitterAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `CALCULATE`
-  String get formPageActionButtonTitle {
+  /// `Linkedin address or any text`
+  String get linkedinAddressHint {
     return Intl.message(
-      'CALCULATE',
-      name: 'formPageActionButtonTitle',
+      'Linkedin address or any text',
+      name: 'linkedinAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Other`
-  String get formPageCustomDrinkRadioTitle {
+  /// `Youtube address or any text`
+  String get youtubeAddressHint {
     return Intl.message(
-      'Other',
-      name: 'formPageCustomDrinkRadioTitle',
+      'Youtube address or any text',
+      name: 'youtubeAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `Serving Size`
-  String get formPageCustomDrinkServingSizeInputLabel {
+  /// `website address or any text`
+  String get websiteAddressHint {
     return Intl.message(
-      'Serving Size',
-      name: 'formPageCustomDrinkServingSizeInputLabel',
+      'website address or any text',
+      name: 'websiteAddressHint',
       desc: '',
       args: [],
     );
   }
 
-  /// `fl. oz`
-  String get formPageCustomDrinkServingSizeInputSuffix {
+  /// `Tip of the day`
+  String get tipOfTheDay {
     return Intl.message(
-      'fl. oz',
-      name: 'formPageCustomDrinkServingSizeInputSuffix',
+      'Tip of the day',
+      name: 'tipOfTheDay',
       desc: '',
       args: [],
     );
   }
 
-  /// `Caffeine`
-  String get formPageCustomDrinkCaffeineAmountInputLabel {
+  /// `Share`
+  String get share {
     return Intl.message(
-      'Caffeine',
-      name: 'formPageCustomDrinkCaffeineAmountInputLabel',
+      'Share',
+      name: 'share',
       desc: '',
       args: [],
     );
   }
 
-  /// `mg`
-  String get formPageCustomDrinkCaffeineAmountInputSuffix {
+  /// `Enhance your image`
+  String get enhanceYourImage {
     return Intl.message(
-      'mg',
-      name: 'formPageCustomDrinkCaffeineAmountInputSuffix',
+      'Enhance your image',
+      name: 'enhanceYourImage',
       desc: '',
       args: [],
     );
   }
 
-  /// `Dosages`
-  String get resultsPageAppBarTitle {
+  /// `Background image`
+  String get backgroundImage {
     return Intl.message(
-      'Dosages',
-      name: 'resultsPageAppBarTitle',
+      'Background image',
+      name: 'backgroundImage',
       desc: '',
       args: [],
     );
   }
 
-  /// `Lethal Dosage`
-  String get resultsPageLethalDosageTitle {
+  /// `Transparency`
+  String get transparency {
     return Intl.message(
-      'Lethal Dosage',
-      name: 'resultsPageLethalDosageTitle',
+      'Transparency',
+      name: 'transparency',
       desc: '',
       args: [],
     );
   }
 
-  /// `*Based on {servingSize} fl. oz serving.`
-  String resultsPageFirstDisclaimer(Object servingSize) {
+  /// `Make your layout`
+  String get makeYourLayout {
     return Intl.message(
-      '*Based on $servingSize fl. oz serving.',
-      name: 'resultsPageFirstDisclaimer',
-      desc: '',
-      args: [servingSize],
-    );
-  }
-
-  /// `{quantity, plural, one{One serving.} other{{formattedNumber} servings in your system at one time.}}`
-  String resultsPageLethalDosageMessage(num quantity, Object formattedNumber) {
-    return Intl.plural(
-      quantity,
-      one: 'One serving.',
-      other: '$formattedNumber servings in your system at one time.',
-      name: 'resultsPageLethalDosageMessage',
-      desc: '',
-      args: [quantity, formattedNumber],
-    );
-  }
-
-  /// `Daily Safe Maximum`
-  String get resultsPageSafeDosageTitle {
-    return Intl.message(
-      'Daily Safe Maximum',
-      name: 'resultsPageSafeDosageTitle',
+      'Make your layout',
+      name: 'makeYourLayout',
       desc: '',
       args: [],
     );
   }
 
-  /// `{quantity, plural, one{One serving per day.} other{{formattedNumber} servings per day.}}`
-  String resultsPageSafeDosageMessage(num quantity, Object formattedNumber) {
-    return Intl.plural(
-      quantity,
-      one: 'One serving per day.',
-      other: '$formattedNumber servings per day.',
-      name: 'resultsPageSafeDosageMessage',
+  /// `Your content`
+  String get yourContent {
+    return Intl.message(
+      'Your content',
+      name: 'yourContent',
       desc: '',
-      args: [quantity, formattedNumber],
+      args: [],
     );
   }
 
-  /// `*Applies to age 18 and over. This calculator does not replace professional medical advice.`
-  String get resultsPageSecondDisclaimer {
+  /// `Include photo from gallery`
+  String get includePhotoFromGallery {
     return Intl.message(
-      '*Applies to age 18 and over. This calculator does not replace professional medical advice.',
-      name: 'resultsPageSecondDisclaimer',
+      'Include photo from gallery',
+      name: 'includePhotoFromGallery',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` and `
+  String get and {
+    return Intl.message(
+      ' and ',
+      name: 'and',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The icons on the left side will only appear if they are enabled`
+  String get txtTip1 {
+    return Intl.message(
+      'The icons on the left side will only appear if they are enabled',
+      name: 'txtTip1',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Promote your services, invitations, feeds on social networks by sharing the image on `
+  String get txtTip2 {
+    return Intl.message(
+      'Promote your services, invitations, feeds on social networks by sharing the image on ',
+      name: 'txtTip2',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Click on the button `
+  String get txtTip3a {
+    return Intl.message(
+      'Click on the button ',
+      name: 'txtTip3a',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Include photo...`
+  String get txtTip3b {
+    return Intl.message(
+      'Include photo...',
+      name: 'txtTip3b',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` above to include a photo from the gallery in the image `
+  String get txtTip3c {
+    return Intl.message(
+      ' above to include a photo from the gallery in the image ',
+      name: 'txtTip3c',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change the background image by clicking `
+  String get txtTip4a {
+    return Intl.message(
+      'Change the background image by clicking ',
+      name: 'txtTip4a',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` select an image or upload on `
+  String get txtTip4b {
+    return Intl.message(
+      ' select an image or upload on ',
+      name: 'txtTip4b',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Control the opacity of the background image, click `
+  String get txtTip5a {
+    return Intl.message(
+      'Control the opacity of the background image, click ',
+      name: 'txtTip5a',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` , slide the button on the right side and see the effect `
+  String get txtTip5b {
+    return Intl.message(
+      ' , slide the button on the right side and see the effect ',
+      name: 'txtTip5b',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Change the position of the information, click `
+  String get txtTip6a {
+    return Intl.message(
+      'Change the position of the information, click ',
+      name: 'txtTip6a',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` hold the item and drag it to the desired location `
+  String get txtTip6b {
+    return Intl.message(
+      ' hold the item and drag it to the desired location ',
+      name: 'txtTip6b',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `\nThe light gray texts are only suggestions, you can include any text to appear in the image`
+  String get txtTip7 {
+    return Intl.message(
+      '\nThe light gray texts are only suggestions, you can include any text to appear in the image',
+      name: 'txtTip7',
       desc: '',
       args: [],
     );

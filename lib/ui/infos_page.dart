@@ -160,7 +160,7 @@ class _InfosPageState extends State<InfosPage> {
                   ShowTip(sizeWidth: _sizeWidth),
                   Center(
                     child: _buildMessage(
-                        " Termos de Uso e Política de Privacidade ",
+                        S.of(context).termsOfUse,
                         _navToTerms),
                   ),
                   Padding(
@@ -227,7 +227,7 @@ class _InfosPageState extends State<InfosPage> {
           _icon(cnt),
           (cnt.type == 'photo')
               ? _picture(cnt)
-              : formField(cnt, MediaQuery.of(context).size.width * 0.8,
+              : formField(context, cnt, MediaQuery.of(context).size.width * 0.8,
                   fieldChanged, index, () {
                   if (index > 5 &&
                       MediaQuery.of(context).viewInsets.bottom == 0.0)
@@ -275,7 +275,7 @@ class _InfosPageState extends State<InfosPage> {
               ],
             ))
         : _buildMessage(
-            "Incluir foto da galeria", () => uploadAndCrop(cnt),
+            S.of(context).includePhotoFromGallery, () => uploadAndCrop(cnt),
             width: 0.5);
   }
 
@@ -474,26 +474,26 @@ class ShowTip extends StatelessWidget {
           enableInfiniteScroll: true,
           enlargeCenterPage: true,
         ),
-        items: _getList(),
+        items: _getList(context),
       ),
     );
   }
 
-  _tip(dayNumber) {
+  _tip(context, dayNumber) {
 
-    const List<String> TIPTITLE = [
-      'Dica do dia',
-      'Compartilhe',
-      'Imcremente sua imagem',
-      'Imagem de fundo',
-      'Transparência',
-      'Faça seu layout',
-      'Seu conteúdo',
+    List<String> TIPTITLE = [
+      S.of(context).tipOfTheDay,
+      S.of(context).share,
+      S.of(context).enhanceYourImage,
+      S.of(context).backgroundImage,
+      S.of(context).transparency,
+      S.of(context).makeYourLayout,
+      S.of(context).yourContent,
     ];
 
     List<Widget> TIPMESSAGE = [
       Text(
-        'Os ícones do lado esquerdo aparecerão somente se estiverem habilitados',
+        S.of(context).txtTip1,
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
         textAlign: TextAlign.center,
       ),
@@ -503,7 +503,7 @@ class ShowTip extends StatelessWidget {
             style: TextStyle(color: colorBack),
             children: [
               TextSpan(
-                text: 'Divulgue seus serviços, convites, feeds em redes sociais compartilhando a imagem em ',
+                text: S.of(context).txtTip2,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
@@ -516,13 +516,13 @@ class ShowTip extends StatelessWidget {
             style: TextStyle(color: Colors.black87),
             children: [
               TextSpan(
-                text: 'Clique no botão ',
+                text: S.of(context).txtTip3a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessage(
-                  "Incluir foto...", 106.0)),
+                  S.of(context).txtTip3b, 106.0)),
               TextSpan(
-                text: ' acima para incluir uma foto da galeria na imagem ',
+                text: S.of(context).txtTip3c,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
             ],
@@ -533,19 +533,19 @@ class ShowTip extends StatelessWidget {
             style: TextStyle(color: Colors.black87),
             children: [
               TextSpan(
-                text: 'Troque a imagem de fundo clicando em ',
+                text: S.of(context).txtTip4a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
                   [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
               TextSpan(
-                text: ' e ',
+                text: S.of(context).and,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
                   [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
               TextSpan(
-                text: ' selecione uma imagem ou faça upload em ',
+                text: S.of(context).txtTip4b,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
@@ -558,19 +558,19 @@ class ShowTip extends StatelessWidget {
             style: TextStyle(color: Colors.black87),
             children: [
               TextSpan(
-                text: 'Controle a opacidade da imagem de fundo, clique em  ',
+                text: S.of(context).txtTip5a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
                   [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
               TextSpan(
-                text: ' e ',
+                text: S.of(context).and,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
                   [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
               TextSpan(
-                text: ' , deslize o botão do lado direito e veja o efeito ',
+                text: S.of(context).txtTip5b,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
             ],
@@ -582,25 +582,25 @@ class ShowTip extends StatelessWidget {
             style: TextStyle(color: Colors.black87),
             children: [
               TextSpan(
-                text: 'Altere a posição das informações, clique em  ',
+                text: S.of(context).txtTip6a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
                   [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
               TextSpan(
-                text: ' e ',
+                text: S.of(context).and,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
               WidgetSpan(child: Functions.buildMessageWidgets(
                   [Icon(Icons.color_lens, size: 22, color: Colors.white,), Icon(Icons.zoom_out_map_sharp, size: 22, color: Colors.white,)], 40.0)),
               TextSpan(
-                text: ' segure o item e arraste para o local desejado ',
+                text: S.of(context).txtTip6b,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
             ],
           )),
       Text(
-        'Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem',
+        S.of(context).txtTip7,
         style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
         textAlign: TextAlign.center,
       ),
@@ -643,15 +643,15 @@ class ShowTip extends StatelessWidget {
         )));
   }
 
-  List<Widget> _getList() {
+  List<Widget> _getList(context) {
     return [
-      _tip(0),
-      _tip(1),
-      _tip(2),
-      _tip(3),
-      _tip(4),
-      _tip(5),
-      _tip(6)
+      _tip(context, 0),
+      _tip(context, 1),
+      _tip(context, 2),
+      _tip(context, 3),
+      _tip(context, 4),
+      _tip(context, 5),
+      _tip(context, 6)
     ];
   }
 }

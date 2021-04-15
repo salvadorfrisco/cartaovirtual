@@ -11,9 +11,7 @@ import 'ad_state.dart';
 import 'main_page.dart';
 import 'ui/intro_screen.dart';
 import 'ui/splash_screen.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:virtual_card/generated/l10n.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 
 var routes = <String, WidgetBuilder>{
   "/home": (BuildContext context) => MainPage(),
