@@ -1,6 +1,9 @@
 import 'dart:typed_data';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import 'package:virtual_card/widgets/show_banner.dart';
+import 'ad_state.dart';
 import 'models/card_info.dart';
 import 'ui/home_page.dart';
 //import 'utils/status_bar_manager.dart';
@@ -21,15 +24,16 @@ class _MainPageState extends State<MainPage> {
   CardInfo cadInfo;
   bool isLoading = false, backupFinalized = false;
   Uint8List profileImage, imageUploaded, imageBackground;
+  BannerAd banner;
 
   @override
   void initState() {
-   Future.delayed(const Duration(milliseconds: 10), () {
-     setState(() {
-       // StatusbarManager.changeStatusBarColor(StatusBar.defaultColor);
-     });
-   });
-   super.initState();
+    Future.delayed(const Duration(milliseconds: 10), () {
+      setState(() {
+        // StatusbarManager.changeStatusBarColor(StatusBar.defaultColor);
+      });
+    });
+    super.initState();
   }
 
   @override
@@ -66,17 +70,41 @@ class _MainPageState extends State<MainPage> {
             ),
           ),
           Container(
+            color: Colors.black87,
             height: 50,
-            child: ShowBanner(),
+            child: (banner == null)
+                ? SizedBox(
+                    height: 50,
+                  )
+                : ShowBanner(),
           )
         ],
       ),
     );
   }
 
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      setState(() {
+        banner = BannerAd(
+          adUnitId: adState.bannerAdUnitId,
+          size: AdSize.banner,
+          request: AdRequest(),
+          listener: adState.adListener,
+        )..load();
+      });
+    });
+  }
+
   loadLocalImages() async {
-    imageUploaded = await storage.getImage('imageBackground' + cardInfo.version);
-    imageBackground = await storage.getImage('imageBackground' + cardInfo.version);
+    imageUploaded =
+        await storage.getImage('imageBackground' + cardInfo.version);
+    imageBackground =
+        await storage.getImage('imageBackground' + cardInfo.version);
     profileImage = await storage.getImage('profileImage' + cardInfo.version);
   }
 }

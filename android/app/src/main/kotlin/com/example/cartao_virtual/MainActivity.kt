@@ -1,4 +1,4 @@
-package br.com.frisk.cartao_virtual
+package com.frisk.cartao_virtual
 
 import io.flutter.embedding.android.FlutterActivity
 

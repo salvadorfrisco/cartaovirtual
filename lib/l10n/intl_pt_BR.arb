@@ -1,5 +1,5 @@
 {
-  "@@locale": "pt_BR",
+  "@locale": "pt_BR",
   "editInformations": "editar informações",
   "shareImage": "compartilhar a imagem",
   "selectImages": "selecionar imagens",
@@ -62,5 +62,4 @@
   "txtTip5b": " , deslize o botão do lado direito e veja o efeito ",
   "txtTip6a": "Altere a posição das informações, clique em ",
   "txtTip6b": " segure o item e arraste para o local desejado ",
-  "txtTip7": "Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem"
-}
+  "txtTip7": "Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem"}

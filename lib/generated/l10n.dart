@@ -655,10 +655,10 @@ class S {
     );
   }
 
-  /// `\nThe light gray texts are only suggestions, you can include any text to appear in the image`
+  /// `The light gray texts are only suggestions, you can include any text to appear in the image`
   String get txtTip7 {
     return Intl.message(
-      '\nThe light gray texts are only suggestions, you can include any text to appear in the image',
+      'The light gray texts are only suggestions, you can include any text to appear in the image',
       name: 'txtTip7',
       desc: '',
       args: [],

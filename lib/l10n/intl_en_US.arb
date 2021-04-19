@@ -1,5 +1,5 @@
 {
-  "@@locale": "en_US",
+  "@locale": "en_US",
   "editInformations": "edit informations",
   "shareImage": "share image",
   "selectImages": "select images",
@@ -62,5 +62,4 @@
   "txtTip5b": " , slide the button on the right side and see the effect ",
   "txtTip6a": "Change the position of the information, click ",
   "txtTip6b": " hold the item and drag it to the desired location ",
-  "txtTip7": "\nThe light gray texts are only suggestions, you can include any text to appear in the image"
-}
+  "txtTip7": "The light gray texts are only suggestions, you can include any text to appear in the image"}

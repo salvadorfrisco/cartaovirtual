@@ -8,7 +8,7 @@ class AdState {
   AdState(this.initialization);
 
   String get bannerAdUnitId => Platform.isAndroid
-      ? "ca-app-pub-5668668662931095/5294986641"
+      ? "ca-app-pub-5668668662931095/2336153959"
       : "ca-app-pub-5668668662931095/5103414952";
 
   AdListener get adListener => _adListener;
@@ -17,7 +17,7 @@ class AdState {
     onAdLoaded: (ad) => print('Ad loaded: ${ad.adUnitId}.'),
     onAdClosed: (ad) => print('Ad closed: ${ad.adUnitId}.'),
     onAdFailedToLoad: (ad, LoadAdError error) {
-        print('Ad failed to load: ${ad.adUnitId}, $error.');
+        print('Erro ao carregar o anúncio (Cartão): ${ad.adUnitId}, $error.');
     },
     onAdOpened: (ad) => print('Ad opened: ${ad.adUnitId}.'),
     onAppEvent: (ad, name, data) =>

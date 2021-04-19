@@ -68,7 +68,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "txtTip5b" : MessageLookupByLibrary.simpleMessage(" , slide the button on the right side and see the effect "),
     "txtTip6a" : MessageLookupByLibrary.simpleMessage("Change the position of the information, click "),
     "txtTip6b" : MessageLookupByLibrary.simpleMessage(" hold the item and drag it to the desired location "),
-    "txtTip7" : MessageLookupByLibrary.simpleMessage("\nThe light gray texts are only suggestions, you can include any text to appear in the image"),
+    "txtTip7" : MessageLookupByLibrary.simpleMessage("The light gray texts are only suggestions, you can include any text to appear in the image"),
     "version" : MessageLookupByLibrary.simpleMessage("version"),
     "wc1" : MessageLookupByLibrary.simpleMessage("image Creator is a platform for share your services by creating personalized images in a simple and fast way."),
     "wc2" : MessageLookupByLibrary.simpleMessage("you register your information contact, choose a background theme and you can now distribute your image!"),

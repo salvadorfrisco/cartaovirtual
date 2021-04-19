@@ -88,11 +88,11 @@ class _CardsPageState extends State<CardsPage> {
             _buildCard("4"),
           ],
         ),
-        Container(
-          height: 50,
-          // margin: EdgeInsets.only(top: 5.0),
-          child: ShowBanner(),
-        )
+        // Container(
+        //   height: 50,
+        //   // margin: EdgeInsets.only(top: 5.0),
+        //   child: ShowBanner(),
+        // )
       ],
     );
   }
