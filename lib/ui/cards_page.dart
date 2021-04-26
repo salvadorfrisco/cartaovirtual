@@ -1,8 +1,11 @@
 import 'dart:typed_data';
 import 'package:flutter/cupertino.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/widgets/show_banner.dart';
+import '../ad_state.dart';
 import '../main_page.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
@@ -20,12 +23,16 @@ class CardsPage extends StatefulWidget {
 class _CardsPageState extends State<CardsPage> {
   StorageService storage = StorageService();
   String _version;
-  bool isLoading = false,
-      formChanged = false,
-      formSaved = false;
+  BannerAd banner;
+  bool isLoading = false, formChanged = false, formSaved = false;
 
   @override
   void initState() {
+    Future.delayed(const Duration(milliseconds: 10), () {
+      setState(() {
+        // StatusbarManager.changeStatusBarColor(StatusBar.defaultColor);
+      });
+    });
     setInitialData();
     super.initState();
   }
@@ -51,7 +58,9 @@ class _CardsPageState extends State<CardsPage> {
         Positioned(
             top: 30.0,
             left: 10.0,
-            child: Functions.buildCustomButton(_navToHome, UniconsLine.arrow_left, tip: S.of(context).goBack)),
+            child: Functions.buildCustomButton(
+                _navToHome, UniconsLine.arrow_left,
+                tip: S.of(context).goBack)),
       ],
     );
   }
@@ -76,54 +85,79 @@ class _CardsPageState extends State<CardsPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             _buildCard("1"),
-            SizedBox(width: 2.0,),
+            SizedBox(
+              width: 2.0,
+            ),
             _buildCard("2"),
           ],
         ),
-        SizedBox(height: 6.0,),
+        SizedBox(
+          height: 6.0,
+        ),
         Row(
           children: <Widget>[
             _buildCard("3"),
-            SizedBox(width: 3.0,),
+            SizedBox(
+              width: 3.0,
+            ),
             _buildCard("4"),
           ],
         ),
-        // Container(
-        //   height: 50,
-        //   // margin: EdgeInsets.only(top: 5.0),
-        //   child: ShowBanner(),
-        // )
+        Container(
+          height: banner == null ? 1 : 56,
+          child: banner == null
+              ? SizedBox(
+                  height: 1,
+                )
+              : ShowBanner(),
+        )
       ],
     );
   }
 
   _buildCard(version) {
     return GestureDetector(
-      onTap: () {
-        _version = version;
-        save();
-      },
-      child: Opacity(
-        opacity: _version == version ? 1.0 : 0.8,
-        child: Container(
-          color: _version == version
-              ? Colors.yellowAccent
-              : Colors.transparent,
-          width: MediaQuery.of(context).size.width * .9 / 2.04,
-          height: MediaQuery.of(context).size.height * .8 / 1.97,
-          // margin: EdgeInsets.only(left: 6.0),
-          child: Padding(
-            padding: EdgeInsets.only(right: (version == '1') ? 4.0 : 0.0, left: (version == '3') ? 6.0 : 2.0, top: (version == '2') ? 2.0 : 4.0),
-            child: IgnorePointer(
-              child: Container(
-                margin: EdgeInsets.all(4.0),
-                child: HomePageCard(
-                  version: version
-            ),
+        onTap: () {
+          _version = version;
+          save();
+        },
+        child: Opacity(
+          opacity: _version == version ? 1.0 : 0.8,
+          child: Container(
+            color:
+                _version == version ? Colors.yellowAccent : Colors.transparent,
+            width: MediaQuery.of(context).size.width * .9 / 2.04,
+            height: MediaQuery.of(context).size.height * .8 / 1.97,
+            // margin: EdgeInsets.only(left: 6.0),
+            child: Padding(
+              padding: EdgeInsets.only(
+                  right: (version == '1') ? 4.0 : 0.0,
+                  left: (version == '3') ? 6.0 : 2.0,
+                  top: (version == '2') ? 2.0 : 4.0),
+              child: IgnorePointer(
+                child: Container(
+                  margin: EdgeInsets.all(4.0),
+                  child: HomePageCard(version: version),
+                ),
               ),
+            ),
           ),
-        ),
-      ),
-    ));
+        ));
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      setState(() {
+        banner = BannerAd(
+          adUnitId: adState.bannerAdUnitId,
+          size: AdSize.banner,
+          request: AdRequest(),
+          listener: adState.adListener,
+        )..load();
+      });
+    });
   }
 }

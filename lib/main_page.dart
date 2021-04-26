@@ -24,7 +24,7 @@ class _MainPageState extends State<MainPage> {
   CardInfo cadInfo;
   bool isLoading = false, backupFinalized = false;
   Uint8List profileImage, imageUploaded, imageBackground;
-  BannerAd banner;
+  // BannerAd banner;
 
   @override
   void initState() {
@@ -58,47 +58,48 @@ class _MainPageState extends State<MainPage> {
   _buildMainScreen() {
     return Scaffold(
       key: scaffoldKey,
-      body: Column(
-        children: [
-          Expanded(
-            child: HomePage(
+      body:
+      // Column(
+      //   children: [
+      //     Expanded(
+      //       child:
+            HomePage(
               cardInfo: cardInfo,
               widthScreen: displayWidth(context),
               imageBackground: imageBackground,
               profileImage: profileImage,
               withIcons: true,
             ),
-          ),
-          Container(
-            color: Colors.black87,
-            height: banner == null ? 1 : 56,
-            child: banner == null
-                ? SizedBox(
-                    height: 1,
-                  )
-                : ShowBanner(),
-          )
-        ],
-      ),
+          // ),
+          // Container(
+          //   color: Colors.black87,
+          //   height: banner == null ? 1 : 56,
+          //   child: banner == null
+          //       ? SizedBox(
+          //           height: 1,
+          //         )
+          //       : ShowBanner(),
+          // )
+        // ],
+      // ),
     );
   }
 
-
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adState = Provider.of<AdState>(context);
-    adState.initialization.then((status) {
-      setState(() {
-        banner = BannerAd(
-          adUnitId: adState.bannerAdUnitId,
-          size: AdSize.banner,
-          request: AdRequest(),
-          listener: adState.adListener,
-        )..load();
-      });
-    });
-  }
+  // @override
+  // void didChangeDependencies() {
+  //   super.didChangeDependencies();
+  //   final adState = Provider.of<AdState>(context);
+  //   adState.initialization.then((status) {
+  //     setState(() {
+  //       banner = BannerAd(
+  //         adUnitId: adState.bannerAdUnitId,
+  //         size: AdSize.banner,
+  //         request: AdRequest(),
+  //         listener: adState.adListener,
+  //       )..load();
+  //     });
+  //   });
+  // }
 
   loadLocalImages() async {
     imageUploaded =

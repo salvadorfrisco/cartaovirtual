@@ -1,8 +1,11 @@
 import 'dart:async';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:lottie/lottie.dart';
+import 'package:provider/provider.dart';
 import 'package:virtual_card/common/constants.dart';
 import 'package:virtual_card/services/storage_service.dart';
 import 'package:virtual_card/ui/intro_screen.dart';
+import '../ad_state.dart';
 import '../main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:virtual_card/generated/l10n.dart';
@@ -16,16 +19,27 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   StorageService storage = StorageService();
   String _actualVersion;
+  InterstitialAd interstitialAd;
 
   @override
   void initState() {
     verifyDataSaved();
-    Future.delayed(Duration(seconds: 3)).then((_){
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>(_actualVersion ?? "0") != "0" ? MainPage() : IntroScreen()));
-    });
+    screenInitial();
     super.initState();
-//    Timer(Duration(seconds: 1), () => (_actualVersion ?? "0") != "0" ? CardNavigator.navToHome(context) : CardNavigator.navToIntro(context));
-   }
+  }
+
+  screenInitial() {
+    setState(() {});
+    Future.delayed(Duration(seconds: 1)).then((_) {
+      interstitialAd.show();
+    }).then((value) => Future.delayed(Duration(seconds: 2)).then((_) {
+      Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (context) =>
+                  (_actualVersion ?? "0") != "0" ? MainPage() : IntroScreen()));
+    }));
+  }
 
   Future verifyDataSaved() async {
     _actualVersion = await storage.getVersion();
@@ -94,5 +108,20 @@ class _SplashScreenState extends State<SplashScreen> {
         ],
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      setState(() {
+        interstitialAd = InterstitialAd(
+          adUnitId: adState.intersticialAdUnitId,
+          request: AdRequest(),
+          listener: adState.adListener,
+        )..load();
+      });
+    });
   }
 }

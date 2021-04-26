@@ -4,11 +4,14 @@ import 'dart:typed_data';
 // import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/utils/functions.dart';
 import 'package:http/http.dart' as http;
 import 'package:virtual_card/utils/responsive.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
+import '../ad_state.dart';
 import '../services/storage_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -40,6 +43,7 @@ class _ThemePageState extends State<ThemePage> {
   Uint8List imageUploaded, imageBackground, profileImage;
   bool isLoading = false;
   String _connectionStatus = 'Unknown';
+  InterstitialAd interstitialAd;
   // final Connectivity _connectivity = Connectivity();
   // StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
@@ -273,10 +277,14 @@ class _ThemePageState extends State<ThemePage> {
       .then((img) => imageUploaded = img);
 
   saveImage(img64, version) {
-    setState(() {
-      StorageService.savePhotoLocal64(img64, 'imageBackground', version);
-      isLoading = false;
-    });
+    Future.delayed(Duration(seconds: 1)).then((_) {
+      interstitialAd.show();
+    }).then((value) => Future.delayed(Duration(seconds: 2)).then((_) {
+      setState(() {
+        StorageService.savePhotoLocal64(img64, 'imageBackground', version);
+        isLoading = false;
+      });
+    }));
   }
 
   showImageCard(url, version, index) {
@@ -326,5 +334,20 @@ class _ThemePageState extends State<ThemePage> {
         style: TextStyle(fontStyle: FontStyle.normal),
       ),
     );
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final adState = Provider.of<AdState>(context);
+    adState.initialization.then((status) {
+      setState(() {
+        interstitialAd = InterstitialAd(
+          adUnitId: adState.intersticialAdUnitId,
+          request: AdRequest(),
+          listener: adState.adListener,
+        )..load();
+      });
+    });
   }
 }
