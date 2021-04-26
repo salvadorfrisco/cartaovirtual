@@ -16,7 +16,7 @@ class _ShowBannerState extends State<ShowBanner> {
   @override
   Widget build(BuildContext context) {
     return  (banner == null) ?
-      SizedBox(height: 50,) :
+      SizedBox(height: 1,) :
       AdWidget(ad: banner);
   }
 

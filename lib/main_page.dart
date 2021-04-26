@@ -71,10 +71,10 @@ class _MainPageState extends State<MainPage> {
           ),
           Container(
             color: Colors.black87,
-            height: 50,
-            child: (banner == null)
+            height: banner == null ? 1 : 56,
+            child: banner == null
                 ? SizedBox(
-                    height: 50,
+                    height: 1,
                   )
                 : ShowBanner(),
           )
