@@ -29,14 +29,14 @@ class InfosPage extends StatefulWidget {
 
 class _InfosPageState extends State<InfosPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<ContentModel>? contentList;
+  List<ContentModel>? contentList = [ContentModel()];
   Uint8List? profileImage;
   bool? didLoad = false,
       buttonsOn = false,
-      _photoCircle = true,
       formChanged = false,
       formSaved = false,
       isLoading = false;
+  bool _photoCircle = true;
   StorageService storage = StorageService();
   CardInfo? cardInfo;
   double? _sizeWidth;
@@ -128,7 +128,7 @@ class _InfosPageState extends State<InfosPage> {
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Stack(fit: StackFit.expand, children: [
         Opacity(
-            opacity: double.parse(cardInfo!.opacity!),
+            opacity: double.parse(cardInfo!.opacity),
             child: Container(
               decoration: new BoxDecoration(
                 image: new DecorationImage(
@@ -252,7 +252,7 @@ class _InfosPageState extends State<InfosPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _photoCircle = !_photoCircle!;
+                    _photoCircle = !_photoCircle;
                     verifyChanges();
                     reload();
                   },
@@ -260,7 +260,7 @@ class _InfosPageState extends State<InfosPage> {
                     width: _sizeWidth! * 0.1,
                     height: _sizeWidth! * 0.1,
                     decoration: new BoxDecoration(
-                      shape: (!_photoCircle!)
+                      shape: (!_photoCircle)
                           ? BoxShape.circle
                           : BoxShape.rectangle,
                       image: new DecorationImage(
@@ -290,7 +290,7 @@ class _InfosPageState extends State<InfosPage> {
               ? CircleAvatar(
                   backgroundColor: cnt.hasIcon!
                       ? Colors.transparent
-                      : double.parse(cardInfo!.opacity!) < 0.2
+                      : double.parse(cardInfo!.opacity) < 0.2
                           ? Colors.white
                           : Color(0xffd2c2e0),
                   radius: 15.0,
@@ -298,7 +298,7 @@ class _InfosPageState extends State<InfosPage> {
                     getIcon(cnt.type),
                     color: cnt.hasIcon!
                         ? cnt.color
-                        : double.parse(cardInfo!.opacity!) < 0.2
+                        : double.parse(cardInfo!.opacity) < 0.2
                             ? Colors.blueGrey[100]
                             : Colors.white,
                     size: cnt.hasIcon! ? 24.0 : 24.0,
@@ -385,48 +385,48 @@ class _InfosPageState extends State<InfosPage> {
     for (var i = 0; i < contentList!.length; i++) {
       switch (contentList![i].type) {
         case "name":
-          cardInfo!.name = contentList![i].txt;
-          cardInfo!.hasName = contentList![i].hasIcon;
+          cardInfo!.name = contentList![i].txt!;
+          cardInfo!.hasName = contentList![i].hasIcon!;
           break;
         case "occupation":
-          cardInfo!.occupation = contentList![i].txt;
-          cardInfo!.hasOccupation = contentList![i].hasIcon;
+          cardInfo!.occupation = contentList![i].txt!;
+          cardInfo!.hasOccupation = contentList![i].hasIcon!;
           break;
         case "phone":
-          cardInfo!.phone = contentList![i].txt;
-          cardInfo!.hasPhone = contentList![i].hasIcon;
+          cardInfo!.phone = contentList![i].txt!;
+          cardInfo!.hasPhone = contentList![i].hasIcon!;
           break;
         // case "photo":
         //   cardInfo.photo = contentList[i].txt;
         //   cardInfo.hasPhoto = contentList[i].hasIcon;
         //   break;
         case "email":
-          cardInfo!.email = contentList![i].txt;
-          cardInfo!.hasEmail = contentList![i].hasIcon;
+          cardInfo!.email = contentList![i].txt!;
+          cardInfo!.hasEmail = contentList![i].hasIcon!;
           break;
         case "facebook":
-          cardInfo!.facebook = contentList![i].txt;
-          cardInfo!.hasFacebook = contentList![i].hasIcon;
+          cardInfo!.facebook = contentList![i].txt!;
+          cardInfo!.hasFacebook = contentList![i].hasIcon!;
           break;
         case "instagram":
-          cardInfo!.instagram = contentList![i].txt;
-          cardInfo!.hasInstagram = contentList![i].hasIcon;
+          cardInfo!.instagram = contentList![i].txt!;
+          cardInfo!.hasInstagram = contentList![i].hasIcon!;
           break;
         case "twitter":
-          cardInfo!.twitter = contentList![i].txt;
-          cardInfo!.hasTwitter = contentList![i].hasIcon;
+          cardInfo!.twitter = contentList![i].txt!;
+          cardInfo!.hasTwitter = contentList![i].hasIcon!;
           break;
         case "linkedin":
-          cardInfo!.linkedin = contentList![i].txt;
-          cardInfo!.hasLinkedin = contentList![i].hasIcon;
+          cardInfo!.linkedin = contentList![i].txt!;
+          cardInfo!.hasLinkedin = contentList![i].hasIcon!;
           break;
         case "youtube":
-          cardInfo!.youtube = contentList![i].txt;
-          cardInfo!.hasYoutube = contentList![i].hasIcon;
+          cardInfo!.youtube = contentList![i].txt!;
+          cardInfo!.hasYoutube = contentList![i].hasIcon!;
           break;
         case "website":
-          cardInfo!.website = contentList![i].txt;
-          cardInfo!.hasWebsite = contentList![i].hasIcon;
+          cardInfo!.website = contentList![i].txt!;
+          cardInfo!.hasWebsite = contentList![i].hasIcon!;
           break;
       }
     }
@@ -439,7 +439,7 @@ class _InfosPageState extends State<InfosPage> {
   Future<List<ContentModel>> setContentList() async {
     cardInfo = widget.cardInfo;
     return await storage
-        .getImage('profileImage' + cardInfo!.version!)
+        .getImage('profileImage' + cardInfo!.version)
         .then((profImage) {
       profileImage = profImage;
       return Functions.loadContent(cardInfo);

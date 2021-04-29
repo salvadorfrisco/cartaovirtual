@@ -55,7 +55,7 @@ class _PositionPageState extends State<PositionPage> {
       child: Scaffold(
         body: Stack(fit: StackFit.expand, children: [
           Opacity(
-              opacity: double.parse(widget.cardInfo!.opacity!),
+              opacity: double.parse(widget.cardInfo!.opacity),
               child: Container(
                 decoration: new BoxDecoration(
 //                          shape: BoxShape.,
@@ -148,13 +148,13 @@ class _PositionPageState extends State<PositionPage> {
   }
 
   Container _buildPicture() {
-    return widget.cardInfo!.hasPhoto!
+    return widget.cardInfo!.hasPhoto
         ? Container(
       margin: EdgeInsets.only(top: _sizeWidth! * 0.03),
       width: _sizeWidth! * 0.4,
       height: _sizeWidth! * 0.4,
       decoration: new BoxDecoration(
-        shape: widget.cardInfo!.photoCircle! ? BoxShape.circle : BoxShape.rectangle,
+        shape: widget.cardInfo!.photoCircle ? BoxShape.circle : BoxShape.rectangle,
         image: new DecorationImage(
           fit: BoxFit.cover,
           image: (widget.profileImage != null
@@ -194,6 +194,6 @@ class _PositionPageState extends State<PositionPage> {
   }
 
   loadLocalImages() async {
-    imageBackground = await storage.getImage('imageBackground' + cardInfo!.version!);
+    imageBackground = await storage.getImage('imageBackground' + cardInfo!.version);
   }
 }
