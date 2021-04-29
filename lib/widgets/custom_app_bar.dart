@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import '../main_page.dart';
 
 class CustomAppBar extends StatefulWidget implements PreferredSizeWidget {
-  final String title;
+  final String? title;
   final bool formChanged;
   final bool formSaved;
-  final Function actionSave;
-  final Function actionBack;
+  final Function? actionSave;
+  final Function? actionBack;
   const CustomAppBar(
-      {Key key,
+      {Key? key,
       this.title,
       this.formChanged = false,
       this.formSaved = false,
@@ -53,7 +53,7 @@ class _CustomAppBarState extends State<CustomAppBar>
         children: <Widget>[
           FittedBox(
             child: Text(
-              widget.title,
+              widget.title!,
               style: TextStyle(color: Colors.white),
             ),
           ),
@@ -73,7 +73,7 @@ class _CustomAppBarState extends State<CustomAppBar>
           onPressed: () {
             FocusScope.of(context).requestFocus(FocusNode());
             if (widget.actionBack != null)
-              widget.actionBack();
+              widget.actionBack!();
             _navToHome(context);
 //            if (widget.formChanged && !_clickedWithoutSave) {
 //              if (widget.actionBack != null) {

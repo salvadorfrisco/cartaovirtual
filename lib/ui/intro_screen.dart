@@ -25,7 +25,7 @@ class IntroScreenState extends State<IntroScreen> {
       mask: "(##) #####-####", filter: {"#": RegExp(r'[0-9]')});
   final _phoneController = TextEditingController();
   final _emailController = TextEditingController();
-  double _sizeWidth, _sizeHeight;
+  late double _sizeWidth, _sizeHeight;
 
   int currentPage = 0;
   bool isLoading = false,
@@ -265,8 +265,8 @@ class IntroScreenState extends State<IntroScreen> {
   }
 
   void _showSnackBar(String message, {backColor: Colors.teal}) {
-    _scaffoldKey.currentState.removeCurrentSnackBar();
-    _scaffoldKey.currentState.showSnackBar(
+    _scaffoldKey.currentState!.removeCurrentSnackBar();
+    _scaffoldKey.currentState!.showSnackBar(
       SnackBar(
         duration: Duration(seconds: 5),
         content: Text(message),

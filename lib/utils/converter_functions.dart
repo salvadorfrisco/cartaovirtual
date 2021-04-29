@@ -6,7 +6,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 /// This attempts to intelligently cast any value to the desired type.
-T intelligentCast<T>(dynamic value) {
+T? intelligentCast<T>(dynamic value) {
   // instead of empty string we want to return null
   if (value.toString().isEmpty) return null;
 
@@ -60,7 +60,7 @@ Color colorParse(dynamic value) {
 }
 
 /// This will convert a Color to a hex string (more abreviated than the .toString() method.
-String colorToString(Color color) {
+String colorToString(Color? color) {
   return color.toString().split('(0x')[1].split(')')[0];
 }
 

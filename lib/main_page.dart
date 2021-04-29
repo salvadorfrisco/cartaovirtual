@@ -11,19 +11,19 @@ import 'services/storage_service.dart';
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key}) : super(key: key);
+  MainPage({Key? key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
 }
 
 class _MainPageState extends State<MainPage> {
-  CardInfo cardInfo = CardInfo();
+  CardInfo? cardInfo = CardInfo();
   StorageService storage = StorageService();
   var scaffoldKey = GlobalKey<ScaffoldState>();
-  CardInfo cadInfo;
+  CardInfo? cadInfo;
   bool isLoading = false, backupFinalized = false;
-  Uint8List profileImage, imageUploaded, imageBackground;
+  Uint8List? profileImage, imageUploaded, imageBackground;
   // BannerAd banner;
 
   @override
@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
           future: storage.getActualCardInfo(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              cardInfo = snapshot.data;
+              cardInfo = snapshot.data as CardInfo;
               loadLocalImages();
               return _buildMainScreen();
             } else {
@@ -103,10 +103,10 @@ class _MainPageState extends State<MainPage> {
 
   loadLocalImages() async {
     imageUploaded =
-        await storage.getImage('imageBackground' + cardInfo.version);
+        await storage.getImage('imageBackground' + cardInfo!.version!);
     imageBackground =
-        await storage.getImage('imageBackground' + cardInfo.version);
-    profileImage = await storage.getImage('profileImage' + cardInfo.version);
+        await storage.getImage('imageBackground' + cardInfo!.version!);
+    profileImage = await storage.getImage('profileImage' + cardInfo!.version!);
   }
 }
 

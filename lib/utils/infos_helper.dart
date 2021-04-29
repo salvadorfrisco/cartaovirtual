@@ -90,9 +90,9 @@ getPicture(profileImage, sizeWidth, photoCircle) {
           shape: (photoCircle) ? BoxShape.circle : BoxShape.rectangle,
           image: new DecorationImage(
             fit: BoxFit.cover,
-            image: profileImage != null
+            image: (profileImage != null
                 ? MemoryImage(profileImage)
-                : AssetImage('assets/images/transparent.png'),
+                : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
           ),
         ),
       );

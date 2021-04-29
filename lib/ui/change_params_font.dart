@@ -2,10 +2,11 @@ import 'dart:async';
 import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'package:virtual_card/services/storage_service.dart';
-import 'package:virtual_card/utils/block_picker.dart';
+import 'package:virtual_card/utils/color_picker.dart';
 import 'package:virtual_card/utils/converter_functions.dart';
 import 'package:virtual_card/utils/font_picker.dart';
 import 'package:virtual_card/utils/functions.dart';
@@ -13,95 +14,11 @@ import 'package:virtual_card/utils/responsive.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../models/card_info.dart';
 
-const List<Color> _defaultColors = [
-  Colors.red,
-  Colors.pink,
-  Colors.purpleAccent,
-  Colors.deepPurple,
-  Colors.indigo,
-  Colors.blue,
-  Colors.lightBlue,
-  Colors.cyan,
-  Colors.teal,
-  Colors.white,
-  Colors.green,
-  Colors.lightGreen,
-  Colors.lime,
-  Colors.yellow,
-  Colors.amber,
-  Colors.orange,
-  Colors.brown,
-  Colors.grey,
-  Colors.blueGrey,
-  Colors.black,
-];
-
-const List<String> _defaultFonts = [
-  'Advark',
-  'Aquar',
-  'Arcade',
-  'Armywar',
-  'Athletic',
-  'Barcode',
-  'Bendit',
-  'Bernardo',
-  'Blacklist',
-  'Blocks',
-  'Blomster',
-  'Caricature',
-  'Cartoon',
-  'Caste',
-  'Catpaw',
-  'Champagne',
-  'Circus',
-  'Cowby',
-  'Dancing',
-  'Dreams',
-  'Excentric',
-  'Flower',
-  'Forgot',
-  'Fuzzy',
-  'Giorgino',
-  'Grobol',
-  'Hannah',
-  'Heineken',
-  'Hischool',
-  'Icecold',
-  'Icecream',
-  'Kuenstler',
-  'LokiCola',
-  'Melody',
-  'Milestone',
-  'Minnie',
-  'Montserrat',
-  'Music',
-  'Neoa',
-  'Opficio',
-  'Pacifico',
-  'Playfair',
-  'Playtoy',
-  'Porkys',
-  'Potter',
-  'Resort',
-  'Roboto',
-  'Rubik',
-  'School',
-  'Secondch',
-  'Smoke',
-  'Vanessa',
-  'Vegas',
-  'Verdana',
-  'Vintage',
-  'Walkway',
-  'Woodcutter',
-  'Zornic',
-];
-
 extension GlobalKeyEx on GlobalKey {
-  Rect get globalPaintBounds {
+  Rect? get globalPaintBounds {
     final renderObject = currentContext?.findRenderObject();
     var translation = renderObject?.getTransformTo(null)?.getTranslation();
-    if (translation != null && renderObject.paintBounds != null) {
+    if (translation != null && renderObject!.paintBounds != null) {
       return renderObject.paintBounds
           .shift(Offset(translation.x, translation.y));
     } else {
@@ -112,10 +29,10 @@ extension GlobalKeyEx on GlobalKey {
 
 class ChangeParamFonts extends StatefulWidget {
   ChangeParamFonts(
-      {Key key, this.cardInfo, this.imageBackground, this.profileImage})
+      {Key? key, this.cardInfo, this.imageBackground, this.profileImage})
       : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageBackground, profileImage;
+  final CardInfo? cardInfo;
+  final Uint8List? imageBackground, profileImage;
 
   @override
   _ChangeParamFontsState createState() => _ChangeParamFontsState();
@@ -123,20 +40,18 @@ class ChangeParamFonts extends StatefulWidget {
 
 class _ChangeParamFontsState extends State<ChangeParamFonts> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool _buttonsOn = false, isLoading = false, _upSide;
+  bool? _buttonsOn = false, isLoading = false, _upSide;
   Color _appColor = Color(0xFFF2F2F2);
-  double _sizeWidth, _sizeHeight;
-  List<ContentModel> contentList;
-  CardInfo cardInfo;
-  String _field;
+  late double _sizeWidth, _sizeHeight;
+  late List<ContentModel> contentList;
+  CardInfo? cardInfo;
+  String? _field;
   StorageService storage = StorageService();
-  double _dx, _dy;
-  Offset _position;
-  Timer _timer;
+  double? _dx, _dy;
+  late Offset _position;
+  late Timer _timer;
 
   final GlobalKey _keyName = GlobalKey();
-  // Rect get nameRect => _keyName.globalPaintBounds;
-
   final GlobalKey _keyOccupation = GlobalKey();
   final GlobalKey _keyPhone = GlobalKey();
   final GlobalKey _keyPhoto = GlobalKey();
@@ -158,9 +73,9 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   final GlobalKey _keyLinkedinSize = GlobalKey();
   final GlobalKey _keyYoutubeSize = GlobalKey();
   final GlobalKey _keyWebsiteSize = GlobalKey();
-  Size elementSize;
+  Size? elementSize;
 
-  double factorSizeX, factorSizeY, widthOld, heightOld;
+  double? factorSizeX, factorSizeY, widthOld, heightOld;
 
   @override
   void initState() {
@@ -198,15 +113,15 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
             children: <Widget>[
               Container(color: Colors.white),
               Opacity(
-                  opacity: double.parse(widget.cardInfo.opacity),
+                  opacity: double.parse(widget.cardInfo!.opacity!),
                   child: Container(
                     decoration: new BoxDecoration(
                       border: Border.all(color: Colors.orange),
                       image: new DecorationImage(
                         fit: BoxFit.cover,
-                        image: widget.imageBackground != null
-                            ? MemoryImage(widget.imageBackground)
-                            : AssetImage('assets/images/transparent.png'),
+                        image: (widget.imageBackground != null
+                            ? MemoryImage(widget.imageBackground!)
+                            : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
                       ),
                     ),
                   )),
@@ -222,7 +137,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               ),
             ],
           )),
-      isLoading
+      isLoading!
           ? Center(
               child: CircularProgressIndicator(
               backgroundColor: Colors.black38,
@@ -253,18 +168,18 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                         child: Row(
                           children: [
                             Icon(Icons.arrow_drop_up,
-                                color: (_field == cnt.type && _buttonsOn)
+                                color: (_field == cnt.type && _buttonsOn!)
                                     ? Colors.white
                                     : Colors.transparent,
                                 size: 40),
                             Icon(Icons.arrow_drop_up,
-                                color: (_field == cnt.type && _buttonsOn)
+                                color: (_field == cnt.type && _buttonsOn!)
                                     ? Colors.red
                                     : Colors.transparent,
                                 size: 40,
                                 key: _keyCenterPoint),
                             Icon(Icons.arrow_drop_up,
-                                color: (_field == cnt.type && _buttonsOn)
+                                color: (_field == cnt.type && _buttonsOn!)
                                     ? Colors.white
                                     : Colors.transparent,
                                 size: 40),
@@ -274,7 +189,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
             ),
             feedback: _buildElement(cnt, feed: true),
             onDraggableCanceled: (velocity, offset) {
-              RenderBox renderBox = context.findRenderObject();
+              RenderBox renderBox = context.findRenderObject() as RenderBox;
               _position = renderBox.globalToLocal(offset);
               _dx = _position.dx;
               _dy = _position.dy;
@@ -283,17 +198,17 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               // print("AQUI dx: $_dx");
               // print("AQUI dy: $_dy");
 
-              if ((_dx + getSizeAndPosition(_keyContent).width * .5) >
+              if ((_dx! + getSizeAndPosition(_keyContent).width * .5) >
                   _sizeWidth)
                 _dx = _sizeWidth -
                     getSizeAndPosition(_keyContent).width / 2 -
                     Responsive.of(context).widthPercent(10);
-              else if (_dx + getSizeAndPosition(_keyContent).width / 2 < -10)
+              else if (_dx! + getSizeAndPosition(_keyContent).width / 2 < -10)
                 _dx = getSizeAndPosition(_keyContent).width / 2 * -1;
 
-              if (_dy < 0)
+              if (_dy! < 0)
                 _dy = 0;
-              else if (_dy > _sizeHeight - _sizeHeight * 0.08)
+              else if (_dy! > _sizeHeight - _sizeHeight * 0.08)
                 _dy = _sizeHeight - _sizeHeight * 0.08;
 
               cnt.posX = _dx;
@@ -335,10 +250,9 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
                     cnt.txt,
                     textScaleFactor: cnt.scale,
                     key: feed ? null : getKey(cnt),
-                    style: TextStyle(
-                        fontFamily: cnt.font,
-                        fontSize:
-                            cnt.size * (_sizeWidth / displayWidth(context)),
+                    style: GoogleFonts.getFont(cnt.font!,
+                        fontSize: cnt.size! *
+                            (_sizeWidth / displayWidth(context)),
                         color: cnt.color,
                         fontWeight: FontWeight.w500),
                   ),
@@ -355,10 +269,10 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
       return Positioned(
         top: cnt.type == 'photo'
             ? _sizeHeight / 2
-            : cnt.posY + (_upSide ? 100 : -100),
+            : cnt.posY! + (_upSide! ? 100 : -100),
         // bottom: _sizeHeight / 6,
         left: _sizeWidth / (cnt.type != 'photo' ? 10 : 6),
-        child: _buttonsOn ? _buildButtons(cnt) : SizedBox(),
+        child: _buttonsOn! ? _buildButtons(cnt) : SizedBox(),
       );
     }
   }
@@ -396,11 +310,11 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _buttonShape(cnt) {
     return IconButton(
         icon: Icon(
-            cardInfo.photoCircle ? UniconsLine.circle : UniconsLine.square,
+            cardInfo!.photoCircle! ? UniconsLine.circle : UniconsLine.square,
             color: Colors.black),
         // icon: Icon(Icons.blur_circular, color: cnt.color),
         iconSize:
-            Responsive.of(context).widthPercent(cardInfo.photoCircle ? 9 : 11),
+            Responsive.of(context).widthPercent(cardInfo!.photoCircle! ? 9 : 11),
         onPressed: () {
           _changeShape(cnt);
         });
@@ -469,94 +383,88 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Selecione a cor'),
-          content: SingleChildScrollView(
-            child: BlockPicker(
-              cnt: cnt,
-              pickerColor: cnt.color,
-              availableColors: _defaultColors,
-              onColorChanged: changeColorFont,
-            ),
-          ),
+        return ColorPicker(
+                 cnt: cnt,
+                 onColorChanged: changeColorFont,
         );
       },
     );
   }
 
-  changeColorFont({Color color, ContentModel cnt}) {
+  changeColorFont({Color? color, required ContentModel cnt}) {
+    print(color);
     switch (cnt.type) {
       case "name":
-        widget.cardInfo.colorName = colorToString(color);
+        widget.cardInfo!.colorName = colorToString(color);
         break;
       case "occupation":
-        widget.cardInfo.colorOccupation = colorToString(color);
+        widget.cardInfo!.colorOccupation = colorToString(color);
         break;
       case "phone":
-        widget.cardInfo.colorPhone = colorToString(color);
+        widget.cardInfo!.colorPhone = colorToString(color);
         break;
       case "photo":
-        widget.cardInfo.colorPhoto = colorToString(color);
+        widget.cardInfo!.colorPhoto = colorToString(color);
         break;
       case "email":
-        widget.cardInfo.colorEmail = colorToString(color);
+        widget.cardInfo!.colorEmail = colorToString(color);
         break;
       case "facebook":
-        widget.cardInfo.colorFacebook = colorToString(color);
+        widget.cardInfo!.colorFacebook = colorToString(color);
         break;
       case "instagram":
-        widget.cardInfo.colorInstagram = colorToString(color);
+        widget.cardInfo!.colorInstagram = colorToString(color);
         break;
       case "twitter":
-        widget.cardInfo.colorTwitter = colorToString(color);
+        widget.cardInfo!.colorTwitter = colorToString(color);
         break;
       case "linkedin":
-        widget.cardInfo.colorLinkedin = colorToString(color);
+        widget.cardInfo!.colorLinkedin = colorToString(color);
         break;
       case "youtube":
-        widget.cardInfo.colorYoutube = colorToString(color);
+        widget.cardInfo!.colorYoutube = colorToString(color);
         break;
       case "website":
-        widget.cardInfo.colorWebsite = colorToString(color);
+        widget.cardInfo!.colorWebsite = colorToString(color);
         break;
     }
     saveData(pop: true);
   }
 
-  changeFontFamily({String font, ContentModel cnt}) {
+  changeFontFamily({String? font, required ContentModel cnt}) {
     switch (cnt.type) {
       case "name":
-        widget.cardInfo.fontName = font;
+        widget.cardInfo!.fontName = font;
         break;
       case "occupation":
-        widget.cardInfo.fontOccupation = font;
+        widget.cardInfo!.fontOccupation = font;
         break;
       case "phone":
-        widget.cardInfo.fontPhone = font;
+        widget.cardInfo!.fontPhone = font;
         break;
       case "photo":
-        widget.cardInfo.fontPhoto = font;
+        widget.cardInfo!.fontPhoto = font;
         break;
       case "email":
-        widget.cardInfo.fontEmail = font;
+        widget.cardInfo!.fontEmail = font;
         break;
       case "facebook":
-        widget.cardInfo.fontFacebook = font;
+        widget.cardInfo!.fontFacebook = font;
         break;
       case "instagram":
-        widget.cardInfo.fontInstagram = font;
+        widget.cardInfo!.fontInstagram = font;
         break;
       case "twitter":
-        widget.cardInfo.fontTwitter = font;
+        widget.cardInfo!.fontTwitter = font;
         break;
       case "linkedin":
-        widget.cardInfo.fontLinkedin = font;
+        widget.cardInfo!.fontLinkedin = font;
         break;
       case "youtube":
-        widget.cardInfo.fontYoutube = font;
+        widget.cardInfo!.fontYoutube = font;
         break;
       case "website":
-        widget.cardInfo.fontWebsite = font;
+        widget.cardInfo!.fontWebsite = font;
         break;
     }
     saveData(pop: true);
@@ -627,90 +535,90 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     if (_action) {
       switch (cnt.type) {
         case "name":
-          widget.cardInfo.scaleName = widget.cardInfo.scaleName +
+          widget.cardInfo!.scaleName = widget.cardInfo!.scaleName! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleName > 0.6
+                  : widget.cardInfo!.scaleName! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "occupation":
-          widget.cardInfo.scaleOccupation = widget.cardInfo.scaleOccupation +
+          widget.cardInfo!.scaleOccupation = widget.cardInfo!.scaleOccupation! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleOccupation > 0.6
+                  : widget.cardInfo!.scaleOccupation! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "phone":
-          widget.cardInfo.scalePhone = widget.cardInfo.scalePhone +
+          widget.cardInfo!.scalePhone = widget.cardInfo!.scalePhone! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scalePhone > 0.6
+                  : widget.cardInfo!.scalePhone! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "photo":
-          widget.cardInfo.scalePhoto = widget.cardInfo.scalePhoto +
+          widget.cardInfo!.scalePhoto = widget.cardInfo!.scalePhoto! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scalePhoto > 0.4
+                  : widget.cardInfo!.scalePhoto! > 0.4
                       ? -0.1
                       : 0.0);
           break;
         case "email":
-          widget.cardInfo.scaleEmail = widget.cardInfo.scaleEmail +
+          widget.cardInfo!.scaleEmail = widget.cardInfo!.scaleEmail! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleEmail > 0.6
+                  : widget.cardInfo!.scaleEmail! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "facebook":
-          widget.cardInfo.scaleFacebook = widget.cardInfo.scaleFacebook +
+          widget.cardInfo!.scaleFacebook = widget.cardInfo!.scaleFacebook! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleFacebook > 0.6
+                  : widget.cardInfo!.scaleFacebook! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "instagram":
-          widget.cardInfo.scaleInstagram = widget.cardInfo.scaleInstagram +
+          widget.cardInfo!.scaleInstagram = widget.cardInfo!.scaleInstagram! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleInstagram > 0.6
+                  : widget.cardInfo!.scaleInstagram! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "twitter":
-          widget.cardInfo.scaleTwitter = widget.cardInfo.scaleTwitter +
+          widget.cardInfo!.scaleTwitter = widget.cardInfo!.scaleTwitter! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleTwitter > 0.6
+                  : widget.cardInfo!.scaleTwitter! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "linkedin":
-          widget.cardInfo.scaleLinkedin = widget.cardInfo.scaleLinkedin +
+          widget.cardInfo!.scaleLinkedin = widget.cardInfo!.scaleLinkedin! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleLinkedin > 0.6
+                  : widget.cardInfo!.scaleLinkedin! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "youtube":
-          widget.cardInfo.scaleYoutube = widget.cardInfo.scaleYoutube +
+          widget.cardInfo!.scaleYoutube = widget.cardInfo!.scaleYoutube! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleYoutube > 0.6
+                  : widget.cardInfo!.scaleYoutube! > 0.6
                       ? -0.1
                       : 0.0);
           break;
         case "website":
-          widget.cardInfo.scaleWebsite = widget.cardInfo.scaleWebsite +
+          widget.cardInfo!.scaleWebsite = widget.cardInfo!.scaleWebsite! +
               (increase
                   ? 0.1
-                  : widget.cardInfo.scaleWebsite > 0.6
+                  : widget.cardInfo!.scaleWebsite! > 0.6
                       ? -0.1
                       : 0.0);
           break;
@@ -721,38 +629,38 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
 
   savePos(type, posX, posY) {
     if (type == 'name') {
-      cardInfo.posXName = posX;
-      cardInfo.posYName = posY;
+      cardInfo!.posXName = posX;
+      cardInfo!.posYName = posY;
     } else if (type == 'occupation') {
-      cardInfo.posXOccupation = posX;
-      cardInfo.posYOccupation = posY;
+      cardInfo!.posXOccupation = posX;
+      cardInfo!.posYOccupation = posY;
     } else if (type == 'phone') {
-      cardInfo.posXPhone = posX;
-      cardInfo.posYPhone = posY;
+      cardInfo!.posXPhone = posX;
+      cardInfo!.posYPhone = posY;
     } else if (type == 'photo') {
-      cardInfo.posXPhoto = posX;
-      cardInfo.posYPhoto = posY;
+      cardInfo!.posXPhoto = posX;
+      cardInfo!.posYPhoto = posY;
     } else if (type == 'email') {
-      cardInfo.posXEmail = posX;
-      cardInfo.posYEmail = posY;
+      cardInfo!.posXEmail = posX;
+      cardInfo!.posYEmail = posY;
     } else if (type == 'facebook') {
-      cardInfo.posXFacebook = posX;
-      cardInfo.posYFacebook = posY;
+      cardInfo!.posXFacebook = posX;
+      cardInfo!.posYFacebook = posY;
     } else if (type == 'instagram') {
-      cardInfo.posXInstagram = posX;
-      cardInfo.posYInstagram = posY;
+      cardInfo!.posXInstagram = posX;
+      cardInfo!.posYInstagram = posY;
     } else if (type == 'twitter') {
-      cardInfo.posXTwitter = posX;
-      cardInfo.posYTwitter = posY;
+      cardInfo!.posXTwitter = posX;
+      cardInfo!.posYTwitter = posY;
     } else if (type == 'linkedin') {
-      cardInfo.posXLinkedin = posX;
-      cardInfo.posYLinkedin = posY;
+      cardInfo!.posXLinkedin = posX;
+      cardInfo!.posYLinkedin = posY;
     } else if (type == 'youtube') {
-      cardInfo.posXYoutube = posX;
-      cardInfo.posYYoutube = posY;
+      cardInfo!.posXYoutube = posX;
+      cardInfo!.posYYoutube = posY;
     } else if (type == 'website') {
-      cardInfo.posXWebsite = posX;
-      cardInfo.posYWebsite = posY;
+      cardInfo!.posXWebsite = posX;
+      cardInfo!.posYWebsite = posY;
     }
     saveData();
   }
@@ -761,16 +669,9 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
     return showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Selecione a fonte'),
-          content: SingleChildScrollView(
-            child: FontPicker(
-              cnt: cnt,
-              pickerFont: cnt.font,
-              availableFonts: _defaultFonts,
-              onFontChanged: changeFontFamily,
-            ),
-          ),
+        return FontPicker(
+          cnt: cnt,
+          onFontChanged: changeFontFamily,
         );
       },
     );
@@ -778,7 +679,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
 
   _changeShape(cnt) {
     setState(() {
-      cardInfo.photoCircle = !cardInfo.photoCircle;
+      cardInfo!.photoCircle = !cardInfo!.photoCircle!;
     });
     saveData();
   }
@@ -786,55 +687,55 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
   _changeAngle(cnt, {increase = true}) {
     switch (cnt.type) {
       case "name":
-        widget.cardInfo.angleName =
-            widget.cardInfo.angleName + (increase ? 1 : -1);
+        widget.cardInfo!.angleName =
+            widget.cardInfo!.angleName! + (increase ? 1 : -1);
         break;
       case "occupation":
-        widget.cardInfo.angleOccupation =
-            widget.cardInfo.angleOccupation + (increase ? 1 : -1);
+        widget.cardInfo!.angleOccupation =
+            widget.cardInfo!.angleOccupation! + (increase ? 1 : -1);
         break;
       case "phone":
-        widget.cardInfo.anglePhone =
-            widget.cardInfo.anglePhone + (increase ? 1 : -1);
+        widget.cardInfo!.anglePhone =
+            widget.cardInfo!.anglePhone! + (increase ? 1 : -1);
         break;
       case "photo":
-        widget.cardInfo.anglePhoto =
-            widget.cardInfo.anglePhoto + (increase ? 1 : -1);
+        widget.cardInfo!.anglePhoto =
+            widget.cardInfo!.anglePhoto! + (increase ? 1 : -1);
         break;
       case "email":
-        widget.cardInfo.angleEmail =
-            widget.cardInfo.angleEmail + (increase ? 1 : -1);
+        widget.cardInfo!.angleEmail =
+            widget.cardInfo!.angleEmail! + (increase ? 1 : -1);
         break;
       case "facebook":
-        widget.cardInfo.angleFacebook =
-            widget.cardInfo.angleFacebook + (increase ? 1 : -1);
+        widget.cardInfo!.angleFacebook =
+            widget.cardInfo!.angleFacebook! + (increase ? 1 : -1);
         break;
       case "instagram":
-        widget.cardInfo.angleInstagram =
-            widget.cardInfo.angleInstagram + (increase ? 1 : -1);
+        widget.cardInfo!.angleInstagram =
+            widget.cardInfo!.angleInstagram! + (increase ? 1 : -1);
         break;
       case "twitter":
-        widget.cardInfo.angleTwitter =
-            widget.cardInfo.angleTwitter + (increase ? 1 : -1);
+        widget.cardInfo!.angleTwitter =
+            widget.cardInfo!.angleTwitter! + (increase ? 1 : -1);
         break;
       case "linkedin":
-        widget.cardInfo.angleLinkedin =
-            widget.cardInfo.angleLinkedin + (increase ? 1 : -1);
+        widget.cardInfo!.angleLinkedin =
+            widget.cardInfo!.angleLinkedin! + (increase ? 1 : -1);
         break;
       case "youtube":
-        widget.cardInfo.angleYoutube =
-            widget.cardInfo.angleYoutube + (increase ? 1 : -1);
+        widget.cardInfo!.angleYoutube =
+            widget.cardInfo!.angleYoutube! + (increase ? 1 : -1);
         break;
       case "website":
-        widget.cardInfo.angleWebsite =
-            widget.cardInfo.angleWebsite + (increase ? 1 : -1);
+        widget.cardInfo!.angleWebsite =
+            widget.cardInfo!.angleWebsite! + (increase ? 1 : -1);
         break;
     }
     saveData();
   }
 
   _buildPicture(cnt, feed) {
-    if ((widget.cardInfo.hasPhoto)) {
+    if (widget.cardInfo!.hasPhoto!) {
       return widget.profileImage != null
           ? Container(
               key: feed ? null : getKey(cnt),
@@ -842,12 +743,12 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
               width: _sizeWidth * 0.4 * cnt.scale,
               height: _sizeWidth * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
-                shape: (widget.cardInfo.photoCircle)
+                shape: widget.cardInfo!.photoCircle!
                     ? BoxShape.circle
                     : BoxShape.rectangle,
                 image: new DecorationImage(
                   fit: BoxFit.cover,
-                  image: MemoryImage(widget.profileImage),
+                  image: MemoryImage(widget.profileImage!),
                 ),
               ),
             )

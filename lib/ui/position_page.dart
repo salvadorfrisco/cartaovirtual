@@ -10,22 +10,22 @@ import 'package:virtual_card/utils/sizes_helpers.dart';
 import '../models/card_info.dart';
 
 class PositionPage extends StatefulWidget {
-  PositionPage({Key key, this.cardInfo, this.imageBackground, this.profileImage}) : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageBackground, profileImage;
+  PositionPage({Key? key, this.cardInfo, this.imageBackground, this.profileImage}) : super(key: key);
+  final CardInfo? cardInfo;
+  final Uint8List? imageBackground, profileImage;
   @override
   _PositionPageState createState() => _PositionPageState();
 }
 
 class _PositionPageState extends State<PositionPage> {
-  List<ContentModel> contentList;
+  late List<ContentModel> contentList;
   bool didLoad = false;
   StorageService storage = StorageService();
-  CardInfo cardInfo;
+  CardInfo? cardInfo;
   bool formChanged = false, formSaved = false;
-  double _sizeWidth, _sizeHeight, _dx, _dy;
-  Offset _position;
-  Uint8List imageBackground;
+  double? _sizeWidth, _sizeHeight, _dx, _dy;
+  late Offset _position;
+  Uint8List? imageBackground;
 
   @override
   void initState() {
@@ -55,15 +55,15 @@ class _PositionPageState extends State<PositionPage> {
       child: Scaffold(
         body: Stack(fit: StackFit.expand, children: [
           Opacity(
-              opacity: double.parse(widget.cardInfo.opacity),
+              opacity: double.parse(widget.cardInfo!.opacity!),
               child: Container(
                 decoration: new BoxDecoration(
 //                          shape: BoxShape.,
                   image: new DecorationImage(
                     fit: BoxFit.cover,
-                    image: imageBackground != null
-                        ? MemoryImage(imageBackground)
-                        : AssetImage('assets/images/transparent.png'),
+                    image: (imageBackground != null
+                        ? MemoryImage(imageBackground!)
+                        : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
                   ),
                 ),
               )
@@ -97,18 +97,18 @@ class _PositionPageState extends State<PositionPage> {
             ),
           ),
           onDraggableCanceled: (velocity, offset){
-            RenderBox renderBox = context.findRenderObject();
+            RenderBox renderBox = context.findRenderObject() as RenderBox;
             _position = renderBox.globalToLocal(offset);
             _dx = _position.dx;
             _dy = _position.dy;
-            if (_dx < 0)
+            if (_dx! < 0)
               _dx = 0;
-            else if (_dx > _sizeWidth - _sizeWidth * 0.1)
-              _dx = _sizeWidth - _sizeWidth * 0.1;
-            if (_dy < 0)
+            else if (_dx! > _sizeWidth! - _sizeWidth! * 0.1)
+              _dx = _sizeWidth! - _sizeWidth! * 0.1;
+            if (_dy! < 0)
               _dy = 0;
-            else if (_dy > _sizeHeight - _sizeHeight * 0.04)
-              _dy = _sizeHeight - _sizeHeight * 0.04;
+            else if (_dy! > _sizeHeight! - _sizeHeight! * 0.04)
+              _dy = _sizeHeight! - _sizeHeight! * 0.04;
             cnt.posX = _dx;
             cnt.posY = _dy;
             savePos(cnt.type, cnt.posX, cnt.posY);
@@ -130,7 +130,7 @@ class _PositionPageState extends State<PositionPage> {
               Functions.buildIcon(cnt.type),
               color: cnt.color,
               size: cnt.size *
-                  (_sizeWidth / displayWidth(context)),
+                  (_sizeWidth! / displayWidth(context)),
             ))
             : SizedBox(width: 0),
         Text(
@@ -139,7 +139,7 @@ class _PositionPageState extends State<PositionPage> {
           style: TextStyle(
               fontFamily: cnt.font,
               fontSize: cnt.size *
-                  (_sizeWidth / displayWidth(context)),
+                  (_sizeWidth! / displayWidth(context)),
               color: cnt.color,
               fontWeight: FontWeight.w500),
         ),
@@ -148,18 +148,18 @@ class _PositionPageState extends State<PositionPage> {
   }
 
   Container _buildPicture() {
-    return (widget.cardInfo.hasPhoto)
+    return widget.cardInfo!.hasPhoto!
         ? Container(
-      margin: EdgeInsets.only(top: _sizeWidth * 0.03),
-      width: _sizeWidth * 0.4,
-      height: _sizeWidth * 0.4,
+      margin: EdgeInsets.only(top: _sizeWidth! * 0.03),
+      width: _sizeWidth! * 0.4,
+      height: _sizeWidth! * 0.4,
       decoration: new BoxDecoration(
-        shape: (widget.cardInfo.photoCircle) ? BoxShape.circle : BoxShape.rectangle,
+        shape: widget.cardInfo!.photoCircle! ? BoxShape.circle : BoxShape.rectangle,
         image: new DecorationImage(
           fit: BoxFit.cover,
-          image: widget.profileImage != null
-              ? MemoryImage(widget.profileImage)
-              : AssetImage('assets/images/transparent.png'),
+          image: (widget.profileImage != null
+              ? MemoryImage(widget.profileImage!)
+              : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
         ),
       ),
     )
@@ -167,17 +167,17 @@ class _PositionPageState extends State<PositionPage> {
   }
 
   savePos(type, posX, posY) {
-    if (type == 'name') { cardInfo.posXName = posX; cardInfo.posYName = posY; }
-    else if (type == 'occupation') { cardInfo.posXOccupation = posX; cardInfo.posYOccupation = posY; }
-    else if (type == 'phone') { cardInfo.posXPhone = posX; cardInfo.posYPhone = posY; }
-    else if (type == 'photo') { cardInfo.posXPhoto = posX; cardInfo.posYPhoto = posY; }
-    else if (type == 'email') { cardInfo.posXEmail = posX; cardInfo.posYEmail = posY; }
-    else if (type == 'facebook') { cardInfo.posXFacebook = posX; cardInfo.posYFacebook = posY; }
-    else if (type == 'instagram') { cardInfo.posXInstagram = posX; cardInfo.posYInstagram = posY; }
-    else if (type == 'twitter') { cardInfo.posXTwitter = posX; cardInfo.posYTwitter = posY; }
-    else if (type == 'linkedin') { cardInfo.posXLinkedin = posX; cardInfo.posYLinkedin = posY; }
-    else if (type == 'youtube') { cardInfo.posXYoutube = posX; cardInfo.posYYoutube = posY; }
-    else if (type == 'website') { cardInfo.posXWebsite = posX; cardInfo.posYWebsite = posY; }
+    if (type == 'name') { cardInfo!.posXName = posX; cardInfo!.posYName = posY; }
+    else if (type == 'occupation') { cardInfo!.posXOccupation = posX; cardInfo!.posYOccupation = posY; }
+    else if (type == 'phone') { cardInfo!.posXPhone = posX; cardInfo!.posYPhone = posY; }
+    else if (type == 'photo') { cardInfo!.posXPhoto = posX; cardInfo!.posYPhoto = posY; }
+    else if (type == 'email') { cardInfo!.posXEmail = posX; cardInfo!.posYEmail = posY; }
+    else if (type == 'facebook') { cardInfo!.posXFacebook = posX; cardInfo!.posYFacebook = posY; }
+    else if (type == 'instagram') { cardInfo!.posXInstagram = posX; cardInfo!.posYInstagram = posY; }
+    else if (type == 'twitter') { cardInfo!.posXTwitter = posX; cardInfo!.posYTwitter = posY; }
+    else if (type == 'linkedin') { cardInfo!.posXLinkedin = posX; cardInfo!.posYLinkedin = posY; }
+    else if (type == 'youtube') { cardInfo!.posXYoutube = posX; cardInfo!.posYYoutube = posY; }
+    else if (type == 'website') { cardInfo!.posXWebsite = posX; cardInfo!.posYWebsite = posY; }
     saveData();
   }
 
@@ -194,6 +194,6 @@ class _PositionPageState extends State<PositionPage> {
   }
 
   loadLocalImages() async {
-    imageBackground = await storage.getImage('imageBackground' + cardInfo.version);
+    imageBackground = await storage.getImage('imageBackground' + cardInfo!.version!);
   }
 }

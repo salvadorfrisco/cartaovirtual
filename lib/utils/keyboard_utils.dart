@@ -30,7 +30,7 @@ class KeyboardUtils {
 
   static const double kBarSize = 45.0;
 
-  static bool keyboardIsVisible(BuildContext context) {
+  static bool keyboardIsVisible(BuildContext? context) {
     if(context != null){
       return !(MediaQuery.of(context).viewInsets.bottom == 0.0);
     }
@@ -38,15 +38,15 @@ class KeyboardUtils {
   }
   static getWidgetHeight(GlobalKey key) {
     if(key.currentContext != null){
-      final RenderBox renderBoxRed = key.currentContext.findRenderObject();
+      final RenderBox renderBoxRed = key.currentContext!.findRenderObject() as RenderBox;
       return renderBoxRed.size.height;
     }
     return 0.0;
   }
 
-  static EdgeInsets padding({BuildContext context, GlobalKey key}){
+  static EdgeInsets padding({BuildContext? context, GlobalKey? key}){
     if(keyboardIsVisible(context)){
-      double value = getWidgetHeight(key);
+      double value = getWidgetHeight(key!);
       if(!Platform.isIOS){
         value = value + kBarSize;
       }

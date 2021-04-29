@@ -11,13 +11,13 @@ class ShowBanner extends StatefulWidget {
 
 class _ShowBannerState extends State<ShowBanner> {
 
-  BannerAd banner;
+  BannerAd? banner;
 
   @override
   Widget build(BuildContext context) {
     return  (banner == null) ?
       SizedBox(height: 1,) :
-      AdWidget(ad: banner);
+      AdWidget(ad: banner!);
   }
 
   @override

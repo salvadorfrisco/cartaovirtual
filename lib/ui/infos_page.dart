@@ -19,9 +19,9 @@ import 'crop_page.dart';
 import 'package:virtual_card/generated/l10n.dart';
 
 class InfosPage extends StatefulWidget {
-  InfosPage({Key key, this.cardInfo, this.imageBackground}) : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageBackground;
+  InfosPage({Key? key, this.cardInfo, this.imageBackground}) : super(key: key);
+  final CardInfo? cardInfo;
+  final Uint8List? imageBackground;
 
   @override
   _InfosPageState createState() => _InfosPageState();
@@ -29,24 +29,24 @@ class InfosPage extends StatefulWidget {
 
 class _InfosPageState extends State<InfosPage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-  List<ContentModel> contentList;
-  Uint8List profileImage;
-  bool didLoad = false,
+  List<ContentModel>? contentList;
+  Uint8List? profileImage;
+  bool? didLoad = false,
       buttonsOn = false,
       _photoCircle = true,
       formChanged = false,
       formSaved = false,
       isLoading = false;
   StorageService storage = StorageService();
-  CardInfo cardInfo;
-  double _sizeWidth;
+  CardInfo? cardInfo;
+  double? _sizeWidth;
   ScrollController _scrollController = ScrollController();
   static const Color colorBack = Colors.black54;
 
   @override
   Widget build(BuildContext context) {
     _sizeWidth = displayWidth(context);
-    if (didLoad) {
+    if (didLoad!) {
       return buildBody();
     } else {
       return FutureBuilder<List<ContentModel>>(
@@ -57,7 +57,7 @@ class _InfosPageState extends State<InfosPage> {
                 child: CircularProgressIndicator(),
               );
             contentList = snapshot.data;
-            _photoCircle = cardInfo.photoCircle;
+            _photoCircle = cardInfo!.photoCircle;
             didLoad = true;
             isLoading = false;
             return buildBody();
@@ -67,7 +67,7 @@ class _InfosPageState extends State<InfosPage> {
 
   Widget itemCard(ContentModel cnt, index) {
     return Container(
-        key: Key(cnt.id),
+        key: Key(cnt.id!),
         margin: EdgeInsets.all(5.0),
         child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -81,19 +81,19 @@ class _InfosPageState extends State<InfosPage> {
         context,
         MaterialPageRoute(
           builder: (context) => CropPage(
-            version: cardInfo.version,
+            version: cardInfo!.version,
             imageName: 'profileImage',
           ),
         ));
     if (profileImage != null) {
-      buttonsOn = !buttonsOn;
+      buttonsOn = !buttonsOn!;
       cnt.hasIcon = buttonsOn;
       verifyChanges();
       // setState(() {
       //   buttonsOn = false;
       //   isLoading = false;
       // });
-      saveImage(base64.encode(profileImage), widget.cardInfo.version);
+      saveImage(base64.encode(profileImage!), widget.cardInfo!.version);
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
           isLoading = false;
@@ -105,7 +105,7 @@ class _InfosPageState extends State<InfosPage> {
   saveImage(img64, version) {
     setState(() {
       StorageService.savePhotoLocal64(img64, 'profileImage', version);
-      cardInfo.hasPhoto = true;
+      cardInfo!.hasPhoto = true;
       isLoading = false;
     });
   }
@@ -128,14 +128,14 @@ class _InfosPageState extends State<InfosPage> {
           EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
       child: Stack(fit: StackFit.expand, children: [
         Opacity(
-            opacity: double.parse(cardInfo.opacity),
+            opacity: double.parse(cardInfo!.opacity!),
             child: Container(
               decoration: new BoxDecoration(
                 image: new DecorationImage(
                   fit: BoxFit.cover,
-                  image: widget.imageBackground != null
-                      ? MemoryImage(widget.imageBackground)
-                      : AssetImage('assets/images/transparent.png'),
+                  image: (widget.imageBackground != null
+                      ? MemoryImage(widget.imageBackground!)
+                      : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
                 ),
               ),
             )),
@@ -146,17 +146,17 @@ class _InfosPageState extends State<InfosPage> {
               padding: const EdgeInsets.only(top: 48.0),
               child: Column(
                 children: [
-                  itemCard(contentList[0], 0),
-                  itemCard(contentList[1], 1),
-                  itemCard(contentList[2], 2),
-                  itemCard(contentList[3], 3),
-                  itemCard(contentList[4], 4),
-                  itemCard(contentList[5], 5),
-                  itemCard(contentList[6], 6),
-                  itemCard(contentList[7], 7),
-                  itemCard(contentList[8], 8),
-                  itemCard(contentList[9], 9),
-                  itemCard(contentList[10], 10),
+                  itemCard(contentList![0], 0),
+                  itemCard(contentList![1], 1),
+                  itemCard(contentList![2], 2),
+                  itemCard(contentList![3], 3),
+                  itemCard(contentList![4], 4),
+                  itemCard(contentList![5], 5),
+                  itemCard(contentList![6], 6),
+                  itemCard(contentList![7], 7),
+                  itemCard(contentList![8], 8),
+                  itemCard(contentList![9], 9),
+                  itemCard(contentList![10], 10),
                   ShowTip(sizeWidth: _sizeWidth),
                   Center(
                     child: _buildMessage(
@@ -169,7 +169,7 @@ class _InfosPageState extends State<InfosPage> {
                             S.of(context).version + ' 2.0.6+38',
                             style: TextStyle(
                                 color: Colors.black,
-                                fontSize: _sizeWidth * 0.03),
+                                fontSize: _sizeWidth! * 0.03),
                           ),
                   ),
                 ],
@@ -252,22 +252,22 @@ class _InfosPageState extends State<InfosPage> {
                 ),
                 GestureDetector(
                   onTap: () {
-                    _photoCircle = !_photoCircle;
+                    _photoCircle = !_photoCircle!;
                     verifyChanges();
                     reload();
                   },
                   child: Container(
-                    width: _sizeWidth * 0.1,
-                    height: _sizeWidth * 0.1,
+                    width: _sizeWidth! * 0.1,
+                    height: _sizeWidth! * 0.1,
                     decoration: new BoxDecoration(
-                      shape: (!_photoCircle)
+                      shape: (!_photoCircle!)
                           ? BoxShape.circle
                           : BoxShape.rectangle,
                       image: new DecorationImage(
                         fit: BoxFit.cover,
-                        image: profileImage != null
-                            ? MemoryImage(profileImage)
-                            : AssetImage('assets/images/transparent.png'),
+                        image: (profileImage != null
+                            ? MemoryImage(profileImage!)
+                            : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
                       ),
                     ),
                   ),
@@ -288,24 +288,24 @@ class _InfosPageState extends State<InfosPage> {
           padding: const EdgeInsets.only(right: 8.0),
           child: cnt.type != "photo"
               ? CircleAvatar(
-                  backgroundColor: cnt.hasIcon
+                  backgroundColor: cnt.hasIcon!
                       ? Colors.transparent
-                      : double.parse(cardInfo.opacity) < 0.2
+                      : double.parse(cardInfo!.opacity!) < 0.2
                           ? Colors.white
                           : Color(0xffd2c2e0),
                   radius: 15.0,
                   child: Icon(
                     getIcon(cnt.type),
-                    color: cnt.hasIcon
+                    color: cnt.hasIcon!
                         ? cnt.color
-                        : double.parse(cardInfo.opacity) < 0.2
+                        : double.parse(cardInfo!.opacity!) < 0.2
                             ? Colors.blueGrey[100]
                             : Colors.white,
-                    size: cnt.hasIcon ? 24.0 : 24.0,
+                    size: cnt.hasIcon! ? 24.0 : 24.0,
                   ))
-              : cnt.hasIcon
+              : cnt.hasIcon!
                   ? _buildMessage("Excluir foto", () {
-                          cardInfo.hasPhoto = false;
+                          cardInfo!.hasPhoto = false;
                           iconChanged(cnt);
                         },
                       width: 0.26)
@@ -320,7 +320,7 @@ class _InfosPageState extends State<InfosPage> {
   }
 
   fieldChanged(value, index) {
-    contentList[index].txt = value;
+    contentList![index].txt = value;
     verifyChanges();
     reload();
   }
@@ -352,81 +352,81 @@ class _InfosPageState extends State<InfosPage> {
   }
 
   verifyChanges() {
-    formChanged = (cardInfo.name != contentList[0].txt ||
-            cardInfo.occupation != contentList[1].txt ||
-            cardInfo.phone != contentList[2].txt ||
-            cardInfo.photo != contentList[3].txt ||
-            cardInfo.email != contentList[4].txt ||
-            cardInfo.facebook != contentList[5].txt ||
-            cardInfo.linkedin != contentList[6].txt ||
-            cardInfo.instagram != contentList[7].txt ||
-            cardInfo.twitter != contentList[8].txt ||
-            cardInfo.youtube != contentList[9].txt ||
-            cardInfo.website != contentList[10].txt ||
-            cardInfo.hasName != contentList[0].hasIcon ||
-            cardInfo.hasOccupation != contentList[1].hasIcon ||
-            cardInfo.hasPhone != contentList[2].hasIcon ||
-            cardInfo.hasPhoto != contentList[3].hasIcon ||
-            cardInfo.hasEmail != contentList[4].hasIcon ||
-            cardInfo.hasFacebook != contentList[5].hasIcon ||
-            cardInfo.hasLinkedin != contentList[6].hasIcon ||
-            cardInfo.hasInstagram != contentList[7].hasIcon ||
-            cardInfo.hasTwitter != contentList[8].hasIcon ||
-            cardInfo.hasYoutube != contentList[9].hasIcon ||
-            cardInfo.hasWebsite != contentList[10].hasIcon ||
-            cardInfo.photoCircle != _photoCircle)
+    formChanged = (cardInfo!.name != contentList![0].txt ||
+            cardInfo!.occupation != contentList![1].txt ||
+            cardInfo!.phone != contentList![2].txt ||
+            cardInfo!.photo != contentList![3].txt ||
+            cardInfo!.email != contentList![4].txt ||
+            cardInfo!.facebook != contentList![5].txt ||
+            cardInfo!.linkedin != contentList![6].txt ||
+            cardInfo!.instagram != contentList![7].txt ||
+            cardInfo!.twitter != contentList![8].txt ||
+            cardInfo!.youtube != contentList![9].txt ||
+            cardInfo!.website != contentList![10].txt ||
+            cardInfo!.hasName != contentList![0].hasIcon ||
+            cardInfo!.hasOccupation != contentList![1].hasIcon ||
+            cardInfo!.hasPhone != contentList![2].hasIcon ||
+            cardInfo!.hasPhoto != contentList![3].hasIcon ||
+            cardInfo!.hasEmail != contentList![4].hasIcon ||
+            cardInfo!.hasFacebook != contentList![5].hasIcon ||
+            cardInfo!.hasLinkedin != contentList![6].hasIcon ||
+            cardInfo!.hasInstagram != contentList![7].hasIcon ||
+            cardInfo!.hasTwitter != contentList![8].hasIcon ||
+            cardInfo!.hasYoutube != contentList![9].hasIcon ||
+            cardInfo!.hasWebsite != contentList![10].hasIcon ||
+            cardInfo!.photoCircle != _photoCircle)
         ? true
         : false;
     return formChanged;
   }
 
   setValues() {
-    cardInfo.photoCircle = _photoCircle;
-    for (var i = 0; i < contentList.length; i++) {
-      switch (contentList[i].type) {
+    cardInfo!.photoCircle = _photoCircle;
+    for (var i = 0; i < contentList!.length; i++) {
+      switch (contentList![i].type) {
         case "name":
-          cardInfo.name = contentList[i].txt;
-          cardInfo.hasName = contentList[i].hasIcon;
+          cardInfo!.name = contentList![i].txt;
+          cardInfo!.hasName = contentList![i].hasIcon;
           break;
         case "occupation":
-          cardInfo.occupation = contentList[i].txt;
-          cardInfo.hasOccupation = contentList[i].hasIcon;
+          cardInfo!.occupation = contentList![i].txt;
+          cardInfo!.hasOccupation = contentList![i].hasIcon;
           break;
         case "phone":
-          cardInfo.phone = contentList[i].txt;
-          cardInfo.hasPhone = contentList[i].hasIcon;
+          cardInfo!.phone = contentList![i].txt;
+          cardInfo!.hasPhone = contentList![i].hasIcon;
           break;
         // case "photo":
         //   cardInfo.photo = contentList[i].txt;
         //   cardInfo.hasPhoto = contentList[i].hasIcon;
         //   break;
         case "email":
-          cardInfo.email = contentList[i].txt;
-          cardInfo.hasEmail = contentList[i].hasIcon;
+          cardInfo!.email = contentList![i].txt;
+          cardInfo!.hasEmail = contentList![i].hasIcon;
           break;
         case "facebook":
-          cardInfo.facebook = contentList[i].txt;
-          cardInfo.hasFacebook = contentList[i].hasIcon;
+          cardInfo!.facebook = contentList![i].txt;
+          cardInfo!.hasFacebook = contentList![i].hasIcon;
           break;
         case "instagram":
-          cardInfo.instagram = contentList[i].txt;
-          cardInfo.hasInstagram = contentList[i].hasIcon;
+          cardInfo!.instagram = contentList![i].txt;
+          cardInfo!.hasInstagram = contentList![i].hasIcon;
           break;
         case "twitter":
-          cardInfo.twitter = contentList[i].txt;
-          cardInfo.hasTwitter = contentList[i].hasIcon;
+          cardInfo!.twitter = contentList![i].txt;
+          cardInfo!.hasTwitter = contentList![i].hasIcon;
           break;
         case "linkedin":
-          cardInfo.linkedin = contentList[i].txt;
-          cardInfo.hasLinkedin = contentList[i].hasIcon;
+          cardInfo!.linkedin = contentList![i].txt;
+          cardInfo!.hasLinkedin = contentList![i].hasIcon;
           break;
         case "youtube":
-          cardInfo.youtube = contentList[i].txt;
-          cardInfo.hasYoutube = contentList[i].hasIcon;
+          cardInfo!.youtube = contentList![i].txt;
+          cardInfo!.hasYoutube = contentList![i].hasIcon;
           break;
         case "website":
-          cardInfo.website = contentList[i].txt;
-          cardInfo.hasWebsite = contentList[i].hasIcon;
+          cardInfo!.website = contentList![i].txt;
+          cardInfo!.hasWebsite = contentList![i].hasIcon;
           break;
       }
     }
@@ -439,7 +439,7 @@ class _InfosPageState extends State<InfosPage> {
   Future<List<ContentModel>> setContentList() async {
     cardInfo = widget.cardInfo;
     return await storage
-        .getImage('profileImage' + cardInfo.version)
+        .getImage('profileImage' + cardInfo!.version!)
         .then((profImage) {
       profileImage = profImage;
       return Functions.loadContent(cardInfo);
@@ -454,11 +454,11 @@ class _InfosPageState extends State<InfosPage> {
 
 class ShowTip extends StatelessWidget {
   ShowTip({
-    Key key,
-    @required double sizeWidth,
+    Key? key,
+    required double? sizeWidth,
   })  : _sizeWidth = sizeWidth,
         super(key: key);
-  final double _sizeWidth;
+  final double? _sizeWidth;
 
   @override
   Widget build(BuildContext context) {
@@ -632,12 +632,12 @@ class ShowTip extends StatelessWidget {
                     curve: Curves.easeOut,
                   );
                 },
-                width: _sizeWidth * 0.5,
+                width: _sizeWidth! * 0.5,
               ),
             ),
             Text(TIPTITLE[dayNumber],
                 style: TextStyle(
-                    fontSize: _sizeWidth * 0.05, fontWeight: FontWeight.bold)),
+                    fontSize: _sizeWidth! * 0.05, fontWeight: FontWeight.bold)),
             TIPMESSAGE[dayNumber],
           ],
         )));

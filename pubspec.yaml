@@ -3,7 +3,7 @@ description: Criação e compartilhamento de imagens personalizadas
 version: 2.1.4+46
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -11,28 +11,28 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: ^0.17.0
-  mask_text_input_formatter: ^1.1.0
-  cupertino_icons: ^1.0.0
+  mask_text_input_formatter: ^2.0.0-nullsafety.2
+  cupertino_icons: ^1.0.2
 #  esys_flutter_share: ^1.0.2
-  share: ^0.6.5+3
-  image_cropper: ^1.3.1
-  image_picker: ^0.6.7+12
-  shared_preferences: ^2.0.0
+  share: ^2.0.1
+  image_cropper: ^1.4.0
+  image_picker: ^0.7.4
+  shared_preferences: ^2.0.5
+  flutter_cache_manager: ^3.0.1
 #  flutter_statusbarcolor: ^0.2.3
-  lottie: ^0.6.0
-  flutter_launcher_icons: ^0.8.1
-  flutter_native_splash: ^0.1.9
-  keyboard_actions: ^3.3.1+1
-  carousel_slider: ^2.3.1
+  lottie: ^1.0.1
+  flutter_launcher_icons: ^0.9.0
+  flutter_native_splash: ^1.1.8+4
+  keyboard_actions: ^3.4.0
+  carousel_slider: ^4.0.0-nullsafety.0
 #  connectivity: ^2.0.1
-  rxdart: ^0.24.1
-  bloc_pattern: ^2.5.1
-
-  json_serializable: ^3.5.0
+  rxdart: ^0.26.0
+  google_fonts: ^2.0.0
+  json_serializable: ^4.1.1
   path_provider: ^2.0.1
-  unicons: ^1.0.0+5
-  ripple_color_selection: ^0.0.4
-  google_mobile_ads: ^0.12.1
+  unicons: ^2.0.1
+#  ripple_color_selection: ^0.0.4
+  google_mobile_ads: ^0.12.1+1
   provider: ^5.0.0
 
 dev_dependencies:
@@ -126,181 +126,6 @@ flutter:
     - assets/images/back_58.gif
     - assets/images/back_59.gif
     - assets/images/back_60.gif
-  fonts:
-    - family: Arcade
-      fonts:
-        - asset: assets/fonts/Arcade.ttf
-    - family: Champagne
-      fonts:
-        - asset: assets/fonts/Champagne.ttf
-    - family: Dancing
-      fonts:
-        - asset: assets/fonts/Dancing.ttf
-    - family: Dreams
-      fonts:
-        - asset: assets/fonts/Dreams.ttf
-    - family: Excentric
-      fonts:
-        - asset: assets/fonts/Excentric.ttf
-    - family: Forgot
-      fonts:
-        - asset: assets/fonts/Forgot.ttf
-    - family: Giorgino
-      fonts:
-        - asset: assets/fonts/Giorgino.ttf
-    - family: Kuenstler
-      fonts:
-        - asset: assets/fonts/Kuenstler.otf
-    - family: Montserrat
-      fonts:
-          - asset: assets/fonts/Montserrat.ttf
-    - family: Neoa
-      fonts:
-        - asset: assets/fonts/Neonavy.ttf
-    - family: Opficio
-      fonts:
-        - asset: assets/fonts/Opficio.ttf
-    - family: Pacifico
-      fonts:
-        - asset: assets/fonts/Pacifico.ttf
-    - family: Playfair
-      fonts:
-        - asset: assets/fonts/Playfair.ttf
-    - family: Roboto
-      fonts:
-        - asset: assets/fonts/Roboto.ttf
-    - family: Rubik
-      fonts:
-        - asset: assets/fonts/Rubik.ttf
-    - family: Secondch
-      fonts:
-        - asset: assets/fonts/Secondchance.ttf
-    - family: Walkway
-      fonts:
-        - asset: assets/fonts/Walkway.ttf
-    - family: Advark
-      fonts:
-        - asset: assets/fonts/Advark.ttf
-    - family: Aquar
-      fonts:
-        - asset: assets/fonts/Aquarium.ttf
-    - family: Athletic
-      fonts:
-        - asset: assets/fonts/Athletic.ttf
-    - family: Barcode
-      fonts:
-        - asset: assets/fonts/Barcode.ttf
-    - family: Bendit
-      fonts:
-        - asset: assets/fonts/Bendit.ttf
-    - family: Bernardo
-      fonts:
-        - asset: assets/fonts/Bernardo.ttf
-    - family: Blacklist
-      fonts:
-        - asset: assets/fonts/Blacklisted.ttf
-    - family: Blocks
-      fonts:
-        - asset: assets/fonts/Blocks.ttf
-    - family: Blomster
-      fonts:
-        - asset: assets/fonts/Blomster.ttf
-    - family: Caricature
-      fonts:
-        - asset: assets/fonts/Caricature.ttf
-    - family: Cartoon
-      fonts:
-        - asset: assets/fonts/Cartoon.ttf
-    - family: Caste
-      fonts:
-        - asset: assets/fonts/Castiron.ttf
-    - family: Catpaw
-      fonts:
-        - asset: assets/fonts/Catpaw.ttf
-    - family: Circus
-      fonts:
-        - asset: assets/fonts/Circus.ttf
-    - family: Cowby
-      fonts:
-        - asset: assets/fonts/Cowboys.ttf
-    - family: Flower
-      fonts:
-        - asset: assets/fonts/Flowers.ttf
-    - family: Fuzzy
-      fonts:
-        - asset: assets/fonts/Fuzzy.ttf
-    - family: Grobol
-      fonts:
-        - asset: assets/fonts/Grobol.ttf
-    - family: Hannah
-      fonts:
-        - asset: assets/fonts/Hannah.ttf
-    - family: Heineken
-      fonts:
-        - asset: assets/fonts/Heineken.ttf
-    - family: Hischool
-      fonts:
-        - asset: assets/fonts/Hischool.ttf
-    - family: Icecold
-      fonts:
-        - asset: assets/fonts/Icecold.ttf
-    - family: Icecream
-      fonts:
-        - asset: assets/fonts/Icecream.ttf
-    - family: LokiCola
-      fonts:
-        - asset: assets/fonts/LokiCola.ttf
-    - family: Melody
-      fonts:
-        - asset: assets/fonts/Melody.ttf
-    - family: Milestone
-      fonts:
-        - asset: assets/fonts/Milestone.otf
-    - family: Minnie
-      fonts:
-        - asset: assets/fonts/Minnie.ttf
-    - family: Music
-      fonts:
-        - asset: assets/fonts/Music.ttf
-    - family: Neoa
-      fonts:
-        - asset: assets/fonts/Neonavy.ttf
-    - family: Playtoy
-      fonts:
-        - asset: assets/fonts/Playtoy.ttf
-    - family: Porkys
-      fonts:
-        - asset: assets/fonts/Porkys.ttf
-    - family: Potter
-      fonts:
-        - asset: assets/fonts/Potter.ttf
-    - family: Resort
-      fonts:
-        - asset: assets/fonts/Resort.ttf
-    - family: Armywar
-      fonts:
-        - asset: assets/fonts/Armywar.otf
-    - family: School
-      fonts:
-        - asset: assets/fonts/School.ttf
-    - family: Smoke
-      fonts:
-        - asset: assets/fonts/Smoke.ttf
-    - family: Vanessa
-      fonts:
-        - asset: assets/fonts/Vanessa.ttf
-    - family: Vegas
-      fonts:
-        - asset: assets/fonts/Vegas.ttf
-    - family: Verdana
-      fonts:
-        - asset: assets/fonts/Verdana.ttf
-    - family: Vintage
-      fonts:
-        - asset: assets/fonts/Vintage.ttf
-    - family: Zornic
-      fonts:
-        - asset: assets/fonts/Zornic.ttf
 
 flutter_intl:
   main_locale: en_US

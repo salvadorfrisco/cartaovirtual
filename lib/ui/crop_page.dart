@@ -10,8 +10,8 @@ import 'package:virtual_card/utils/functions.dart';
 import 'package:virtual_card/utils/responsive.dart';
 
 class CropPage extends StatefulWidget {
-  final String version;
-  final String imageName;
+  final String? version;
+  final String? imageName;
 
   CropPage({this.version, this.imageName});
 
@@ -26,8 +26,8 @@ enum AppState {
 }
 
 class _CropPageState extends State<CropPage> {
-  AppState state;
-  File imageFile;
+  AppState? state;
+  File? imageFile;
   final ImagePicker _picker = ImagePicker();
 
   @override
@@ -44,7 +44,7 @@ class _CropPageState extends State<CropPage> {
         color: Colors.white10,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: imageFile != null ? Image.file(imageFile) : SizedBox()),
+        child: imageFile != null ? Image.file(imageFile!) : SizedBox()),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Padding(
         padding: EdgeInsets.only(top: Responsive.of(context).heightPercent(89), left: 30.0, right: 30.0),
@@ -107,17 +107,17 @@ class _CropPageState extends State<CropPage> {
   }
 
   _save() {
-    saveImage(imageFile);
-    Navigator.pop(context, imageFile.readAsBytesSync());
+    saveImage(imageFile!);
+    Navigator.pop(context, imageFile!.readAsBytesSync());
   }
 
   saveImage(File imageUploaded) {
-    StorageService.savePhotoLocal64(imageUploaded.readAsBytesSync().toString(), widget.imageName, widget.version);
+    StorageService.savePhotoLocal64(imageUploaded.readAsBytesSync().toString(), widget.imageName!, widget.version!);
   }
 
   Future<Null> _cropImage() async {
-    File croppedFile = await ImageCropper.cropImage(
-        sourcePath: imageFile.path,
+    File? croppedFile = await ImageCropper.cropImage(
+        sourcePath: imageFile!.path,
         aspectRatioPresets: Platform.isAndroid
             ? [
           CropAspectRatioPreset.square,

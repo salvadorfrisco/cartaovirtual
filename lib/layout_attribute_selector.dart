@@ -8,10 +8,10 @@ class LayoutAttributeSelector extends StatefulWidget {
     this.onChange,
   });
 
-  final String title;
-  final List<String> values;
+  final String? title;
+  final List<String>? values;
   final bool disabled;
-  final ValueChanged<int> onChange;
+  final ValueChanged<int>? onChange;
 
   @override
   State<StatefulWidget> createState() => LayoutAttributeSelectorState();
@@ -21,17 +21,17 @@ class LayoutAttributeSelectorState extends State<LayoutAttributeSelector> {
   int valueIndex = 0;
 
   void next() {
-    valueIndex = valueIndex + 1 < widget.values.length ? valueIndex + 1 : 0;
+    valueIndex = valueIndex + 1 < widget.values!.length ? valueIndex + 1 : 0;
     update();
   }
 
   void previous() {
-    valueIndex = valueIndex > 0 ? valueIndex - 1 : widget.values.length - 1;
+    valueIndex = valueIndex > 0 ? valueIndex - 1 : widget.values!.length - 1;
     update();
   }
 
   void update() {
-    widget.onChange(valueIndex);
+    widget.onChange!(valueIndex);
     setState(() {});
   }
 
@@ -40,7 +40,7 @@ class LayoutAttributeSelectorState extends State<LayoutAttributeSelector> {
     return Container(
       child: Column(children: [
         Divider(color: Colors.black54),
-        Text(widget.title),
+        Text(widget.title!),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
@@ -50,7 +50,7 @@ class LayoutAttributeSelectorState extends State<LayoutAttributeSelector> {
               onPressed: widget.disabled ? null : previous,
             ),
             Text(
-              widget.values[valueIndex],
+              widget.values![valueIndex],
               maxLines: 2,
               textAlign: TextAlign.center,
               style: TextStyle(

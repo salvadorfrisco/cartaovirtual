@@ -5,6 +5,7 @@ import 'dart:ui' as ui;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:share/share.dart';
 import 'package:unicons/unicons.dart';
@@ -20,16 +21,16 @@ import 'package:virtual_card/generated/l10n.dart';
 
 class HomePage extends StatefulWidget {
   HomePage(
-      {Key key,
+      {Key? key,
       this.cardInfo,
       this.imageBackground,
       this.profileImage,
       this.widthScreen,
       this.withIcons = true})
       : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageBackground, profileImage;
-  final double widthScreen;
+  final CardInfo? cardInfo;
+  final Uint8List? imageBackground, profileImage;
+  final double? widthScreen;
   final bool withIcons;
   @override
   _HomePageState createState() => _HomePageState();
@@ -38,14 +39,14 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final _globalKey = new GlobalKey();
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-  bool tipVisible,
+  late bool tipVisible,
       didLoad = false,
       buttonsOn = true,
       buttonHelp = false,
       isLoading = false;
   Color _appColor = Color(0xFFF2F2F2);
-  double _sizeWidth;
-  List<ContentModel> contentList;
+  double? _sizeWidth;
+  late List<ContentModel> contentList;
   static const Color colorShare = Color(0xCC32C652);
   static const Color colorBack = Colors.black54;
 
@@ -76,14 +77,14 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Container(color: Colors.white),
                   Opacity(
-                      opacity: double.parse(widget.cardInfo.opacity),
+                      opacity: double.parse(widget.cardInfo!.opacity!),
                       child: Container(
                         decoration: new BoxDecoration(
                           image: new DecorationImage(
                             fit: BoxFit.cover,
-                            image: widget.imageBackground != null
-                                ? MemoryImage(widget.imageBackground)
-                                : AssetImage('assets/images/transparent.png'),
+                            image: (widget.imageBackground != null
+                                ? MemoryImage(widget.imageBackground!)
+                                : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
                           ),
                         ),
                       )),
@@ -103,33 +104,33 @@ class _HomePageState extends State<HomePage> {
           widget.withIcons
               ? AnimatedPositioned(
                   right: (buttonsOn)
-                      ? (_sizeWidth * 0.054)
+                      ? (_sizeWidth! * 0.054)
                       : -100.00, //_sizeWidth * 0.77,
-                  bottom: _sizeWidth * 0.06,
+                  bottom: _sizeWidth! * 0.06,
                   duration: Duration(milliseconds: 450),
                   child: _buildCustomButton(S.of(context).shareImage, UniconsLine.share, _share,
                       color: colorShare))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
-                  left: _sizeWidth * 0.06,
-                  bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
+                  left: _sizeWidth! * 0.06,
+                  bottom: (buttonsOn) ? (_sizeWidth! * 0.06) : -100.00,
                   duration: Duration(milliseconds: 300),
                   child: _buildCustomButton(S.of(context).editInformations, UniconsLine.edit_alt, _navInfos,
                       colorIcon: Colors.greenAccent))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
-                  left: _sizeWidth * 0.294,
-                  bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
+                  left: _sizeWidth! * 0.294,
+                  bottom: (buttonsOn) ? (_sizeWidth! * 0.06) : -100.00,
                   duration: Duration(milliseconds: 375),
                   child: _buildCustomButton(S.of(context).configureItems, UniconsLine.setting, _navConfig,
                       colorIcon: Colors.orange))
               : Container(),
           widget.withIcons
               ? AnimatedPositioned(
-                  left: _sizeWidth * 0.53,
-                  bottom: (buttonsOn) ? (_sizeWidth * 0.06) : -100.00,
+                  left: _sizeWidth! * 0.53,
+                  bottom: (buttonsOn) ? (_sizeWidth! * 0.06) : -100.00,
                   duration: Duration(milliseconds: 450),
                   child: _buildCustomButton(S.of(context).selectImages, UniconsLine.apps, _navCards,
                       colorIcon: Colors.yellow))
@@ -151,7 +152,7 @@ class _HomePageState extends State<HomePage> {
         new MaterialPageRoute(
             builder: (BuildContext context) => page == 'cartoes'
                 ? CardsPage(
-                    version: widget.cardInfo.version,
+                    version: widget.cardInfo!.version,
                     profileImage: widget.profileImage)
                 : page == 'infos'
                     ? InfosPage(
@@ -174,16 +175,18 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _buildItem(ContentModel cnt) {
+    // late String? fnt_item;
+    // fnt_item = cnt.font;
     if ((cnt.txt == '')) {
       return Container(
         height: 0,
       );
     } else {
       return Positioned(
-          top: cnt.posY * (_sizeWidth / displayWidth(context)),
-          left: cnt.posX * (_sizeWidth / displayWidth(context)),
+          top: cnt.posY! * (_sizeWidth! / displayWidth(context)),
+          left: cnt.posX! * (_sizeWidth! / displayWidth(context)),
           child: RotationTransition(
-              turns: new AlwaysStoppedAnimation(cnt.angle / 360),
+              turns: new AlwaysStoppedAnimation(cnt.angle! / 360),
               child: (cnt.type == 'photo')
                   ? _buildPicture(cnt)
                   : Row(
@@ -194,18 +197,17 @@ class _HomePageState extends State<HomePage> {
                                 child: Icon(
                                   Functions.buildIcon(cnt.type),
                                   color: cnt.color,
-                                  size: cnt.size *
-                                      (_sizeWidth / displayWidth(context)) *
-                                      cnt.scale,
+                                  size: cnt.size! *
+                                      (_sizeWidth! / displayWidth(context)) *
+                                      cnt.scale!,
                                 ))
                             : SizedBox(width: 0),
                         Text(
-                          cnt.txt,
+                          cnt.txt!,
                           textScaleFactor: cnt.scale,
-                          style: TextStyle(
-                              fontFamily: cnt.font,
-                              fontSize: cnt.size *
-                                  (_sizeWidth / displayWidth(context)),
+                          style: GoogleFonts.getFont(cnt.font!,
+                              fontSize: cnt.size! *
+                                  (_sizeWidth! / displayWidth(context)),
                               color: cnt.color,
                               fontWeight: FontWeight.w500),
                         ),
@@ -215,19 +217,19 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildPicture(cnt) {
-    if ((widget.cardInfo.hasPhoto)) {
+    if (widget.cardInfo!.hasPhoto!) {
       return widget.profileImage != null
           ? Container(
-              margin: EdgeInsets.only(top: _sizeWidth * 0.03),
-              width: _sizeWidth * 0.4 * cnt.scale,
-              height: _sizeWidth * 0.4 * cnt.scale,
+              margin: EdgeInsets.only(top: _sizeWidth! * 0.03),
+              width: _sizeWidth! * 0.4 * cnt.scale,
+              height: _sizeWidth! * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
-                shape: (widget.cardInfo.photoCircle)
+                shape: widget.cardInfo!.photoCircle!
                     ? BoxShape.circle
                     : BoxShape.rectangle,
                 image: new DecorationImage(
                   fit: BoxFit.cover,
-                  image: MemoryImage(widget.profileImage),
+                  image: MemoryImage(widget.profileImage!),
                 ),
               ),
             )
@@ -240,10 +242,10 @@ class _HomePageState extends State<HomePage> {
   _capturePng() async {
     try {
       RenderRepaintBoundary boundary =
-          _globalKey.currentContext.findRenderObject();
+          _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
       ByteData byteData =
-          await image.toByteData(format: ui.ImageByteFormat.png);
+          await (image.toByteData(format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
       Uint8List pngBytes = byteData.buffer.asUint8List();
 
       String dir = (await getApplicationDocumentsDirectory()).path;

@@ -35,8 +35,8 @@ typedef PickerItemBuilder = Widget Function(
 
 class BackgroundPicker extends StatefulWidget {
   const BackgroundPicker({
-    @required this.pickerColor,
-    @required this.onColorChanged,
+    required this.pickerColor,
+    required this.onColorChanged,
     this.availableColors = _defaultColors,
     this.layoutBuilder = defaultLayoutBuilder,
     this.itemBuilder = defaultItemBuilder,
@@ -82,7 +82,7 @@ class BackgroundPicker extends StatefulWidget {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-          onTap: changeColor,
+          onTap: changeColor as void Function()?,
           borderRadius: BorderRadius.circular(50.0),
           child: AnimatedOpacity(
             duration: const Duration(milliseconds: 210),
@@ -106,7 +106,7 @@ class BackgroundPicker extends StatefulWidget {
 }
 
 class _BackgroundPickerState extends State<BackgroundPicker> {
-  Color _currentColor;
+  late Color _currentColor;
 
   @override
   void initState() {
@@ -124,7 +124,7 @@ class _BackgroundPickerState extends State<BackgroundPicker> {
     return widget.layoutBuilder(
       context,
       widget.availableColors??_defaultColors,
-          (Color color, [bool _, Function __]) => widget.itemBuilder(
+          (Color color, [bool? _, Function? __]) => widget.itemBuilder(
           color, _currentColor.value == color.value, () => changeColor(color)),
     );
   }

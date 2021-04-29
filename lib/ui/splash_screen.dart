@@ -18,27 +18,28 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   StorageService storage = StorageService();
-  String _actualVersion;
-  InterstitialAd interstitialAd;
+  String? _actualVersion;
+  late InterstitialAd interstitialAd;
 
   @override
   void initState() {
     verifyDataSaved();
-    screenInitial();
+    if (mounted)
+      screenInitial();
     super.initState();
   }
 
   screenInitial() {
-    setState(() {});
     Future.delayed(Duration(seconds: 1)).then((_) {
       interstitialAd.show();
-    }).then((value) => Future.delayed(Duration(seconds: 2)).then((_) {
+      setState(() {});
+    }).then(((value) => Future.delayed(Duration(seconds: 2)).then((_) {
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) =>
                   (_actualVersion ?? "0") != "0" ? MainPage() : IntroScreen()));
-    }));
+    })) as FutureOr Function(Null));
   }
 
   Future verifyDataSaved() async {

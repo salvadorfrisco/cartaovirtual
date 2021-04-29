@@ -13,9 +13,9 @@ import '../models/card_info.dart';
 import 'package:virtual_card/generated/l10n.dart';
 
 class ConfigPage extends StatefulWidget {
-  ConfigPage({Key key, this.cardInfo, this.imageUploaded, this.imageBackground, this.profileImage}) : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageUploaded, imageBackground, profileImage;
+  ConfigPage({Key? key, this.cardInfo, this.imageUploaded, this.imageBackground, this.profileImage}) : super(key: key);
+  final CardInfo? cardInfo;
+  final Uint8List? imageUploaded, imageBackground, profileImage;
 
   @override
   _ConfigPageState createState() => _ConfigPageState();
@@ -23,7 +23,7 @@ class ConfigPage extends StatefulWidget {
 
 class _ConfigPageState extends State<ConfigPage> {
   int _indexPage = 0;
-  double _sizeWidth, _sizeHeight, _dy;
+  double? _sizeWidth, _sizeHeight, _dy;
   bool alreadyShowMessage = false;
 
   @override
@@ -48,18 +48,18 @@ class _ConfigPageState extends State<ConfigPage> {
               ),
               onDraggableCanceled: (velocity, offset) {
                 setState(() {
-                  RenderBox renderBox = context.findRenderObject();
-                  _dy = (_sizeHeight - renderBox.globalToLocal(offset).dy)
-                     - _sizeHeight * 0.12;
+                  RenderBox renderBox = context.findRenderObject() as RenderBox;
+                  _dy = (_sizeHeight! - renderBox.globalToLocal(offset).dy)
+                     - _sizeHeight! * 0.12;
                   print(_dy);
                   print(_sizeHeight);
-                  if (_dy < 0)
+                  if (_dy! < 0)
                     _dy = 0;
-                  else if (_dy + 110 > _sizeHeight)
-                    _dy = _sizeHeight - 120;
+                  else if (_dy! + 110 > _sizeHeight!)
+                    _dy = _sizeHeight! - 120;
 
                   // Ajuste para posicionar corretamente na vertical, não alterar
-                  _dy = _dy + 22;
+                  _dy = _dy! + 22;
                 });
               },
             )),
@@ -73,7 +73,7 @@ class _ConfigPageState extends State<ConfigPage> {
 
   _buildMenu() {
     return Container(
-      height: _sizeHeight * 0.09,
+      height: _sizeHeight! * 0.09,
       width: _sizeWidth,
       color: Colors.transparent,
       child: Row(

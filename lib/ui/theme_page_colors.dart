@@ -15,14 +15,14 @@ import 'home_page.dart';
 
 class ThemePageColors extends StatefulWidget {
   ThemePageColors(
-      {Key key,
+      {Key? key,
       this.cardInfo,
       this.imageUploaded,
       this.imageBackground,
       this.profileImage})
       : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageUploaded, imageBackground, profileImage;
+  final CardInfo? cardInfo;
+  final Uint8List? imageUploaded, imageBackground, profileImage;
   @override
   _ThemePageColorsState createState() => _ThemePageColorsState();
 }
@@ -31,9 +31,9 @@ class _ThemePageColorsState extends State<ThemePageColors> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var textEditingController = TextEditingController();
   StorageService storage = StorageService();
-  CardInfo cardInfo = CardInfo();
+  CardInfo? cardInfo = CardInfo();
   Color _appColor = Colors.white54;
-  Uint8List imageBackground, profileImage;
+  Uint8List? imageBackground, profileImage;
   bool isLoading = false;
 
   @override
@@ -45,7 +45,7 @@ class _ThemePageColorsState extends State<ThemePageColors> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: loadImageBackground(widget.cardInfo.version),
+        future: loadImageBackground(widget.cardInfo!.version),
         builder: (context, snapshot) {
           return SafeArea(
               child: Scaffold(
@@ -104,9 +104,9 @@ class _ThemePageColorsState extends State<ThemePageColors> {
               decoration: BoxDecoration(
                   color: Colors.black38,
                   border: Border.all(
-                    color: ((widget.cardInfo.colorTextBelow == "20" &&
+                    color: ((widget.cardInfo!.colorTextBelow == "20" &&
                         type == "fine") ||
-                        (widget.cardInfo.colorTextBelow == "40" &&
+                        (widget.cardInfo!.colorTextBelow == "40" &&
                             type == "strong"))
                         ? Colors.orangeAccent
                         : Colors.white,
@@ -117,9 +117,9 @@ class _ThemePageColorsState extends State<ThemePageColors> {
                 child: Column(
                   children: Functions.contentButton(
                       icon,
-                      ((widget.cardInfo.colorTextBelow == "20" &&
+                      ((widget.cardInfo!.colorTextBelow == "20" &&
                                   type == "fine") ||
-                              (widget.cardInfo.colorTextBelow == "40" &&
+                              (widget.cardInfo!.colorTextBelow == "40" &&
                                   type == "strong"))
                           ? Colors.orangeAccent
                           : Colors.white),
@@ -130,13 +130,13 @@ class _ThemePageColorsState extends State<ThemePageColors> {
 
   changeTextureFine() async {
 
-    int indexSumBelow = (widget.cardInfo.colorTextBelow.length > 2 ? 0 : int.parse(widget.cardInfo.colorTextBelow));
-    int indexSumAbove = (widget.cardInfo.colorTextAbove.length > 2 ? 0 : int.parse(widget.cardInfo.colorTextAbove));
+    int indexSumBelow = (widget.cardInfo!.colorTextBelow!.length > 2 ? 0 : int.parse(widget.cardInfo!.colorTextBelow!));
+    int indexSumAbove = (widget.cardInfo!.colorTextAbove!.length > 2 ? 0 : int.parse(widget.cardInfo!.colorTextAbove!));
 
-    if (widget.cardInfo.colorTextBelow == "20")
-      widget.cardInfo.colorTextBelow = "0";
+    if (widget.cardInfo!.colorTextBelow == "20")
+      widget.cardInfo!.colorTextBelow = "0";
     else
-      widget.cardInfo.colorTextBelow = "20";
+      widget.cardInfo!.colorTextBelow = "20";
     storage.saveData(widget.cardInfo, false);
     int indexImg = indexSumAbove +
         1 +
@@ -149,19 +149,19 @@ class _ThemePageColorsState extends State<ThemePageColors> {
     ByteData bytes = await rootBundle.load(img);
     var buffer = bytes.buffer;
     await saveImage(
-        base64.encode(Uint8List.view(buffer)), widget.cardInfo.version);
+        base64.encode(Uint8List.view(buffer)), widget.cardInfo!.version);
     setState(() {});
   }
 
   changeTextureStrong() async {
-    if (widget.cardInfo.colorTextBelow == "40")
-      widget.cardInfo.colorTextBelow = "0";
+    if (widget.cardInfo!.colorTextBelow == "40")
+      widget.cardInfo!.colorTextBelow = "0";
     else
-      widget.cardInfo.colorTextBelow = "40";
+      widget.cardInfo!.colorTextBelow = "40";
     storage.saveData(widget.cardInfo, false);
-    int indexImg = int.parse(widget.cardInfo.colorTextAbove) +
+    int indexImg = int.parse(widget.cardInfo!.colorTextAbove!) +
         1 +
-        int.parse(widget.cardInfo.colorTextBelow);
+        int.parse(widget.cardInfo!.colorTextBelow!);
     String img = 'assets/images/back_' +
         indexImg.toString() +
         '.' +
@@ -170,7 +170,7 @@ class _ThemePageColorsState extends State<ThemePageColors> {
     ByteData bytes = await rootBundle.load(img);
     var buffer = bytes.buffer;
     await saveImage(
-        base64.encode(Uint8List.view(buffer)), widget.cardInfo.version);
+        base64.encode(Uint8List.view(buffer)), widget.cardInfo!.version);
     setState(() {});
   }
 
@@ -192,7 +192,7 @@ class _ThemePageColorsState extends State<ThemePageColors> {
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: Slider(
-                  value: double.parse(cardInfo.opacity) * 10,
+                  value: double.parse(cardInfo!.opacity!) * 10,
                   min: 0.0,
                   max: 10.0,
                   divisions: 40,
@@ -200,7 +200,7 @@ class _ThemePageColorsState extends State<ThemePageColors> {
                   inactiveColor: Colors.black,
                   onChanged: (double newValue) {
                     setState(() {
-                      cardInfo.opacity = (newValue / 10).toString();
+                      cardInfo!.opacity = (newValue / 10).toString();
                       storage.saveData(cardInfo, false);
                     });
                   }),
@@ -245,12 +245,12 @@ class _ThemePageColorsState extends State<ThemePageColors> {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   int indexImg =
-                      index + 1 + (widget.cardInfo.colorTextBelow.length > 2 ? 0 : int.parse(widget.cardInfo.colorTextBelow));
+                      index + 1 + (widget.cardInfo!.colorTextBelow!.length > 2 ? 0 : int.parse(widget.cardInfo!.colorTextBelow!));
                   String img = 'assets/images/back_' +
                       indexImg.toString() +
                       '.' +
                       (indexImg <= 20 ? 'jpg' : 'gif');
-                  return showImageCard(img, widget.cardInfo.version, index);
+                  return showImageCard(img, widget.cardInfo!.version, index);
                 },
                 childCount: 20,
               ),
@@ -284,7 +284,7 @@ class _ThemePageColorsState extends State<ThemePageColors> {
       ByteData bytes = await rootBundle.load(url);
       var buffer = bytes.buffer;
       await saveImage(base64.encode(Uint8List.view(buffer)), version);
-      widget.cardInfo.colorTextAbove = index.toString();
+      widget.cardInfo!.colorTextAbove = index.toString();
       storage.saveData(widget.cardInfo, false);
     }
 

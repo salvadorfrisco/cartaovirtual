@@ -8,27 +8,27 @@ import '../models/card_info.dart';
 import 'package:flutter/foundation.dart';
 
 class HomePageCard extends StatefulWidget {
-  HomePageCard({Key key, this.version}) : super(key: key);
+  HomePageCard({Key? key, this.version}) : super(key: key);
 
-  final String version;
+  final String? version;
 
   @override
   _HomePageCardState createState() => _HomePageCardState();
 }
 
 class _HomePageCardState extends State<HomePageCard> {
-  bool tipVisible, didLoad = false;
+  bool? tipVisible, didLoad = false;
   StorageService storage = StorageService();
-  Future<CardInfo> cardInfoFuture;
-  CardInfo cardInfo = CardInfo();
-  Future<Uint8List> imageBackgroundFuture, profileImageFuture;
-  Uint8List imageBackground, profileImage;
+  Future<CardInfo>? cardInfoFuture;
+  CardInfo? cardInfo = CardInfo();
+  Future<Uint8List>? imageBackgroundFuture, profileImageFuture;
+  Uint8List? imageBackground, profileImage;
 
   @override
   void initState() {
     cardInfoFuture = getCardInfo(widget.version);
-    imageBackgroundFuture = storage.getImage('imageBackground' + widget.version);
-    profileImageFuture = storage.getImage('profileImage' + widget.version);
+    imageBackgroundFuture = storage.getImage('imageBackground' + widget.version!);
+    profileImageFuture = storage.getImage('profileImage' + widget.version!);
     Future.delayed(const Duration(milliseconds: 100), () => setState(() {}));
     super.initState();
   }

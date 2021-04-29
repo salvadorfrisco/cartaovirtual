@@ -13,17 +13,17 @@ import 'home_page_card.dart';
 import 'package:virtual_card/generated/l10n.dart';
 
 class CardsPage extends StatefulWidget {
-  CardsPage({Key key, this.version, this.profileImage}) : super(key: key);
-  final String version;
-  final Uint8List profileImage;
+  CardsPage({Key? key, this.version, this.profileImage}) : super(key: key);
+  final String? version;
+  final Uint8List? profileImage;
   @override
   _CardsPageState createState() => _CardsPageState();
 }
 
 class _CardsPageState extends State<CardsPage> {
   StorageService storage = StorageService();
-  String _version;
-  BannerAd banner;
+  String? _version;
+  BannerAd? banner;
   bool isLoading = false, formChanged = false, formSaved = false;
 
   @override

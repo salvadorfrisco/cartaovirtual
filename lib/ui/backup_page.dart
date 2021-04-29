@@ -9,15 +9,15 @@ import '../models/card_info.dart';
 import 'home_page.dart';
 
 class BackupPage extends StatefulWidget {
-  BackupPage({Key key, this.cardInfo, this.imageUploaded, this.imageBackground, this.profileImage}) : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageUploaded, imageBackground, profileImage;
+  BackupPage({Key? key, this.cardInfo, this.imageUploaded, this.imageBackground, this.profileImage}) : super(key: key);
+  final CardInfo? cardInfo;
+  final Uint8List? imageUploaded, imageBackground, profileImage;
   @override
   _BackupPageState createState() => _BackupPageState();
 }
 
 class _BackupPageState extends State<BackupPage> {
-  CardInfo cardInfo = CardInfo();
+  CardInfo? cardInfo = CardInfo();
   StorageService storage = StorageService();
   String messageLoading = "", _titleAppBar = "Backup e Restauração";
   bool isLoading = false, formChanged = false, formSaved = false;
@@ -158,7 +158,7 @@ class _BackupPageState extends State<BackupPage> {
     formChanged = true;
     _titleAppBar = "Confirmar restauração";
     cardInfo =
-        await storage.getCardInfo(version: cardInfo.version, backup: true);
+        await storage.getCardInfo(version: cardInfo!.version, backup: true);
     setState(() {});
   }
 

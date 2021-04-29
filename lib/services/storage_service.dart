@@ -133,7 +133,7 @@ class StorageService {
     return prefs.containsKey(key);
   }
 
-  Future<String> getVersion() async {
+  Future<String?> getVersion() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.containsKey('actualVersion')
         ? prefs.getString('actualVersion')
@@ -151,11 +151,11 @@ class StorageService {
         .then((actualVersion) => getCardInfo(version: actualVersion));
   }
 
-  getCardInfo({version, backup = false}) async {
+  getCardInfo({required version, backup = false}) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     final String _nameKey = 'cardInfo' + version + backup.toString();
-    Map cardMap = json.decode(prefs.getString(_nameKey));
-    return CardInfo.fromJson(cardMap);
+    Map cardMap = json.decode(prefs.getString(_nameKey)!);
+    return CardInfo.fromJson(cardMap as Map<String, dynamic>);
   }
 
   saveDataInitial(CardInfo card, version, backup) async {
@@ -181,7 +181,7 @@ class StorageService {
   saveData(cardInfo, backup) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await getVersion().then((version) => prefs.setString(
-        'cardInfo' + version + backup.toString(),
+        'cardInfo' + version! + backup.toString(),
         jsonEncode(cardInfo).toString()));
   }
 
@@ -191,7 +191,7 @@ class StorageService {
       final ByteData bytes = await rootBundle.load('assets/images/transparent.png');
       return bytes.buffer.asUint8List();
     }
-    Uint8List image = base64.decode(prefs.getString(key));
+    Uint8List image = base64.decode(prefs.getString(key)!);
     return image;
   }
 

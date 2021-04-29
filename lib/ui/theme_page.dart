@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:io';
 import 'dart:typed_data';
 // import 'package:connectivity/connectivity.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:unicons/unicons.dart';
@@ -21,14 +23,14 @@ import 'home_page.dart';
 
 class ThemePage extends StatefulWidget {
   ThemePage(
-      {Key key,
+      {Key? key,
       this.cardInfo,
       this.imageUploaded,
       this.imageBackground,
       this.profileImage})
       : super(key: key);
-  final CardInfo cardInfo;
-  final Uint8List imageUploaded, imageBackground, profileImage;
+  final CardInfo? cardInfo;
+  final Uint8List? imageUploaded, imageBackground, profileImage;
   @override
   _ThemePageState createState() => _ThemePageState();
 }
@@ -37,13 +39,13 @@ class _ThemePageState extends State<ThemePage> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   var textEditingController = TextEditingController();
   StorageService storage = StorageService();
-  CardInfo cardInfo = CardInfo();
+  CardInfo? cardInfo = CardInfo();
   Color _appColor = Colors.white54;
-  int _sizeWidth, _sizeHeight;
-  Uint8List imageUploaded, imageBackground, profileImage;
+  int? _sizeWidth, _sizeHeight;
+  Uint8List? imageUploaded, imageBackground, profileImage;
   bool isLoading = false;
   String _connectionStatus = 'Unknown';
-  InterstitialAd interstitialAd;
+  late InterstitialAd interstitialAd;
   // final Connectivity _connectivity = Connectivity();
   // StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
@@ -80,10 +82,10 @@ class _ThemePageState extends State<ThemePage> {
     _sizeWidth = int.parse(displayWidth(context).toStringAsFixed(0));
     _sizeHeight = int.parse(displayHeight(context).toStringAsFixed(0));
     return FutureBuilder(
-        future: loadImageBackground(widget.cardInfo.version),
+        future: loadImageBackground(widget.cardInfo!.version),
         builder: (context, snapshot) {
           return FutureBuilder(
-              future: loadImageUploaded(widget.cardInfo.version),
+              future: loadImageUploaded(widget.cardInfo!.version),
               builder: (context, snapshot) {
                 return SafeArea(
                     child: Scaffold(
@@ -134,7 +136,7 @@ class _ThemePageState extends State<ThemePage> {
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: Slider(
-                  value: double.parse(cardInfo.opacity) * 10,
+                  value: double.parse(cardInfo!.opacity!) * 10,
                   min: 0.0,
                   max: 10.0,
                   divisions: 40,
@@ -142,7 +144,7 @@ class _ThemePageState extends State<ThemePage> {
                   inactiveColor: Colors.black,
                   onChanged: (double newValue) {
                     setState(() {
-                      cardInfo.opacity = (newValue / 10).toString();
+                      cardInfo!.opacity = (newValue / 10).toString();
                       storage.saveData(cardInfo, false);
                     });
                   }),
@@ -154,7 +156,7 @@ class _ThemePageState extends State<ThemePage> {
         context,
         MaterialPageRoute(
           builder: (context) => CropPage(
-            version: cardInfo.version,
+            version: cardInfo!.version,
             imageName: 'imageUploaded',
           ),
         ));
@@ -162,7 +164,7 @@ class _ThemePageState extends State<ThemePage> {
       setState(() {
         isLoading = true;
       });
-      saveImage(base64.encode(imageUploaded), widget.cardInfo.version);
+      saveImage(base64.encode(imageUploaded!), widget.cardInfo!.version);
       Future.delayed(const Duration(milliseconds: 1000), () {
         setState(() {
           isLoading = false;
@@ -252,7 +254,7 @@ class _ThemePageState extends State<ThemePage> {
                           style: TextStyle(color: Colors.red),
                           textAlign: TextAlign.center,
                         ))
-                      : showImageCard(img, widget.cardInfo.version, index);
+                      : showImageCard(img, widget.cardInfo!.version, index);
                 },
                 childCount:
                     (_connectionStatus == 'ConnectivityResult.none') ? 2 : 1000,
@@ -279,12 +281,12 @@ class _ThemePageState extends State<ThemePage> {
   saveImage(img64, version) {
     Future.delayed(Duration(seconds: 1)).then((_) {
       interstitialAd.show();
-    }).then((value) => Future.delayed(Duration(seconds: 2)).then((_) {
+    }).then(((value) => Future.delayed(Duration(seconds: 2)).then((_) {
       setState(() {
         StorageService.savePhotoLocal64(img64, 'imageBackground', version);
         isLoading = false;
       });
-    }));
+    })) as FutureOr Function(Null));
   }
 
   showImageCard(url, version, index) {
@@ -292,8 +294,8 @@ class _ThemePageState extends State<ThemePage> {
       setState(() {
         isLoading = true;
       });
-      await http.get(url).then((http.Response response) =>
-          saveImage(base64.encode(response.bodyBytes), version));
+      File file = await DefaultCacheManager().getSingleFile(url);
+      await saveImage(base64.encode(file.readAsBytesSync()), version);
     }
 
     return GestureDetector(
