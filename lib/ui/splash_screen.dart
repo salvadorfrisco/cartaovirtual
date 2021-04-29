@@ -31,9 +31,9 @@ class _SplashScreenState extends State<SplashScreen> {
 
   screenInitial() {
     Future.delayed(Duration(seconds: 1)).then((_) {
-      interstitialAd.show();
       setState(() {});
     }).then(((value) => Future.delayed(Duration(seconds: 2)).then((_) {
+//      interstitialAd.show();
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(

@@ -25,8 +25,7 @@
     <array>
         <string>en_US</string>
         <string>pt_BR</string>
-    </array
-	<true/>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>A foto será usada como parte na imagem</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -35,7 +34,7 @@
 	<string>Somente quando o app estiver em uso.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>A voz será usada na imagem</string>
-	<key>NSPhotoLibraryUsageDescription</key>
+	<key>NSPhotoLibraryUsageDescription</key>s
 	<string>A foto será usada como fundo da imagem</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -54,5 +53,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-5668668662931095~5624151523</string>
 </dict>
 </plist>
