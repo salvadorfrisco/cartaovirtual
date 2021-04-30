@@ -136,7 +136,7 @@ class _ThemePageState extends State<ThemePage> {
                   ),
                   borderRadius: BorderRadius.all(Radius.circular(20))),
               child: Slider(
-                  value: double.parse(cardInfo!.opacity!) * 10,
+                  value: double.parse(cardInfo!.opacity) * 10,
                   min: 0.0,
                   max: 10.0,
                   divisions: 40,

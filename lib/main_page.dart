@@ -1,9 +1,9 @@
 import 'dart:typed_data';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
-import 'package:provider/provider.dart';
+// import 'package:google_mobile_ads/google_mobile_ads.dart';
+// import 'package:provider/provider.dart';
 import 'package:virtual_card/utils/sizes_helpers.dart';
-import 'package:virtual_card/widgets/show_banner.dart';
-import 'ad_state.dart';
+// import 'package:virtual_card/widgets/show_banner.dart';
+// import 'ad_state.dart';
 import 'models/card_info.dart';
 import 'ui/home_page.dart';
 //import 'utils/status_bar_manager.dart';
@@ -103,10 +103,10 @@ class _MainPageState extends State<MainPage> {
 
   loadLocalImages() async {
     imageUploaded =
-        await storage.getImage('imageBackground' + cardInfo!.version!);
+        await storage.getImage('imageBackground' + cardInfo!.version);
     imageBackground =
-        await storage.getImage('imageBackground' + cardInfo!.version!);
-    profileImage = await storage.getImage('profileImage' + cardInfo!.version!);
+        await storage.getImage('imageBackground' + cardInfo!.version);
+    profileImage = await storage.getImage('profileImage' + cardInfo!.version);
   }
 }
 

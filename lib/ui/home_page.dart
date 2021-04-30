@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                 children: <Widget>[
                   Container(color: Colors.white),
                   Opacity(
-                      opacity: double.parse(widget.cardInfo!.opacity!),
+                      opacity: double.parse(widget.cardInfo!.opacity),
                       child: Container(
                         decoration: new BoxDecoration(
                           image: new DecorationImage(
@@ -217,14 +217,14 @@ class _HomePageState extends State<HomePage> {
   }
 
   _buildPicture(cnt) {
-    if (widget.cardInfo!.hasPhoto!) {
+    if (widget.cardInfo!.hasPhoto) {
       return widget.profileImage != null
           ? Container(
               margin: EdgeInsets.only(top: _sizeWidth! * 0.03),
               width: _sizeWidth! * 0.4 * cnt.scale,
               height: _sizeWidth! * 0.4 * cnt.scale,
               decoration: new BoxDecoration(
-                shape: widget.cardInfo!.photoCircle!
+                shape: widget.cardInfo!.photoCircle
                     ? BoxShape.circle
                     : BoxShape.rectangle,
                 image: new DecorationImage(
