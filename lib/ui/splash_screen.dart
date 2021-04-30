@@ -30,16 +30,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   screenInitial() {
-    Future.delayed(Duration(seconds: 1)).then((_) {
-      setState(() {});
-    }).then(((value) => Future.delayed(Duration(seconds: 2)).then((_) {
+    Future.delayed(Duration(seconds: 2)).then((_) {
 //      interstitialAd.show();
       Navigator.pushReplacement(
           context,
           MaterialPageRoute(
               builder: (context) =>
                   (_actualVersion ?? "0") != "0" ? MainPage() : IntroScreen()));
-    })) as FutureOr Function(Null));
+    });
   }
 
   Future verifyDataSaved() async {
@@ -111,18 +109,18 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 
-  @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-    final adState = Provider.of<AdState>(context);
-    adState.initialization.then((status) {
-      setState(() {
-        interstitialAd = InterstitialAd(
-          adUnitId: adState.intersticialAdUnitId,
-          request: AdRequest(),
-          listener: adState.adListener,
-        )..load();
-      });
-    });
-  }
+//  @override
+//  void didChangeDependencies() {
+//    super.didChangeDependencies();
+//    final adState = Provider.of<AdState>(context);
+//    adState.initialization.then((status) {
+//      setState(() {
+//        interstitialAd = InterstitialAd(
+//          adUnitId: adState.intersticialAdUnitId,
+//          request: AdRequest(),
+//          listener: adState.adListener,
+//        )..load();
+//      });
+//    });
+//  }
 }

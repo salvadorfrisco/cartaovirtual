@@ -700,7 +700,7 @@ class _ChangeParamFontsState extends State<ChangeParamFonts> {
         break;
       case "photo":
         widget.cardInfo!.anglePhoto =
-            widget.cardInfo!.anglePhoto! + (increase ? 1 : -1);
+            widget.cardInfo!.anglePhoto + (increase ? 1 : -1);
         break;
       case "email":
         widget.cardInfo!.angleEmail =

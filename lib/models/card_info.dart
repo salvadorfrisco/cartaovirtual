@@ -95,7 +95,7 @@ class CardInfo {
   double? angleName = 0.0;
   double? angleOccupation = 0.0;
   double? anglePhone = 0.0;
-  double? anglePhoto = 0.0;
+  double anglePhoto = 0.0;
   double? angleEmail = 0.0;
   double? angleFacebook = 0.0;
   double? angleLinkedin = 0.0;
@@ -122,7 +122,7 @@ class CardInfo {
     this.colorTwitter, this.colorYoutube, this.colorWebsite, this.fontName, this.fontOccupation, 
     this.fontPhone, this.fontPhoto, this.fontEmail, this.fontFacebook, this.fontLinkedin, 
     this.fontInstagram, this.fontTwitter, this.fontYoutube, this.fontWebsite, this.version, this.opacity,
-    this.angleName, this.angleOccupation, this.anglePhone, this.anglePhoto, this.angleEmail, this.angleFacebook,
+    this.angleName, this.angleOccupation, this.anglePhone, this.anglePhoto = 0.0, this.angleEmail, this.angleFacebook,
     this.angleLinkedin, this.angleInstagram, this.angleTwitter, this.angleYoutube, this.angleWebsite});
   
   CardInfo.fromJson(Map<String, dynamic> json) {

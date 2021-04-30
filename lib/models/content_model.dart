@@ -12,7 +12,7 @@ class ContentModel {
   Color? color;
   double? posX;
   double? posY;
-  double? angle;
+  double angle;
 
   ContentModel(
     {this.id,
@@ -26,5 +26,5 @@ class ContentModel {
      this.color,
      this.posX,
      this.posY,
-     this.angle});
+     this.angle = 0.0});
 }

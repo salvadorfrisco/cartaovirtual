@@ -186,7 +186,7 @@ class _HomePageState extends State<HomePage> {
           top: cnt.posY! * (_sizeWidth! / displayWidth(context)),
           left: cnt.posX! * (_sizeWidth! / displayWidth(context)),
           child: RotationTransition(
-              turns: new AlwaysStoppedAnimation(cnt.angle! / 360),
+              turns: new AlwaysStoppedAnimation(cnt.angle / 360),
               child: (cnt.type == 'photo')
                   ? _buildPicture(cnt)
                   : Row(
@@ -244,10 +244,9 @@ class _HomePageState extends State<HomePage> {
       RenderRepaintBoundary boundary =
           _globalKey.currentContext!.findRenderObject() as RenderRepaintBoundary;
       ui.Image image = await boundary.toImage(pixelRatio: 3.0);
-      ByteData byteData =
-          await (image.toByteData(format: ui.ImageByteFormat.png) as FutureOr<ByteData>);
-      Uint8List pngBytes = byteData.buffer.asUint8List();
-
+      ByteData? byteData =
+          await (image.toByteData(format: ui.ImageByteFormat.png));
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
       String dir = (await getApplicationDocumentsDirectory()).path;
       File file = File("$dir/" + 'myimage' + ".jpg");
       await file.writeAsBytes(pngBytes);
