@@ -82,15 +82,24 @@ class _CropPageState extends State<CropPage> {
   // }
 
   _pickImage() async {
-    final pickedFile = await _picker.getImage(source: ImageSource.gallery);
-    if (pickedFile == null) _close();
-    else {
-      imageFile = File(pickedFile.path);
-      if (imageFile != null) {
-        setState(() {
-          state = AppState.picked;
-        });
-      } else _close();
+    try {
+      final pickedFile = await _picker.getImage(
+        source: ImageSource.gallery,
+        maxWidth: 1240,
+        maxHeight: 2048,
+        imageQuality: 60,
+      );
+      setState(() {
+        if (pickedFile != null) {
+          setState(() {
+            imageFile = File(pickedFile.path);
+            state = AppState.picked;
+          });
+        } else _close();
+      });
+    } catch (e) {
+      print(e);
+      _close();
     }
   }
 

@@ -2,10 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'converter_functions.dart';
+import 'package:get/get.dart';
 
 class Functions {
-  static AlertDialog buildAlertDialog(title, msg) {
-    return AlertDialog(
+
+  static buildAlertDialog(context, title, msg, {confirmButton = true}) {
+    return showDialog(
+        context:  context,
+        builder:  (BuildContext context) {
+
+          return AlertDialog(
       title: Text(
         title,
         style: TextStyle(fontStyle: FontStyle.italic),
@@ -14,8 +20,17 @@ class Functions {
         msg,
         style: TextStyle(fontStyle: FontStyle.normal),
       ),
+            actions: <Widget>[
+              // define os botões na base do dialogo
+              new TextButton(
+                child: new Text("Ok".tr),
+                onPressed: () {
+                  Get.back();
+                },
+              ),
+            ],
     );
-  }
+  });}
 
   static buildIcon(txt) {
     if (txt == 'name') return Icons.person;

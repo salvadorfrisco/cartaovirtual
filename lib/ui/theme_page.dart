@@ -286,7 +286,7 @@ class _ThemePageState extends State<ThemePage> {
         StorageService.savePhotoLocal64(img64, 'imageBackground', version);
         isLoading = false;
       });
-    })) as FutureOr Function(Null));
+    })));
   }
 
   showImageCard(url, version, index) {
@@ -308,32 +308,6 @@ class _ThemePageState extends State<ThemePage> {
             Image.network(url, fit: BoxFit.cover)
         // : _buildPictureUploaded(version)
         ,
-      ),
-    );
-  }
-
-  // Future<void> _updateConnectionStatus(ConnectivityResult result) async {
-  //   switch (result) {
-  //     case ConnectivityResult.wifi:
-  //     case ConnectivityResult.mobile:
-  //     case ConnectivityResult.none:
-  //       setState(() => _connectionStatus = result.toString());
-  //       break;
-  //     default:
-  //       setState(() => _connectionStatus = 'Failed to get connectivity.');
-  //       break;
-  //   }
-  // }
-
-  AlertDialog buildAlertDialog(title, msg) {
-    return AlertDialog(
-      title: Text(
-        title,
-        style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
-      ),
-      content: Text(
-        msg,
-        style: TextStyle(fontStyle: FontStyle.normal),
       ),
     );
   }

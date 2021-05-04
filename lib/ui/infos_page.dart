@@ -3,7 +3,9 @@ import 'dart:typed_data';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:lottie/lottie.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/common/constants.dart';
 import 'package:virtual_card/models/content_model.dart';
@@ -17,6 +19,7 @@ import '../main_page.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
 import 'package:virtual_card/generated/l10n.dart';
+import 'package:get/get.dart';
 
 class InfosPage extends StatefulWidget {
   InfosPage({Key? key, this.cardInfo, this.imageBackground}) : super(key: key);
@@ -37,11 +40,18 @@ class _InfosPageState extends State<InfosPage> {
       formSaved = false,
       isLoading = false;
   bool _photoCircle = true;
+  bool canPickImage = true;
   StorageService storage = StorageService();
   CardInfo? cardInfo;
   double? _sizeWidth;
   ScrollController _scrollController = ScrollController();
   static const Color colorBack = Colors.black54;
+  final ImagePicker _picker = ImagePicker();
+  bool? permissionGranted;
+
+  Future<bool> getPermission() async {
+    return await Permission.storage.isGranted;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -134,8 +144,9 @@ class _InfosPageState extends State<InfosPage> {
                 image: new DecorationImage(
                   fit: BoxFit.cover,
                   image: (widget.imageBackground != null
-                      ? MemoryImage(widget.imageBackground!)
-                      : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
+                          ? MemoryImage(widget.imageBackground!)
+                          : AssetImage('assets/images/transparent.png'))
+                      as ImageProvider<Object>,
                 ),
               ),
             )),
@@ -159,18 +170,15 @@ class _InfosPageState extends State<InfosPage> {
                   itemCard(contentList![10], 10),
                   ShowTip(sizeWidth: _sizeWidth),
                   Center(
-                    child: _buildMessage(
-                        S.of(context).termsOfUse,
-                        _navToTerms),
+                    child: _buildMessage(S.of(context).termsOfUse, _navToTerms),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Text(
-                            S.of(context).version + ' 2.0.6+38',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: _sizeWidth! * 0.03),
-                          ),
+                      S.of(context).version + ' 2.0.6+38',
+                      style: TextStyle(
+                          color: Colors.black, fontSize: _sizeWidth! * 0.03),
+                    ),
                   ),
                 ],
               ),
@@ -180,8 +188,9 @@ class _InfosPageState extends State<InfosPage> {
         Positioned(
             top: 30.0,
             left: 10.0,
-            child: Functions.buildCustomButton(_actionButtonLeft, UniconsLine.arrow_left, tip: 'Voltar')),
-
+            child: Functions.buildCustomButton(
+                _actionButtonLeft, UniconsLine.arrow_left,
+                tip: 'Voltar')),
       ]),
     );
   }
@@ -266,17 +275,35 @@ class _InfosPageState extends State<InfosPage> {
                       image: new DecorationImage(
                         fit: BoxFit.cover,
                         image: (profileImage != null
-                            ? MemoryImage(profileImage!)
-                            : AssetImage('assets/images/transparent.png')) as ImageProvider<Object>,
+                                ? MemoryImage(profileImage!)
+                                : AssetImage('assets/images/transparent.png'))
+                            as ImageProvider<Object>,
                       ),
                     ),
                   ),
                 ),
               ],
             ))
-        : _buildMessage(
-            S.of(context).includePhotoFromGallery, () => uploadAndCrop(cnt),
-            width: 0.5);
+        : _includePhoto(cnt);
+  }
+
+  _includePhoto(cnt) {
+    return FutureBuilder<bool>(
+        future: getPermission(),
+        builder: (context, snapshot) {
+          if (!snapshot.hasData)
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          permissionGranted = snapshot.data as bool;
+          return Tooltip(
+              message: (permissionGranted!)
+                      ? "Click for choose image from gallery".tr
+                      : "If you denied access to gallery, to permiss you have reinstall de application or clear the storage data.".tr,
+              child: _buildMessage(S.of(context).includePhotoFromGallery,
+                  () => uploadAndCrop(cnt),
+                  width: 0.5));
+        });
   }
 
   _icon(ContentModel cnt) {
@@ -305,10 +332,9 @@ class _InfosPageState extends State<InfosPage> {
                   ))
               : cnt.hasIcon!
                   ? _buildMessage("Excluir foto", () {
-                          cardInfo!.hasPhoto = false;
-                          iconChanged(cnt);
-                        },
-                      width: 0.26)
+                      cardInfo!.hasPhoto = false;
+                      iconChanged(cnt);
+                    }, width: 0.26)
                   : Container()),
     );
   }
@@ -456,7 +482,7 @@ class ShowTip extends StatelessWidget {
   ShowTip({
     Key? key,
     required double? sizeWidth,
-  })  : _sizeWidth = sizeWidth,
+  })   : _sizeWidth = sizeWidth,
         super(key: key);
   final double? _sizeWidth;
 
@@ -480,7 +506,6 @@ class ShowTip extends StatelessWidget {
   }
 
   _tip(context, dayNumber) {
-
     List<String> TIPTITLE = [
       S.of(context).tipOfTheDay,
       S.of(context).share,
@@ -506,8 +531,10 @@ class ShowTip extends StatelessWidget {
                 text: S.of(context).txtTip2,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.share, size: 22, color: Colors.white)], 40.0, backColor: colorShare)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(UniconsLine.share, size: 22, color: Colors.white)
+              ], 40.0, backColor: colorShare)),
             ],
           )),
       RichText(
@@ -519,8 +546,8 @@ class ShowTip extends StatelessWidget {
                 text: S.of(context).txtTip3a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessage(
-                  S.of(context).txtTip3b, 106.0)),
+              WidgetSpan(
+                  child: Functions.buildMessage(S.of(context).txtTip3b, 106.0)),
               TextSpan(
                 text: S.of(context).txtTip3c,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
@@ -536,20 +563,38 @@ class ShowTip extends StatelessWidget {
                 text: S.of(context).txtTip4a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  UniconsLine.setting,
+                  size: 22,
+                  color: Colors.orange,
+                )
+              ], 40.0)),
               TextSpan(
                 text: S.of(context).and,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  UniconsLine.image,
+                  size: 22,
+                  color: Colors.white,
+                )
+              ], 40.0)),
               TextSpan(
                 text: S.of(context).txtTip4b,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.image_upload, size: 22, color: Colors.white,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  UniconsLine.image_upload,
+                  size: 22,
+                  color: Colors.white,
+                )
+              ], 40.0)),
             ],
           )),
       RichText(
@@ -561,21 +606,32 @@ class ShowTip extends StatelessWidget {
                 text: S.of(context).txtTip5a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  UniconsLine.setting,
+                  size: 22,
+                  color: Colors.orange,
+                )
+              ], 40.0)),
               TextSpan(
                 text: S.of(context).and,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.image, size: 22, color: Colors.white,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  UniconsLine.image,
+                  size: 22,
+                  color: Colors.white,
+                )
+              ], 40.0)),
               TextSpan(
                 text: S.of(context).txtTip5b,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
             ],
           )),
-
       RichText(
           textAlign: TextAlign.center,
           text: TextSpan(
@@ -585,14 +641,31 @@ class ShowTip extends StatelessWidget {
                 text: S.of(context).txtTip6a,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(UniconsLine.setting, size: 22, color: Colors.orange,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  UniconsLine.setting,
+                  size: 22,
+                  color: Colors.orange,
+                )
+              ], 40.0)),
               TextSpan(
                 text: S.of(context).and,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),
               ),
-              WidgetSpan(child: Functions.buildMessageWidgets(
-                  [Icon(Icons.color_lens, size: 22, color: Colors.white,), Icon(Icons.zoom_out_map_sharp, size: 22, color: Colors.white,)], 40.0)),
+              WidgetSpan(
+                  child: Functions.buildMessageWidgets([
+                Icon(
+                  Icons.color_lens,
+                  size: 22,
+                  color: Colors.white,
+                ),
+                Icon(
+                  Icons.zoom_out_map_sharp,
+                  size: 22,
+                  color: Colors.white,
+                )
+              ], 40.0)),
               TextSpan(
                 text: S.of(context).txtTip6b,
                 style: TextStyle(fontSize: 18, fontWeight: FontWeight.normal),

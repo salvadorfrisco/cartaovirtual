@@ -296,17 +296,4 @@ class _ThemePageColorsState extends State<ThemePageColors> {
           child: Image(image: AssetImage(url), fit: BoxFit.cover)),
     );
   }
-
-  AlertDialog buildAlertDialog(title, msg) {
-    return AlertDialog(
-      title: Text(
-        title,
-        style: TextStyle(fontStyle: FontStyle.italic, color: Colors.red),
-      ),
-      content: Text(
-        msg,
-        style: TextStyle(fontStyle: FontStyle.normal),
-      ),
-    );
-  }
 }
