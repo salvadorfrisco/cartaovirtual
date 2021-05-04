@@ -299,10 +299,13 @@ class _InfosPageState extends State<InfosPage> {
           return Tooltip(
               message: (permissionGranted!)
                       ? "Click for choose image from gallery".tr
-                      : "If you denied access to gallery, to permiss you have reinstall de application or clear the storage data.".tr,
-              child: _buildMessage(S.of(context).includePhotoFromGallery,
+                      : "If you denied access to gallery, to permiss again you have reinstall de application or clear the storage data.".tr,
+              child: _buildMessage(
+                  (permissionGranted!)
+                      ? "Include photo from gallery".tr
+                      : "Include photo from gallery denied".tr,
                   () => uploadAndCrop(cnt),
-                  width: 0.5));
+                  width: 0.6));
         });
   }
 
