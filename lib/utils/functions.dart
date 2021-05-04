@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:unicons/unicons.dart';
 import 'package:virtual_card/models/content_model.dart';
 import 'converter_functions.dart';
-import 'package:get/get.dart';
 
 class Functions {
 
@@ -23,9 +22,9 @@ class Functions {
             actions: <Widget>[
               // define os botões na base do dialogo
               new TextButton(
-                child: new Text("Ok".tr),
+                child: new Text("Ok"),
                 onPressed: () {
-                  Get.back();
+                  Navigator.of(context).pop();
                 },
               ),
             ],

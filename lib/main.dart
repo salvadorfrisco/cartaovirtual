@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:get/get.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:provider/provider.dart';
 import 'package:virtual_card/ui/terms_page.dart';
@@ -40,7 +39,7 @@ void main() {
     runApp(
         Provider.value(
             value: adState,
-            builder: (context, child) => GetMaterialApp(
+            builder: (context, child) => MaterialApp(
             title: 'Image Creator',
             localizationsDelegates: [
               // 1

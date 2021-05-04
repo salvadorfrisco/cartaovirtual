@@ -1,6 +1,6 @@
 name: virtual_card
 description: Criação e compartilhamento de imagens personalizadas
-version: 2.1.7+49
+version: 2.1.8+50
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
@@ -34,7 +34,6 @@ dependencies:
 #  ripple_color_selection: ^0.0.4
   google_mobile_ads: ^0.12.1+1
   provider: ^5.0.0
-  get: ^4.1.4
   permission_handler: ^7.1.0
 
 dev_dependencies:

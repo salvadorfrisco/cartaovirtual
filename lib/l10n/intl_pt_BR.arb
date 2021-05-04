@@ -62,4 +62,7 @@
   "txtTip5b": " , deslize o botão do lado direito e veja o efeito ",
   "txtTip6a": "Altere a posição das informações, clique em ",
   "txtTip6b": " segure o item e arraste para o local desejado ",
-  "txtTip7": "Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem"}
+  "txtTip7": "Os textos em cinza claro são apenas sugestões, você pode incluir qualquer texto para aparecer na imagem",
+  "chooseImage": "Clique para escolher a imagem da galeria",
+  "tipAccessDenied": "Caso o acesso à galeria foi negado, você deve reinstalar o aplicativo ou limpar os dados de armazenamento",
+  "denied": "(negado)"}

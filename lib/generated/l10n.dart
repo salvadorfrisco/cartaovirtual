@@ -679,6 +679,36 @@ class S {
       args: [],
     );
   }
+
+  /// `Click for choose image from gallery`
+  String get chooseImage {
+    return Intl.message(
+      'Click for choose image from gallery',
+      name: 'chooseImage',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If you denied access to gallery, to permiss again you have reinstall de application or clear the storage data`
+  String get tipAccessDenied {
+    return Intl.message(
+      'If you denied access to gallery, to permiss again you have reinstall de application or clear the storage data',
+      name: 'tipAccessDenied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `(denied)`
+  String get denied {
+    return Intl.message(
+      '(denied)',
+      name: 'denied',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

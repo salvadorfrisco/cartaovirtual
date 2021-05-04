@@ -19,7 +19,6 @@ import '../main_page.dart';
 import '../models/card_info.dart';
 import 'crop_page.dart';
 import 'package:virtual_card/generated/l10n.dart';
-import 'package:get/get.dart';
 
 class InfosPage extends StatefulWidget {
   InfosPage({Key? key, this.cardInfo, this.imageBackground}) : super(key: key);
@@ -298,12 +297,12 @@ class _InfosPageState extends State<InfosPage> {
           permissionGranted = snapshot.data as bool;
           return Tooltip(
               message: (permissionGranted!)
-                      ? "Click for choose image from gallery".tr
-                      : "If you denied access to gallery, to permiss again you have reinstall de application or clear the storage data.".tr,
+                      ? S.of(context).chooseImage
+                      : S.of(context).tipAccessDenied,
               child: _buildMessage(
                   (permissionGranted!)
-                      ? "Include photo from gallery".tr
-                      : "Include photo from gallery denied".tr,
+                      ? S.of(context).includePhotoFromGallery
+                      : S.of(context).includePhotoFromGallery + ' ' + S.of(context).denied,
                   () => uploadAndCrop(cnt),
                   width: 0.6));
         });

@@ -34,11 +34,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("alterar imagem de fundo"),
         "changeImageComponents": MessageLookupByLibrary.simpleMessage(
             "alterar componentes da imagem"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage(
+            "Clique para escolher a imagem da galeria"),
         "comeOn": MessageLookupByLibrary.simpleMessage("vamos lá"),
         "configureItems":
             MessageLookupByLibrary.simpleMessage("configurar ítens"),
         "declarationReaded": MessageLookupByLibrary.simpleMessage(
             "Ao avançar declaro que li e concordo com os"),
+        "denied": MessageLookupByLibrary.simpleMessage("(negado)"),
         "editInformations":
             MessageLookupByLibrary.simpleMessage("editar informações"),
         "emailAddressHint": MessageLookupByLibrary.simpleMessage(
@@ -77,6 +80,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("compartilhar a imagem"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage(
             "Termos de Uso e Política de Privacidade"),
+        "tipAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "Caso o acesso à galeria foi negado, você deve reinstalar o aplicativo ou limpar os dados de armazenamento"),
         "tipOfTheDay": MessageLookupByLibrary.simpleMessage("Dica do dia"),
         "transparency": MessageLookupByLibrary.simpleMessage("Transparência"),
         "twitterAddressHint": MessageLookupByLibrary.simpleMessage(

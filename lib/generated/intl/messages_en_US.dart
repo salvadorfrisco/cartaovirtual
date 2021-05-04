@@ -34,11 +34,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("change background image"),
         "changeImageComponents":
             MessageLookupByLibrary.simpleMessage("change image components"),
+        "chooseImage": MessageLookupByLibrary.simpleMessage(
+            "Click for choose image from gallery"),
         "comeOn": MessageLookupByLibrary.simpleMessage("let\'s go"),
         "configureItems":
             MessageLookupByLibrary.simpleMessage("configure items"),
         "declarationReaded": MessageLookupByLibrary.simpleMessage(
             "Moving forward, I declare that\nI have read and agree with the"),
+        "denied": MessageLookupByLibrary.simpleMessage("(denied)"),
         "editInformations":
             MessageLookupByLibrary.simpleMessage("edit informations"),
         "emailAddressHint":
@@ -75,6 +78,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "shareImage": MessageLookupByLibrary.simpleMessage("share image"),
         "termsOfUse": MessageLookupByLibrary.simpleMessage(
             "Terms of Use and Privacy Policy"),
+        "tipAccessDenied": MessageLookupByLibrary.simpleMessage(
+            "If you denied access to gallery, to permiss again you have reinstall de application or clear the storage data"),
         "tipOfTheDay": MessageLookupByLibrary.simpleMessage("Tip of the day"),
         "transparency": MessageLookupByLibrary.simpleMessage("Transparency"),
         "twitterAddressHint":
