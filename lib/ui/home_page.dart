@@ -309,7 +309,7 @@ class _HomePageState extends State<HomePage> {
       if (Platform.isAndroid) {
         await Share.shareFiles([imagePath],
             text:
-                'Crie imagens personalizadas, baixe o app em http://onelink.to/imagecreator');
+                'Crie imagens personalizadas, baixe o app em http://onelink.to/cartaodigital');
       } else {
         await Share.shareFiles([imagePath]);
       }
